@@ -6,26 +6,16 @@ import { Input } from 'semantic-ui-react';
 
 function Login() {
     return (
-        <Form>
-            <Form.Field>
+        
+        <Form style={{display: 'flex', alignItems: 'center', JustifyContent: 'center'}}>
+            Login
+            <Form.Group widths='equal'>
                 <Divider/>
                 <Input  focus   placeholder='Username'/>
-                <Label pointing>Enter a Username</Label>
 
                 <Divider/>
                 <Input  focus   placeholder='Password'/>
-                <Label pointing>Enter a password with at least 5 characters</Label>
-
-                <Divider/>
-                <Input  focus   placeholder='Confirm Password'/>
-                <Label pointing>Re-enter your password to confirm</Label>
-
-                <Divider/>
-                <Input  focus   placeholder='Avatar URL'/>
-                <Label pointing>Optional: enter an image URL to be used as your avatar</Label>
-
-                <Divider/>
-            </Form.Field>
+            </Form.Group>
         </Form>
     )
 }

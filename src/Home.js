@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Login from './Login.js';
 import MyDecks from './MyDecks.js';
-import CardSearch from './CardSearch.js'
+import CardSearch from './CardSearch.js';
+import CardModal from './CardModal.js';
+import DeckForm from './DeckForm.js';
 
 // if NOT LOGGED IN renders:
     // welcome, basic instructions, login window
@@ -14,9 +16,7 @@ import CardSearch from './CardSearch.js'
 function Home() {
     return(
         <div>
-            <Login />
-            <MyDecks />
-            <CardSearch />
+            HOME
         </div>
     )
 }
