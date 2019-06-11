@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Router, Link, Route} from 'react-router-dom';
 import './App.css';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
@@ -10,6 +11,7 @@ import CardSearch from './CardSearch.js';
 import CardModal from './CardModal.js';
 import DeckForm from './DeckForm.js';
 import NewUser from './NewUser.js';
+import { runInContext } from 'vm';
 
 const API='http://api.magicthegathering.io/v1/cards?'
 
@@ -26,18 +28,44 @@ const BACKGROUNDS = [
 let chooseBackground = BACKGROUNDS[Math.floor(Math.random()*BACKGROUNDS.length)]
 
 function App() {
-  return (    
-      <div className="App" style={{backgroundImage: `url(${chooseBackground})`}}>
-        <header className="App-header">
-          <Home />
-        </header>
-          <Login />
-          <MyDecks />
-          <CardSearch />
-          <CardModal/>
-          <DeckForm/>
-          <NewUser/>
-      </div>
+  return (
+    <div className="App" style={{backgroundImage: `url(${chooseBackground})`}}>
+      <header className="App-header">
+        DeckCheck
+      </header>
+      {/* <Router> */}
+        {/* <Link to='/'> */}
+          {/* Home */}
+        {/* </Link> */}
+        {/* <Link to='/decks'> */}
+          {/* My Decks */}
+        {/* </Link> */}
+        {/* <Link to='/cards/search'> */}
+          {/* Search All Cards */}
+        {/* </Link> */}
+        {/* <Link to='/decks/new'> */}
+          {/* Create A New Deck */}
+        {/* </Link> */}
+        {/* <Link to='/users/new'> */}
+          {/* New User Registration */}
+        {/* </Link> */}
+        {/* <CardModal /> */}
+
+        {/* <Route path='/users/new' component={<NewUser />}/> */}
+        {/* <Route path='/cards.search' component={<CardSearch />}/> */}
+        {/* <Route path='/' component={ <Home />}/> */}
+        {/* <Route path='/decks' component={<MyDecks />}/> */}
+        {/* <Route path='/decks/new' component={<DeckForm />}/> */}
+      {/* </Router> */}
+
+      <Home/>
+      <Login/>
+      <NewUser/>
+      <CardSearch/>
+      <CardModal/>
+      <MyDecks/>
+      <DeckForm/>
+    </div>
   );
 }
 

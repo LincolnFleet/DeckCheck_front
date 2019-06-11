@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
-import { Button, Header, Image, Modal, Card } from 'semantic-ui-react';
+import { Button, Header, Image, Modal } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 
 // renders large image of card
