@@ -57,4 +57,9 @@ function CardModal(props) {
     )
 }
 
-export default CardModal
+const mapStateToProps=(state)=> {
+    let props= {name: state.name}
+    return props
+}
+
+export default connect(mapStateToProps)(CardModal)

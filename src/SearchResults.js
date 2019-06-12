@@ -1,5 +1,6 @@
 import React from 'react'
 import CardModal from './CardModal';
+import { connect } from 'react-redux';
 
 
 // renders CardSearch results
@@ -12,4 +13,10 @@ function SearchResults() {
         </div>
     )
 }
-export default SearchResults
+
+mapStatetoProps=(state)=> {
+    let props= {}
+    return props
+}
+
+export default connect(mapStatetoProps(state))(SearchResults)

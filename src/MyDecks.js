@@ -12,11 +12,13 @@ import DeckContainer from './DeckContainer.js';
 // clicking on deck renders card container
 
 function MyDecks() {
-    return (
-        <Container>
-            <DeckContainer/>
-        </Container>
-    )
+    if (localStorage.AuthToken) {
+        return (
+            <Container>
+                <DeckContainer/>
+            </Container>
+        )
+    }
 }
 
 export default MyDecks

@@ -47,11 +47,11 @@ class NewUser extends React.Component {
 
                     <Divider/>
                     <Input  focus   placeholder='Username' name='username' onChange={this.changeUsername}/>
-                    <Label pointing>Enter a Username</Label>
+                    {/* <Label pointing>Enter a Username</Label> */}
 
                     <Divider/>
                     <Input  focus   placeholder='Email Address' name='email'/>
-                    <Label pointing>Email Address</Label>
+                    {/* <Label pointing>Email Address</Label> */}
 
                 </Form.Group>
                 <Divider/>
@@ -59,11 +59,11 @@ class NewUser extends React.Component {
 
                     <Divider/>
                     <Input  focus   placeholder='Password' name='password' onChange={(e)=>{this.checkPassword()}}/>
-                    <Label pointing>Enter a password with at least 5 characters</Label>
+                    {/* <Label pointing>Enter a password with at least 5 characters</Label> */}
 
                     <Divider/>
                     <Input  focus   placeholder='Confirm Password' name='password' onChange={this.changePassword}/>
-                    <Label pointing>Re-enter your password to confirm</Label>
+                    {/* <Label pointing>Re-enter your password to confirm</Label> */}
 
                 </Form.Group>
                 <Divider/>
@@ -71,7 +71,7 @@ class NewUser extends React.Component {
 
                     <Divider/>
                     <Input  focus   placeholder='Avatar URL' name='avatar_img'/>
-                    <Label pointing>Optional: enter an image URL to be used as your avatar</Label>
+                    {/* <Label pointing>Optional: enter an image URL to be used as your avatar</Label> */}
 
                     <Divider/>
                     <Button type='submit' onSubmit={()=>{this.submitUser()}}>Submit</Button>

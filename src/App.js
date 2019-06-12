@@ -13,7 +13,7 @@ import DeckForm from './DeckForm.js';
 import NewUser from './NewUser.js';
 import { runInContext } from 'vm';
 
-const API='http://api.magicthegathering.io/v1/cards?'
+export const API='http://api.magicthegathering.io/v1/cards?'
 
 const BACKGROUNDS = [
   'http://magic.wizards.com/sites/mtg/files/images/wallpaper/Verdurous-Gearhulk_KLD_2560x1600_Wallpaper.jpg',
