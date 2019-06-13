@@ -32,34 +32,31 @@ const exampleCard= {
         'quantity': 3
     }
 
-    function qty() {
-        if (exampleCard.quantity) {
-            qty = exampleCard.quantity + 'x'
+    function qty(card) {
+        if (card.quantity) {
+            qty = card.quantity.to_s + 'x'
         }else{
             qty=''
         }
     }
 
 function CardModal(props) {
+    console.log('card modal props', props)
     return (
-        <Modal trigger={<Button>{qty} {exampleCard.name}</Button>}>
-            <Modal.Header>{exampleCard.name}</Modal.Header>
+        <Modal trigger={<Button>{props.card.name}</Button>}>
+            <Modal.Header>{props.card.name}</Modal.Header>
             <Modal.Content image>
-                <Image wrapped size='medium' src={exampleCard.imageUrl} />
+                <Image wrapped size='medium' src={props.card.imageUrl} />
             <Modal.Description>
-                <Header>{exampleCard.type}, {exampleCard.manaCost}</Header>
-                <p>{exampleCard.text}</p>
-                <p>{exampleCard.power}/{exampleCard.toughness}</p>
-                <p>{exampleCard.flavor}</p>
+                <Header>{props.card.type}, {props.card.manaCost}</Header>
+                <p>{props.card.text}</p>
+                {props.card.power ? <p>{props.card.power}/{props.card.toughness}</p> : ''}
+                <p>{props.card.flavor}</p>
             </Modal.Description>
             </Modal.Content>
         </Modal>
     )
 }
 
-const mapStateToProps=(state)=> {
-    let props= {name: state.name}
-    return props
-}
-
-export default connect(mapStateToProps)(CardModal)
+// export default connect(mapStateToProps)(CardModal)
+export default CardModal

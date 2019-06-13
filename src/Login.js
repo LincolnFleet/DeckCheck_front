@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Form, Divider, Button, Modal } from 'semantic-ui-react';
-import { Label } from 'semantic-ui-react';
-import { Input } from 'semantic-ui-react';
+import { Label, Input } from 'semantic-ui-react';
 
 class Login extends React.Component {
     constructor() {

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Form, Label, Input, Select, Card, Divider } from 'semantic-ui-react';
 import {API} from './App.js';
+import {connect} from 'react-redux';
 
 // renders form with filter
 // sends get to api
@@ -71,12 +72,14 @@ class CardSearch extends React.Component {
             body: JSON.stringify(this.state)
         })
         .then(resp => resp.json())
-        .then(data => data.cards)
+        .then(data => {console.log('~CARDSEARCH FETCH RESULTS~:',data); return data})
+        .then(data => this.props.dispatch({type: 'UPDATE_RESULTS', results:data}))
     }
 
     render() {
         return (
             <Form onSubmit={(e)=>{this.submitSearch()}}>
+                CARD SEARCH
                 <Form.Group width='equal'>
                     <Input  focus   placeholder='Card Name'             onChange={(e,input)=>{this.setState({name:e.target.value})}}/>
                     <Select         placeholder='Card Color(s)'         onChange={(e,input)=>{this.setState({colorIdentity:input.value})}}  options={colorOptions}/>
@@ -94,10 +97,16 @@ class CardSearch extends React.Component {
                     <Select         placeholder='Toughness'             onChange={(e,input)=>{this.setState({toughness:input.value})}}      options={cmcOptions}/>
                 </Form.Group>
                 <Divider/>
-                <Input type='submit' value='Search'/>
+                <Input  type='submit'   value='Search'/>
+                <Input  type='reset'    value='Reset all Fields'/>
             </Form>
         )
     }
 }
 
-export default CardSearch
+function mapStateToProps(state){
+    let props={}
+    return props
+}
+
+export default connect(mapStateToProps)(CardSearch)

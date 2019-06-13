@@ -1,8 +1,14 @@
 import React from 'react';
 
-function reducerCardSearch(state={results}, action){
+function reducerCardSearch(state={searchResults:null}, action){
     switch (action.type) {
         case 'UPDATE_RESULTS':
-            return {...state, cardSearchResults:state.results.cards}
+            state.searchResults=null
+
+            return {...state, searchResults: action.results[0]}
+        default:
+            return state
     }
 }
+
+export default reducerCardSearch

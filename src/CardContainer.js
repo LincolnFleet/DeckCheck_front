@@ -9,14 +9,11 @@ import CardModal from './CardModal.js';
 class CardContainer extends React.Component {
     constructor() {
         super()
-        this.state= {
-            currentDeck:null
-        }
     }
 
-    renderCards(list=null) {
-        list.map(each =>{
-            return <CardModal data={each}/>
+    renderCards(list=[]) {
+        list.map(card =>{
+            return <CardModal card={card}/>
         })
     }
 
@@ -24,11 +21,16 @@ class CardContainer extends React.Component {
         return (
             <div>
                 <p>
-                    {renderCards(state.currentDeck.deckCards)}
+                    {this.renderCards(this.props.deckCards)}
                 </p>
             </div>
         )
     }
 }
 
-export default connect()(CardContainer)
+function mapStateToProps(state){
+    let props=state.currentDeck
+    return props
+}
+
+export default connect(mapStateToProps)(CardContainer)

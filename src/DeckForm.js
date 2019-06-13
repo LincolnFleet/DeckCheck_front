@@ -42,6 +42,7 @@ class DeckForm extends React.Component {
 
         return (
             <Form>
+                DECK FORM
                 <Form.Group width='equal'>
                     <Input  focus   name='name'           placeholder='Deck Name'                     onChange={(e)=>{this.setState({newDeckName:e.target.value})}}/>
                     <Select         name='colors'         placeholder='Deck Color(s)'                 onChange={(e)=>{this.setState({newDeckColors:e.target.value})}} options={colorOptions}/>
