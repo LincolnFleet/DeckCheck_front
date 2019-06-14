@@ -31,13 +31,15 @@ class NewUser extends React.Component {
     }
 
     submitUser= ()=>{
-        fetch('http://localhost.3000/users/new', {
+        fetch('http://localhost.3000/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/JSON'
             },
             body: JSON.stringify(this.state)
         })
+        .then(resp => resp.json())
+        .then(user => )
     }
 
     render() {
