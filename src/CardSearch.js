@@ -48,10 +48,32 @@ const rarityOptions= [
     {key:'Mythic Rare', text:'Mythic Rare', value:'Mythic Rare'}
 ]
 
+const pageSizes=[
+    {key:10,    text:10,    value:10},
+    {key:20,    text:20,    value:20},
+    {key:30,    text:30,    value:30},
+    {key:50,    text:50,    value:50},
+]
+
 class CardSearch extends React.Component {
     constructor() {
         super()
         this.state = {
+            name: '',
+            colorIdentity: '',
+            cmc: '',
+            rarity: '',
+            types: '',
+            subtypes: '',
+            power: '',
+            toughness: '',
+            page: 1,
+            pageSize: 10
+        }
+    }
+
+    clearState=()=>{
+        return {
             name: '',
             colorIdentity: '',
             cmc: '',
@@ -96,9 +118,12 @@ class CardSearch extends React.Component {
                     <Select         placeholder='Power'                 onChange={(e,input)=>{this.setState({power:input.value})}}          options={cmcOptions}/>
                     <Select         placeholder='Toughness'             onChange={(e,input)=>{this.setState({toughness:input.value})}}      options={cmcOptions}/>
                 </Form.Group>
+                <Form.Group width='equal'>
+                    <Select         placeholder='Results per Page'      onChange={(e,input)=>{this.setState({pageSize:input.value})}}       options={pageSizes}/>
+                </Form.Group>
                 <Divider/>
                 <Input  type='submit'   value='Search'/>
-                <Input  type='reset'    value='Reset all Fields'/>
+                <Input  type='reset'    value='Reset all Fields' onClick={(e)=>{this.setState(this.clearState)}}/>
             </Form>
         )
     }

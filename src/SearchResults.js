@@ -10,24 +10,19 @@ import {Divider} from 'semantic-ui-react';
 class SearchResults extends React.Component{
 
     renderCards=(list)=>{
-        console.log('list', list)
-        list.forEach(card=> {
-            return <CardModal card={card}/>
-        })
-        // for (let i=0; i<Object.keys(list).length-1; i++){
-            // console.log('card info', list[i])
-            // return <CardModal card={list[i]}/>
-        // }
+        let cardComps=[]
+        for (let i=0; i<Object.keys(list).length-1; i++){
+            cardComps.push(<CardModal card={list[i.toString()]}/>)
+        }
+        return cardComps
     }
-    
 
     render () {
-        console.log('searchresults props', this.props)
         return (
             <div>
                 SEARCH RESULTS
                 <Divider/>
-                {this.renderCards(this.props)}
+                    {this.renderCards(this.props)}
                 <Divider/>
             </div>
         )

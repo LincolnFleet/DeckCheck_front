@@ -43,7 +43,7 @@ const exampleCard= {
 function CardModal(props) {
     console.log('card modal props', props)
     return (
-        <Modal trigger={<Button>{props.card.name}</Button>}>
+        <Modal trigger={<Button>{props.card.name}, {props.card.manaCost}</Button>}>
             <Modal.Header>{props.card.name}</Modal.Header>
             <Modal.Content image>
                 <Image wrapped size='medium' src={props.card.imageUrl} />

@@ -19,9 +19,9 @@ class DeckForm extends React.Component {
     constructor() {
         super()
         this.state = {
-            newDeckName: 'No Name Entered',
-            newDeckColors: 'No Colors Entered',
-            newDeckDescription: 'No Description Entered'
+            newDeckName: null,
+            newDeckColors: null,
+            newDeckDescription: null
         }
     }
 
