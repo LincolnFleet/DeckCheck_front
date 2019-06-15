@@ -19,7 +19,9 @@ function MyDecks() {
                 USER DECKS
                 <DeckContainer/>
             </Container>
-        )
+        )}
+    else {
+        return null
     }
 }
 

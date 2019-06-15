@@ -12,7 +12,7 @@ class SearchResults extends React.Component{
     renderCards=(list)=>{
         let cardComps=[]
         for (let i=0; i<Object.keys(list).length-1; i++){
-            cardComps.push(<CardModal card={list[i.toString()]}/>)
+            cardComps.push(<CardModal card={list[i.toString()]} key={list[i.toString()].id}/>)
         }
         return cardComps
     }
@@ -30,7 +30,6 @@ class SearchResults extends React.Component{
 }
 
 const mapStateToProps=(state)=> {
-    console.log('mstp search results incoming state', state)
     let props= state.cardSearch.searchResults
     return props
 }

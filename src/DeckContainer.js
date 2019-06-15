@@ -7,21 +7,23 @@ import {connect} from 'react-redux';
 // left column renders CardSearch+SearchResults
 // right column renders CardContainer
 
+const decks=[
+    {deck1: {name: 'AAAAAA'}},
+    {deck2: {name: 'BBBBBB'}},
+    {deck3: {name: 'CCCCCC'}}
+]
 
-function DeckContainer(props) {
-    const decks=[
-        {deck1: {name: 'AAAAAA'}},
-        {deck2: {name: 'BBBBBB'}},
-        {deck3: {name: 'CCCCCC'}}
-    ]
-    return (
-        <div>
-            DECK CONTAINER
-            {decks.map(deck => {
-                return <p><Button>{deck.name}</Button></p>
-            })}
-        </div>
-    )
+class DeckContainer extends React.Component {
+    render(){
+        return (
+            <div>
+                DECK CONTAINER
+                {decks.map(deck => {
+                    return <Button key={deck.id}>{deck.name}</Button>
+                })}
+            </div>
+        )
+    }
 }
 
 function mapStateToProps(state){

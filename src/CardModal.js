@@ -6,32 +6,6 @@ import {connect} from 'react-redux';
 // renders basic meta-data of card
 // closes with errant click
 
-const exampleCard= {
-        "name": "Ravenous Chupacabra","manaCost": "{2}{B}{B}","cmc": 4,"colors": ["Black"],"colorIdentity": ["B"],
-        "type": "Creature — Beast Horror","supertypes": [],"types": ["Creature"],
-        "subtypes": [
-            "Beast",
-            "Horror"
-        ],
-        "rarity": "Uncommon",
-        "set": "A25",
-        "setName": "Masters 25",
-        "text": "When Ravenous Chupacabra enters the battlefield, destroy target creature an opponent controls.",
-        "flavor": "Opening Orazca unleashed more horrors than just the Immortal Sun.",
-        "artist": "Daarken",
-        "number": "104",
-        "power": "2",
-        "toughness": "2",
-        "layout": "normal",
-        "multiverseid": 442093,
-        "imageUrl": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=442093&type=card",
-        "rulings": [],
-        "originalText": "When Ravenous Chupacabra enters the battlefield, destroy target creature an opponent controls.",
-        "originalType": "Creature — Beast Horror",
-        "id": "e9e1c6c1-2bd0-5d55-ad85-302145fb80e6",
-        'quantity': 3
-    }
-
     function qty(card) {
         if (card.quantity) {
             qty = card.quantity.to_s + 'x'

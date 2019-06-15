@@ -64,7 +64,6 @@ class App extends React.Component {
         <CardContainer/>
         <DeckForm/>
         <MyDecks/>
-        <DeckContainer/>
       </div>
     );
   }
