@@ -47,7 +47,7 @@ class NewUser extends React.Component {
             })
         }
         else{
-            alert('Password fields do no match. Please reenter and try again')
+            alert('Password fields do no match. Please re-enter and try again')
             this.setState({pwCheck:null, password:null})
         }
     }

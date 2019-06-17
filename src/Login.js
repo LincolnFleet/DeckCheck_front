@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import ReactDOM from 'react-dom';
 import { Form, Divider, Button, Modal, Message } from 'semantic-ui-react';
 import { Label, Input } from 'semantic-ui-react';
@@ -32,20 +33,22 @@ class Login extends React.Component {
         .then(data => {
             if (data.errors) {
                 this.setState({errors: data.errors})
-                console.log('login failed', data.errors)
+                alert(data.errors)
             }
             else {
                 this.setState({errors:null})
                 localStorage.setItem('AuthToken', data.AuthToken)
-                localStorage.setItem('UserDecks', data.user_decks)
+                this.props.dispatch({type: 'FETCH_DECKS', payload: data.UserDecks})
+
                 this.forceUpdate()
-                alert('You have successfully logged in')
+                // alert('You have successfully logged in')
             }
         })
     }
 
     submitLogout= ()=>{
         this.setState({username:null, password:null})
+        this.props.dispatch({type: 'CLEAR_DECKS'})
         localStorage.removeItem('AuthToken')
         localStorage.removeItem('UserDecks')
         this.forceUpdate()
@@ -81,4 +84,9 @@ class Login extends React.Component {
     }
 }
 
-export default Login
+function mapStateToProps(state){
+    let props= state.userDecks
+    return props
+}
+
+export default connect(mapStateToProps)(Login)

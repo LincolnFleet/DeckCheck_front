@@ -5,7 +5,7 @@ function reducerCardSearch(state={searchResults:null}, action){
         case 'UPDATE_RESULTS':
             state.searchResults=null
 
-            return {...state, searchResults: action.results.cards[0]}
+            return {...state, searchResults: action.payload.cards[0]}
         default:
             return state
     }

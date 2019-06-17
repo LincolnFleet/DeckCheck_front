@@ -10,23 +10,24 @@ import {connect} from 'react-redux';
 // delete
 // edit
 // new
-// clicking on deck renders card container
 
-function MyDecks() {
-    if (localStorage.AuthToken) {
-        return (
-            <Container>
-                USER DECKS
-                <DeckContainer/>
-            </Container>
-        )}
-    else {
-        return null
+class  MyDecks extends React.Component {
+    render() {
+        if (localStorage.AuthToken) {
+            return (
+                <Container>
+                    USER DECKS
+                    <DeckContainer />
+                </Container>
+            )}
+        else {
+            return null
+        }
     }
 }
 
 function mapStateToProps(state){
-    let props=state
+    let props=state.userDecks
     return props
 }
 

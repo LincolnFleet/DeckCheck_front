@@ -1,33 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Button } from 'semantic-ui-react';
+import { Button, Divider } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 
 // pane header renders basic details of a deck
 // left column renders CardSearch+SearchResults
 // right column renders CardContainer
 
-const decks=[
-    {deck1: {name: 'AAAAAA'}},
-    {deck2: {name: 'BBBBBB'}},
-    {deck3: {name: 'CCCCCC'}}
-]
-
 class DeckContainer extends React.Component {
+
     render(){
-        return (
-            <div>
-                DECK CONTAINER
-                {decks.map(deck => {
-                    return <Button key={deck.id}>{deck.name}</Button>
-                })}
-            </div>
-        )
+        if (this.props.userDecks.deckList.length > 0){
+            return (
+                <div>
+                    DECK CONTAINER
+                    <Divider/>
+                    {this.props.userDecks.deckList.map(deck => {
+                        return <Button key={deck.id} onClick={(e)=>{this.props.dispatch({type:'FETCH_DECK', payload:deck.id})}}>{deck.name}</Button>
+                    })}
+                </div>
+            )
+        }
+        else {
+            return (
+                <div>
+                    No Saved Decks
+                </div>
+            )
+        }
     }
 }
 
 function mapStateToProps(state){
-    let props=state.currentDeck
+    let props={ userDecks:state.userDecks, currentDeck:state.currentDeck}
     return props
 }
 

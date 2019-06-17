@@ -48,7 +48,7 @@ export default function reducerSearchOptions(state={
         switch (action.type){
             case 'UPDATE_STATS':
                 state.responseStats=null
-                return {...state, responseStats: action.results.heads}
+                return {...state, responseStats: action.payload.heads}
             default:
                 return state
         }

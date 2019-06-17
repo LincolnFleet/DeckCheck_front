@@ -1,7 +1,7 @@
 import React from 'react'
 import CardModal from './CardModal';
 import { connect } from 'react-redux';
-import {Divider} from 'semantic-ui-react';
+import {Divider, Button} from 'semantic-ui-react';
 
 
 // renders CardSearch results
@@ -10,27 +10,43 @@ import {Divider} from 'semantic-ui-react';
 class SearchResults extends React.Component{
 
     renderCards=(list)=>{
-        let cardComps=[]
+        console.log('render cards list', list)
+        let cards=[]
         for (let i=0; i<Object.keys(list).length-1; i++){
-            cardComps.push(<CardModal card={list[i.toString()]} key={list[i.toString()].id}/>)
+            if (this.props.currentDeck.length > 0) {
+                cards.push(<p align='left'><Button>+</Button><Button>-</Button><CardModal card={list[i.toString()]} key={list[i.toString()].id}/></p>)
+            }
+            else {
+                cards.push(<p align='left'><CardModal card={list[i.toString()]} key={list[i.toString()].id}/></p>)
         }
-        return cardComps
     }
+    return cards
+}
 
     render () {
+        if (this.props.searchResults) {
         return (
             <div>
                 SEARCH RESULTS
                 <Divider/>
-                    {this.renderCards(this.props)}
+                    {this.renderCards(this.props.searchResults)}
                 <Divider/>
             </div>
-        )
+        )}
+        else {
+            return (
+                <div>
+                    <Divider/>
+                        No Search Results
+                    <Divider/>
+                </div>
+            )
+        }
     }
 }
 
 const mapStateToProps=(state)=> {
-    let props= state.cardSearch.searchResults
+    let props= {searchResults: state.cardSearch.searchResults, currentDeck: state.currentDeck.currentDeck}
     return props
 }
 

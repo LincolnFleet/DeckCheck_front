@@ -40,21 +40,21 @@ class CardSearch extends React.Component {
         }
     }
 
-    submitSearch= ()=>{
+    submitSearch= (pageChange=0)=>{
         fetch('http://localhost:3000/search', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(this.state)
+            body: JSON.stringify({...this.state, page: this.state.page+pageChange})
         })
+        .catch(resp => alert(resp.error))
         .then(resp => resp.json())
         .then(data => {console.log('~CARDSEARCH FETCH RESULTS~:',data); return data})
-        .then(data => {this.props.dispatch({type: 'UPDATE_RESULTS', results:data}); this.props.dispatch({type: 'UPDATE_STATS', results:data})})
+        .then(data => {this.props.dispatch({type: 'UPDATE_RESULTS', payload:data}); this.props.dispatch({type: 'UPDATE_STATS', payload:data})})
     }
 
     countResults= ()=>{
-        debugger
         if (this.props.responseStats) {
-            return <h5>{this.props.responseStats.count[0]}'/'{this.props.responseStats['total-count'][0]}</h5>
+            return <h5>{this.props.responseStats.count[0]} / {this.props.responseStats['total-count'][0]}</h5>
         }
         else {
             return null
@@ -89,14 +89,28 @@ class CardSearch extends React.Component {
                     <Input  type='submit'   value='Search'/>
                     <Input  type='reset'    value='Reset all Fields' onClick={(e)=>{this.setState(this.resetState)}}/>
                 </Form>
-                
-                <Divider/>
-                    <Button>Previous Page</Button>
-                    <Button>Next Page</Button>
-                <Divider/>
-                    {this.countResults}
-            </div>
+        {/* </div>
         )
+        if (this.props.responseStats.length>0) {
+            return (
+                <div> */}
+                    <Button onClick={(e)=>{if (this.state.page>1){
+                        this.setState({page: this.state.page-1})
+                        this.submitSearch(-1)
+                            }}}>Previous Page</Button>
+
+                    <Button onClick={(e)=>{if ((this.state.page-1) < (this.props.responseStats.count[0]/this.state.pageSize)){
+                        this.setState({page: this.state.page+1})
+                        console.log('next page state', this.state.page)
+                        this.submitSearch(1)
+                        }}}>Next Page</Button>
+                    {this.countResults()}
+                </div>
+            )
+        // }
+        // else {
+        //     return null
+        // }
     }
 }
 
