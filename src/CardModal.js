@@ -21,7 +21,7 @@ function CardModal(props) {
             <Modal.Content image>
                 <Image wrapped size='medium' src={props.card.imageUrl} />
             <Modal.Description>
-                <Header>{props.card.type}, {props.card.manaCost}</Header>
+                <Header>{props.card.full_type}, {props.card.manaCost}</Header>
                 <p>{props.card.text}</p>
                 {props.card.power ? <p>{props.card.power}/{props.card.toughness}</p> : ''}
                 <p>{props.card.flavor}</p>

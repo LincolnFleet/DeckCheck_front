@@ -1,6 +1,6 @@
 import React from 'react';
 import {Consumer} from 'react-redux';
-import { Container } from 'semantic-ui-react';
+import { Container, Button } from 'semantic-ui-react';
 import DeckContainer from './DeckContainer.js';
 import {connect} from 'react-redux';
 
@@ -17,6 +17,9 @@ class  MyDecks extends React.Component {
             return (
                 <Container>
                     USER DECKS
+                    {this.props.userDecks.deckList.map(deck => {
+                        return <Button key={deck.id} onClick={(e)=>{this.props.dispatch({type:'GET_DECK', payload:deck.id})}}>{deck.name}</Button>
+                    })}
                     <DeckContainer />
                 </Container>
             )}
@@ -27,7 +30,7 @@ class  MyDecks extends React.Component {
 }
 
 function mapStateToProps(state){
-    let props=state.userDecks
+    let props={ userDecks:state.userDecks, currentDeck:state.currentDeck}
     return props
 }
 

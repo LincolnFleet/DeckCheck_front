@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Divider } from 'semantic-ui-react';
 import {connect} from 'react-redux';
+import CardContainer from './CardContainer.js';
 
 // pane header renders basic details of a deck
 // left column renders CardSearch+SearchResults
@@ -10,14 +11,12 @@ import {connect} from 'react-redux';
 class DeckContainer extends React.Component {
 
     render(){
-        if (this.props.userDecks.deckList.length > 0){
+        if (this.props.currentDeck){
             return (
                 <div>
-                    DECK CONTAINER
+                    Current Deck
                     <Divider/>
-                    {this.props.userDecks.deckList.map(deck => {
-                        return <Button key={deck.id} onClick={(e)=>{this.props.dispatch({type:'FETCH_DECK', payload:deck.id})}}>{deck.name}</Button>
-                    })}
+                    <CardContainer/>
                 </div>
             )
         }

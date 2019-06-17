@@ -1,7 +1,18 @@
 function reducerCurrentDeck(state={currentDeck: []}, action) {
     switch (action.type) {
-        case 'FETCH_DECK':
-            fetch('http://localhost:3000/cards', {
+        case 'POST_DECK':
+            fetch('http://localhost:3000/submitDeck', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Deck-ID': `${action.payload.deck_id}`
+                },
+                body: JSON.stringify(action.payload.cards)
+            })
+            .then(resp => resp.json())
+            .then(data => {console.log('POST deck return', data); return {...state, currentDeck: data.cards}})
+        case 'GET_DECK':
+            return fetch('http://localhost:3000/cards', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -9,11 +20,11 @@ function reducerCurrentDeck(state={currentDeck: []}, action) {
                 }
             })
             .then(resp => resp.json())
-            .then(data => {console.log(data); return {...state, currentDeck: data}})
+            .then(data => {console.log('GET deck return', data); return {...state, currentDeck: data.currentDeck}})
         // case 'ADD_CARD':
         //     let addList= ()=>{
-        //         if(state.currentDeck.filter(card => {card.id === action.payload.id}).length > 0) {
-        //                 state.currentDeck.map(card => { if (card.id === action.payload.id){
+        //         if(state.currentDeck.filter(card => {card.api_id === action.payload.api_id}).length > 0) {
+        //                 state.currentDeck.map(card => { if (card.api_id === action.payload.api_id){
         //                     if (card.quantity < 4) {
         //                         card.quantity=card.quantity+1
         //                         return card
@@ -33,8 +44,8 @@ function reducerCurrentDeck(state={currentDeck: []}, action) {
         //     return {...state, currentDeck: addList()}
         // case 'REMOVE_CARD':
         //     let subList= ()=>{
-        //         if (state.currentDeck.filter(card => {card.id === action.payload.id}).length > 0) {
-        //             state.currentDeck.map(card => { if (card.id === action.payload.id){
+        //         if (state.currentDeck.filter(card => {card.api_id === action.payload.api_id}).length > 0) {
+        //             state.currentDeck.map(card => { if (card.api_id === action.payload.api_id){
         //                 if (card.quantity < 2) {
         //                     return
         //                 }

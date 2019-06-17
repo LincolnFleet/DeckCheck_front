@@ -40,11 +40,12 @@ class CardSearch extends React.Component {
         }
     }
 
-    submitSearch= (pageChange=0)=>{
+    submitSearch= ()=>{
+        console.log('submit search state', this.state.page)
         fetch('http://localhost:3000/search', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({...this.state, page: this.state.page+pageChange})
+            body: JSON.stringify(this.state)
         })
         .catch(resp => alert(resp.error))
         .then(resp => resp.json())
@@ -95,15 +96,11 @@ class CardSearch extends React.Component {
             return (
                 <div> */}
                     <Button onClick={(e)=>{if (this.state.page>1){
-                        this.setState({page: this.state.page-1})
-                        this.submitSearch(-1)
+                        this.setState({page: this.state.page-1}, ()=>{this.submitSearch()})
                             }}}>Previous Page</Button>
 
-                    <Button onClick={(e)=>{if ((this.state.page-1) < (this.props.responseStats.count[0]/this.state.pageSize)){
-                        this.setState({page: this.state.page+1})
-                        console.log('next page state', this.state.page)
-                        this.submitSearch(1)
-                        }}}>Next Page</Button>
+                    <Button onClick={(e)=>{this.setState({page: this.state.page+1}, ()=>{this.submitSearch()})
+                        }}>Next Page</Button>
                     {this.countResults()}
                 </div>
             )
