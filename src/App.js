@@ -61,7 +61,6 @@ class App extends React.Component {
         <NewUser/>
         <CardSearch/>
         <SearchResults/>
-        <CardContainer/>
         <DeckForm/>
         <MyDecks/>
       </div>

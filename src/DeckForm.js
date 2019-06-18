@@ -36,7 +36,7 @@ class DeckForm extends React.Component {
 
     createDeck= ()=>{
         if (this.state.newDeckColors && this.state.newDeckDescription && this.state.newDeckName) {
-            console.log('outgoing deck post', this.cleanState())
+            console.log('outgoing deck list', this.cleanState())
             fetch('http://localhost:3000/decks', {
                 method: 'POST',
                 headers: {
@@ -56,7 +56,7 @@ class DeckForm extends React.Component {
     render() {
 
         return (
-            <Form onSubmit={this.createDeck}>
+            <Form onSubmit={this.createDeck} name='deck form'>
                 DECK FORM
                 <Form.Group width='equal'>
                     <Input  focus   name='name'           placeholder='Deck Name'                     onChange={(e,input)=>{this.setState({newDeckName:e.target.value})}}/>

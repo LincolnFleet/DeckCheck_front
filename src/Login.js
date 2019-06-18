@@ -62,7 +62,7 @@ class Login extends React.Component {
         }
         else {
             return (
-                <Modal trigger={<Button>Login</Button>}>
+                <Modal trigger={<Button>Login</Button>} name='login form'>
                     <Modal.Header>Please Enter Your Login Credentials</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>

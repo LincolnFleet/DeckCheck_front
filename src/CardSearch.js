@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Form, Label, Input, Select, Card, Divider, Button } from 'semantic-ui-react';
-import {API} from './App.js';
 import {connect} from 'react-redux';
 
 // renders form with filter
@@ -41,7 +40,6 @@ class CardSearch extends React.Component {
     }
 
     submitSearch= ()=>{
-        console.log('submit search state', this.state.page)
         fetch('http://localhost:3000/search', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -64,7 +62,7 @@ class CardSearch extends React.Component {
 
     render() {
         return (
-            <div>
+            <div name='searh form'>
                 <Form onSubmit={(e)=>{this.submitSearch()}}>
                     CARD SEARCH
                     <Form.Group width='equal'>
@@ -73,12 +71,10 @@ class CardSearch extends React.Component {
                         <Select         placeholder='Converted Mana Cost'   onChange={(e,input)=>{this.setState({cmc:input.value})}}            options={this.props.searchOptions.cmcOptions}/>
                         <Select         placeholder='Rarity'                onChange={(e,input)=>{this.setState({rarity:input.value})}}         options={this.props.searchOptions.rarityOptions}/>
                     </Form.Group>
-                    <Divider/>
                     <Form.Group width='equal'>
                         <Select         placeholder='Type'                  onChange={(e,input)=>{this.setState({types:input.value})}}          options={this.props.searchOptions.typeOptions}/>
                         <Input          placeholder='Creature Type'         onChange={(e,input)=>{this.setState({subtypes:e.target.value})}}/>
                     </Form.Group>
-                    <Divider/>
                     <Form.Group width='equal'>
                         <Select         placeholder='Power'                 onChange={(e,input)=>{this.setState({power:input.value})}}          options={this.props.searchOptions.cmcOptions}/>
                         <Select         placeholder='Toughness'             onChange={(e,input)=>{this.setState({toughness:input.value})}}      options={this.props.searchOptions.cmcOptions}/>

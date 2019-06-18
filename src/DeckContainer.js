@@ -11,18 +11,17 @@ import CardContainer from './CardContainer.js';
 class DeckContainer extends React.Component {
 
     render(){
-        if (this.props.currentDeck){
+        if (this.props.currentDeck.length > 0){
             return (
-                <div>
-                    Current Deck
+                <div name='selected deck container'>
+                    <CardContainer />
                     <Divider/>
-                    <CardContainer/>
                 </div>
             )
         }
         else {
             return (
-                <div>
+                <div name='selected deck container'>
                     No Saved Decks
                 </div>
             )
@@ -31,7 +30,7 @@ class DeckContainer extends React.Component {
 }
 
 function mapStateToProps(state){
-    let props={ userDecks:state.userDecks, currentDeck:state.currentDeck}
+    let props={ userDecks:state.userDecks, currentDeck:state.currentDeck.currentDeck}
     return props
 }
 
