@@ -5,6 +5,7 @@ import reducerCardSearch from './reducers/reducerCardSearch.js';
 import reducerUserDecks from './reducers/reducerUserDecks';
 import reducerBackgrounds from './reducers/reducerBackgrounds.js';
 import reducerSearchOptions from './reducers/reducerSearchOptions.js';
+import reducerOpenDeck from './reducers/reducerOpenDeck.js';
 
 
 export const reducerRoot = combineReducers({
@@ -13,6 +14,7 @@ export const reducerRoot = combineReducers({
     cardSearch:     reducerCardSearch,
     backgrounds:    reducerBackgrounds,
     searchOptions:  reducerSearchOptions,
+    openDeck:       reducerOpenDeck,
 })
 
 const STORE=createStore(reducerRoot, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())

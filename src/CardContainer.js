@@ -80,7 +80,6 @@ class CardContainer extends React.Component {
     }
 
     saveCards= ()=>{
-        debugger
         fetch('http://localhost:3000/submitDeck', {
             method: 'POST',
             headers: {
@@ -93,6 +92,17 @@ class CardContainer extends React.Component {
         .then(data => console.log('cards post response', data))
     }
 
+    deleteDeck= ()=>{
+        fetch('http://localhost:3000/decks', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'AuthToken': `${localStorage.AuthToken}`
+            },
+            body: JSON.stringify(this.props.openDeck)
+        })
+    }
+
     render() {
         if (this.props.currentDeck.length > 0){
             return (
@@ -100,7 +110,8 @@ class CardContainer extends React.Component {
                     {this.renderCards(this.props.currentDeck)}
                     <Divider/>
                     <p align='center'>
-                        <Button onClick={(e)=>{this.saveCards()}}>Save</Button>
+                        <Button onClick={(e)=>{this.saveCards()}}>Save Deck</Button>
+                        <Button onClick={(e)=>{this.deleteDeck()}}>Delete Deck</Button>
                     </p>
                 </div>
             )
@@ -116,7 +127,7 @@ class CardContainer extends React.Component {
 }
 
 function mapStateToProps(state){
-    let props= {currentDeck: state.currentDeck.currentDeck, openDeck:state.openDeck}
+    let props= {currentDeck: state.currentDeck.currentDeck, openDeck:state.openDeck.openDeck}
     return props
 }
 

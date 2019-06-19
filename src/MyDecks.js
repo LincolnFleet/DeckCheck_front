@@ -25,7 +25,7 @@ class  MyDecks extends React.Component {
         .then(data => this.props.dispatch({type:'FETCH_DECKS', payload:data.decks}))
     }
 
-    getCards= (deck)=>{
+    fetchCards= (deck)=>{
         fetch('http://localhost:3000/cards', {
                 method: 'GET',
                 headers: {
@@ -36,7 +36,6 @@ class  MyDecks extends React.Component {
         .then(resp => resp.json())
         .then(data => this.props.dispatch({type:'FETCH_CARDS', payload:data.currentDeck}))
         .then(() => this.props.dispatch({type:'OPEN_DECK', payload:deck}))
-        .then
     }
 
     render() {
@@ -46,7 +45,7 @@ class  MyDecks extends React.Component {
                     <Button onClick={(e)=>{this.fetchDecks()}}>Refresh List</Button>
                     <Divider/>
                     {this.props.userDecks.deckList.map(deck => {
-                        return <Button key={deck.id} onClick={(e)=>{this.getCards(deck)}}>{deck.name}</Button>
+                        return <Button key={deck.id} onClick={(e)=>{this.fetchCards(deck)}}>{deck.name}</Button>
                     })}
                     <Divider/>
                     <DeckContainer />
@@ -65,7 +64,7 @@ class  MyDecks extends React.Component {
 }
 
 function mapStateToProps(state){
-    let props={ userDecks:state.userDecks, currentDeck:state.currentDeck}
+    let props={ userDecks:state.userDecks, currentDeck:state.currentDeck, openDeck: state.openDeck }
     return props
 }
 

@@ -59,10 +59,10 @@ class DeckForm extends React.Component {
             <Form onSubmit={this.createDeck} name='deck form'>
                 DECK FORM
                 <Form.Group width='equal'>
-                    <Input  focus   name='name'           placeholder='Deck Name'                     onChange={(e,input)=>{this.setState({newDeckName:e.target.value})}}/>
-                    <Select         name='colors'         placeholder='Deck Color(s)'                 onChange={(e,input)=>{this.setState({newDeckColors:input.value})}} options={colorOptions}/>
+                    <Input  focus name='name' placeholder='Deck Name' onChange={(e,input)=>{this.setState({newDeckName:e.target.value})}}/>
+                    <Select name='colors' placeholder='Deck Color(s)' onChange={(e,input)=>{this.setState({newDeckColors:input.value})}} options={colorOptions}/>
                     <Divider/>
-                        <TextArea       name='description'    placeholder='Deck Description (optional)'   onChange={(e,input)=>{this.setState({newDeckDescription:e.target.value})}} />
+                        <TextArea name='description' placeholder='Deck Description (optional)' onChange={(e,input)=>{this.setState({newDeckDescription:e.target.value})}} />
                     <Divider/>
                 </Form.Group>
                 <Button type='submit'>Submit</Button>
