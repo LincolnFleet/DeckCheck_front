@@ -14,7 +14,10 @@ import DeckContainer from './DeckContainer.js';
 import CardContainer from './CardContainer.js';
 import SearchResults from './SearchResults.js';
 
-export const API='http://api.magicthegathering.io/v1/cards?'
+export const DOMAIN=heroku
+const API='http://api.magicthegathering.io/v1/cards?'
+const local='http://localhost:3000/'
+const heroku='https://glacial-shore-84830.herokuapp.com/'
 
 class App extends React.Component {
   constructor(){

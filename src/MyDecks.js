@@ -3,6 +3,7 @@ import {Consumer} from 'react-redux';
 import { Container, Button,Divider } from 'semantic-ui-react';
 import DeckContainer from './DeckContainer.js';
 import {connect} from 'react-redux';
+import DOMAIN from './App.js';
 
 // renders list of decks for a particular user
 // shows deck name, color, image?, description?
@@ -14,7 +15,7 @@ import {connect} from 'react-redux';
 class  MyDecks extends React.Component {
 
     fetchDecks= ()=>{
-        fetch('http://localhost:3000/decks', {
+        fetch(`${DOMAIN}decks`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,7 +27,7 @@ class  MyDecks extends React.Component {
     }
 
     fetchCards= (deck)=>{
-        fetch('http://localhost:3000/cards', {
+        fetch(`${DOMAIN}cards`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,7 +1,6 @@
 import React from 'react';
-import { Form, Divider, Button } from 'semantic-ui-react';
-import { Label } from 'semantic-ui-react';
-import { Input } from 'semantic-ui-react';
+import { Form, Divider, Button,Label,Input } from 'semantic-ui-react';
+import DOMAIN from './App.js';
 // form for user creation
 // post to back end
 
@@ -26,7 +25,7 @@ class NewUser extends React.Component {
 
     submitUser= ()=>{
         if (this.state.pwCheck===this.state.password){
-            fetch('http://localhost:3000/users', {
+            fetch(`${DOMAIN}users`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/JSON'

@@ -2,7 +2,7 @@ import React from 'react'
 import CardModalSearch from './CardModalSearch';
 import { connect } from 'react-redux';
 import {Divider, Button} from 'semantic-ui-react';
-
+import DOMAIN from './App.js';
 
 // renders CardSearch results
 // onClick renders CardModal

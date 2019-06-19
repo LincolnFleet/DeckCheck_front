@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button,Form, Label, Input, Select, Card, Divider, TextArea } from 'semantic-ui-react';
+import DOMAIN from './App.js';
 
 // renders form and submit for a deck but not for cards in the deck
 // if editing, fields are rendered with preexisting values
@@ -37,7 +38,7 @@ class DeckForm extends React.Component {
     createDeck= ()=>{
         if (this.state.newDeckColors && this.state.newDeckDescription && this.state.newDeckName) {
             console.log('outgoing deck list', this.cleanState())
-            fetch('http://localhost:3000/decks', {
+            fetch(`${DOMAIN}decks`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

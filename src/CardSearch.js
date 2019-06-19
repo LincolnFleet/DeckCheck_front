@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Form, Label, Input, Select, Card, Divider, Button } from 'semantic-ui-react';
 import {connect} from 'react-redux';
+import DOMAIN from './App.js';
 
 // renders form with filter
 // sends get to api
@@ -40,7 +41,7 @@ class CardSearch extends React.Component {
     }
 
     submitSearch= ()=>{
-        fetch('http://localhost:3000/search', {
+        fetch(`${DOMAIN}search`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(this.state)

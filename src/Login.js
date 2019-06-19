@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import ReactDOM from 'react-dom';
 import { Form, Divider, Button, Modal, Message } from 'semantic-ui-react';
 import { Label, Input } from 'semantic-ui-react';
+import DOMAIN from './App.js';
 
 class Login extends React.Component {
     constructor() {
@@ -22,7 +23,7 @@ class Login extends React.Component {
     }
 
     submitLogin= ()=> {
-        fetch('http://localhost:3000/login', {
+        fetch(`${DOMAIN}login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
