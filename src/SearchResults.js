@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 import {Divider, Button} from 'semantic-ui-react';
 import {DOMAIN} from './API.js';
 
-// renders CardSearch results
-// onClick renders CardModal
-
 class SearchResults extends React.Component{
 
     found= (oldList, target)=>{
@@ -78,7 +75,8 @@ class SearchResults extends React.Component{
                 cards.push(<p align='left'><CardModalSearch card={list[i.toString()]} key={list[i.toString()].id}/></p>)
             }
         }
-    return cards
+        debugger
+        return cards
     }
 
     render () {

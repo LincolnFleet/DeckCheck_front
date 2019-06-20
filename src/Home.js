@@ -10,10 +10,11 @@ import {DOMAIN} from './API.js';
 
 // if NOT LOGGED IN renders:
     // welcome, basic instructions, login window
-    // SearchCard component link/minified
+    // SearchCard component
+    // card of the day?
     // register button renders new user form
 // if LOGGED IN renders:
-    // MyDecks, SearchCard, card of the day?
+    // MyDecks, SearchCard
 
 function Home() {
     return(

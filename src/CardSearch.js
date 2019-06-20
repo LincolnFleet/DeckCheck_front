@@ -4,10 +4,6 @@ import { Form, Label, Input, Select, Card, Divider, Button } from 'semantic-ui-r
 import {connect} from 'react-redux';
 import {DOMAIN} from './API.js';
 
-// renders form with filter
-// sends get to api
-// renders SearchResults
-
 class CardSearch extends React.Component {
     constructor() {
         super()
@@ -54,7 +50,7 @@ class CardSearch extends React.Component {
 
     countResults= ()=>{
         if (this.props.responseStats) {
-            return <h5>{this.props.responseStats.count[0]} / {this.props.responseStats['total-count'][0]}</h5>
+            return <h5>{this.props.responseStats['total-count'][0]} Match(es) Found</h5>
         }
         else {
             return null
@@ -63,7 +59,7 @@ class CardSearch extends React.Component {
 
     render() {
         return (
-            <div name='searh form'>
+            <div name='search form'>
                 <Form onSubmit={(e)=>{this.submitSearch()}}>
                     CARD SEARCH
                     <Form.Group width='equal'>
