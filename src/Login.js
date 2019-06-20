@@ -70,7 +70,7 @@ class Login extends React.Component {
                                     <Divider/>
                                     <Input  focus   placeholder='Username' onChange={(e)=>{this.setState({username: e.target.value})}}/>
                                     <Divider/>
-                                    <Input  focus   placeholder='Password' onChange={(e)=>{this.setState({password: e.target.value})}}/>
+                                    <Input  focus   type='password' placeholder='Password' onChange={(e)=>{this.setState({password: e.target.value})}}/>
                                 </Form.Group>
                                 <Button type='submit' value='submit'>Submit</Button>
                             </Form>

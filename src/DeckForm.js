@@ -37,7 +37,6 @@ class DeckForm extends React.Component {
 
     createDeck= ()=>{
         if (this.state.newDeckColors && this.state.newDeckDescription && this.state.newDeckName) {
-            console.log('outgoing deck list', this.cleanState())
             fetch(`${DOMAIN}decks`, {
                 method: 'POST',
                 headers: {

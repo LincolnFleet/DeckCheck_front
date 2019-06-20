@@ -90,7 +90,7 @@ class CardContainer extends React.Component {
             body: JSON.stringify({cards: this.props.currentDeck})
         })
         .then(resp => resp.json())
-        .then(data => console.log('cards post response', data))
+        .then(data => console.log('deck saved', data))
     }
 
     deleteDeck= ()=>{

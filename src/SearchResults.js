@@ -32,7 +32,6 @@ class SearchResults extends React.Component{
         else {
             newList= [...oldList, {...target, quantity:1, deck_id:this.props.openDeck.id}]
         }
-        console.log('new decklist', newList)
         return this.props.dispatch({type:'ADD_CARD', payload:newList})
     }
 
@@ -65,7 +64,7 @@ class SearchResults extends React.Component{
 
     renderCards=(list)=>{
         let cards=[]
-        for (let i=0; i<Object.keys(list).length-1; i++){
+        for (let i=0; i<Object.keys(list).length; i++){
             if (this.props.openDeck) {
                 cards.push(<p align='left'>
                     <Button onClick={(e)=>{this.addList(list[i.toString()])}}>+</Button> <Button onClick={(e)=>{this.subList(list[i.toString()])}}>-</Button>
@@ -75,7 +74,6 @@ class SearchResults extends React.Component{
                 cards.push(<p align='left'><CardModalSearch card={list[i.toString()]} key={list[i.toString()].id}/></p>)
             }
         }
-        debugger
         return cards
     }
 

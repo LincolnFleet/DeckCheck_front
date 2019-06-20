@@ -59,8 +59,8 @@ class NewUser extends React.Component {
                     {/* <Input  focus   placeholder='Email Address' name='email'/> */}
                 </Form.Group>
                 <Form.Group widths='equal'>
-                        <Input  focus   placeholder='Password' name='pw1' onChange={(e)=>{this.setState({pwCheck: e.target.value})}}/>
-                        <Input  focus   placeholder='Confirm Password' name='pw2' onChange={(e)=>{this.setState({password: e.target.value})}}/>
+                        <Input  focus   type='password' placeholder='Password' name='pw1' onChange={(e)=>{this.setState({pwCheck: e.target.value})}}/>
+                        <Input  focus   type='password' placeholder='Confirm Password' name='pw2' onChange={(e)=>{this.setState({password: e.target.value})}}/>
                 </Form.Group>
                 <Form.Group widths='equal'>
                     <Input  focus   placeholder='Avatar URL' name='avatar_img' onChange={(e)=>{this.setState({avatar_img:e.target.value})}}/>
