@@ -1,9 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import ReactDOM from 'react-dom';
-import { Form, Divider, Button, Modal, Message } from 'semantic-ui-react';
-import { Label, Input } from 'semantic-ui-react';
-import DOMAIN from './App.js';
+import { Form, Divider, Button, Modal, Message,Label, Input } from 'semantic-ui-react';
+import {DOMAIN} from './API.js';
 
 class Login extends React.Component {
     constructor() {
@@ -40,9 +39,7 @@ class Login extends React.Component {
                 this.setState({errors:null})
                 localStorage.setItem('AuthToken', data.AuthToken)
                 this.props.dispatch({type: 'FETCH_DECKS', payload: data.UserDecks})
-
                 this.forceUpdate()
-                // alert('You have successfully logged in')
             }
         })
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Form, Label, Input, Select, Card, Divider, Button } from 'semantic-ui-react';
 import {connect} from 'react-redux';
-import DOMAIN from './App.js';
+import {DOMAIN} from './API.js';
 
 // renders form with filter
 // sends get to api

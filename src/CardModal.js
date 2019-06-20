@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Header, Image, Modal } from 'semantic-ui-react';
 import {connect} from 'react-redux';
-import DOMAIN from './App.js';
+import {DOMAIN} from './API.js';
 
 // renders large image of card
 // renders basic meta-data of card

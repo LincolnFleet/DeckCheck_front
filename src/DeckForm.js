@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button,Form, Label, Input, Select, Card, Divider, TextArea } from 'semantic-ui-react';
-import DOMAIN from './App.js';
+import {DOMAIN} from './API.js';
 
 // renders form and submit for a deck but not for cards in the deck
 // if editing, fields are rendered with preexisting values

@@ -3,7 +3,7 @@ import {Consumer} from 'react-redux';
 import { Container, Button,Divider } from 'semantic-ui-react';
 import DeckContainer from './DeckContainer.js';
 import {connect} from 'react-redux';
-import DOMAIN from './App.js';
+import {DOMAIN} from './API.js';
 
 // renders list of decks for a particular user
 // shows deck name, color, image?, description?
