@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Button,Divider} from 'semantic-ui-react';
+import {Button, Divider} from 'semantic-ui-react';
 import CardModal from './CardModal.js';
 import {DOMAIN} from './API.js';
 
@@ -10,14 +10,14 @@ import {DOMAIN} from './API.js';
 
 class CardContainer extends React.Component {
 
-    found= (oldList, target)=>{
-        return (oldList.filter(card => {return card.api_id === target.api_id}).length > 0)
+    found= (target)=>{
+        return (this.props.currentDeck.filter(card => card.api_id === target.api_id).length > 0)
     }
 
     addList= (target)=>{
         let oldList=this.props.currentDeck;
         let newList=[];
-        if (this.found(oldList, target)) {
+        if (this.found(target)) {
             oldList.map(card => { 
                 if (card.api_id === target.api_id){
                     if ( (card.quantity < 4) || (card.supertypes.includes('Basic')) ) {
@@ -42,7 +42,7 @@ class CardContainer extends React.Component {
     subList= (target)=>{
         let oldList=this.props.currentDeck;
         let newList=[];
-        if (this.found(oldList, target)) {
+        if (this.found(target)) {
             oldList.map(card => {
                 if (card.api_id === target.api_id){
                     if (card.quantity < 2) {
@@ -70,7 +70,8 @@ class CardContainer extends React.Component {
         return list.map(card =>{
             if (card.quantity > 0) {
             return (<p align='left' key={card.api_id}>
-                    <Button onClick={(e)=>{this.addList(card)}}>+</Button> <Button onClick={(e)=>{this.subList(card)}}>-</Button>
+                    <Button onClick={(e)=>{this.addList(card)}}>+</Button>
+                    <Button onClick={(e)=>{this.subList(card)}}>-</Button>
                     <CardModal card={card}/>
                 </p>
             )}
@@ -90,7 +91,11 @@ class CardContainer extends React.Component {
             body: JSON.stringify({cards: this.props.currentDeck})
         })
         .then(resp => resp.json())
-        .then(data => console.log('deck saved', data))
+        .catch(data => {
+            if (data.errors.length > 0) { return alert(data.errors) }
+        })
+        .then(data => {console.log('save deck return', data.cards); return data} )
+        .then(data => this.props.dispatch({type: 'FETCH_CARDS', payload: data.cards}))
     }
 
     deleteDeck= ()=>{

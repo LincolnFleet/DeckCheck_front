@@ -1,4 +1,3 @@
-import React from 'react';
 import {createStore, combineReducers} from 'redux';
 import reducerCurrentDeck from './reducers/reducerCurrentDeck.js';
 import reducerCardSearch from './reducers/reducerCardSearch.js';

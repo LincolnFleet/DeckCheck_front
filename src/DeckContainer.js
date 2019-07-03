@@ -1,9 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Button, Divider } from 'semantic-ui-react';
+import { Divider } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import CardContainer from './CardContainer.js';
-import {DOMAIN} from './API.js';
 
 // pane header renders basic details of a deck
 // left column renders CardSearch+SearchResults
@@ -21,11 +19,7 @@ class DeckContainer extends React.Component {
             )
         }
         else {
-            return (
-                <div name='selected deck container'>
-                    No Saved Decks
-                </div>
-            )
+            return null
         }
     }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Divider, Button,Label,Input } from 'semantic-ui-react';
+import { Form, Divider, Button, Input } from 'semantic-ui-react';
 import {DOMAIN} from './API.js';
 
 class NewUser extends React.Component {

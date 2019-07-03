@@ -43,12 +43,16 @@ export default function reducerSearchOptions(state={
                 {key:'Colorless',   text:'Colorless',   value:'C'}
             ],
         },
+
         responseStats: null
+
     }, action) {
+
         switch (action.type){
             case 'UPDATE_STATS':
                 state.responseStats=null
                 return {...state, responseStats: action.payload.heads}
+                
             default:
                 return state
         }

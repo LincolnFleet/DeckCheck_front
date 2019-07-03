@@ -1,7 +1,5 @@
 import React from 'react';
 import { Button, Header, Image, Modal } from 'semantic-ui-react';
-import {connect} from 'react-redux';
-import {DOMAIN} from './API.js';
 
 // renders large image of card
 // renders basic meta-data of card
@@ -9,7 +7,7 @@ import {DOMAIN} from './API.js';
 
 export default function CardModalSearch(props) {
     return (
-        <Modal trigger={<Button>{props.card.name} {props.card.manaCost}</Button>} name='card modal search' key={props.card.api_id}>
+        <Modal trigger={<Button>{props.card.name} {props.card.manaCost}</Button>} name='card modal search' >
             <Modal.Header>{props.card.name}</Modal.Header>
             <Modal.Content image>
                 <Image wrapped size='medium' src={props.card.imageUrl} />

@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Form, Label, Input, Select, Card, Divider, Button } from 'semantic-ui-react';
+import { Form, Input, Select, Divider, Button } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {DOMAIN} from './API.js';
 
@@ -22,7 +21,7 @@ class CardSearch extends React.Component {
     }
 
     resetState=()=>{
-        return {
+        this.setState({
             name: '',
             colorIdentity: '',
             cmc: '',
@@ -33,7 +32,7 @@ class CardSearch extends React.Component {
             toughness: '',
             page: 1,
             pageSize: 10
-        }
+        })
     }
 
     submitSearch= ()=>{
@@ -42,8 +41,8 @@ class CardSearch extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(this.state)
         })
-        .catch(resp => alert(resp.error))
         .then(resp => resp.json())
+        .catch(resp => alert(resp.error))
         .then(data => {console.log('~CARDSEARCH FETCH RESULTS~:',data); return data})
         .then(data => {this.props.dispatch({type: 'UPDATE_RESULTS', payload:data}); this.props.dispatch({type: 'UPDATE_STATS', payload:data})})
     }
@@ -81,7 +80,7 @@ class CardSearch extends React.Component {
                     </Form.Group>
                     <Divider/>
                     <Input  type='submit'   value='Search'/>
-                    <Input  type='reset'    value='Reset all Fields' onClick={(e)=>{this.setState(this.resetState)}}/>
+                    <Input  type='reset'    value='Reset all Fields' onClick={(e)=>{this.resetState()}}/>
                 </Form>
         {/* </div>
         )

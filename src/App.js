@@ -1,23 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {Router, Link, Route} from 'react-router-dom';
 import './App.css';
-import {createStore} from 'redux';
-import {Provider,connect} from 'react-redux';
+import {connect} from 'react-redux';
 import Home from './Home.js';
-import Login from './Login.js';
 import MyDecks from './MyDecks.js';
 import CardSearch from './CardSearch.js';
 import DeckForm from './DeckForm.js';
 import NewUser from './NewUser.js';
-import DeckContainer from './DeckContainer.js';
-import CardContainer from './CardContainer.js';
 import SearchResults from './SearchResults.js';
 
 class App extends React.Component {
-  constructor(){
-    super()
-  }
 
   chooseBackground=()=>{
     return this.props.backgrounds[Math.floor(Math.random()*this.props.backgrounds.length)]
@@ -25,7 +17,7 @@ class App extends React.Component {
 
   render () {
     return (
-      <div className="App" style={{backgroundImage: `url(${this.chooseBackground()})`}}>
+      <div className="App" style={{backgroundImage: `url(${this.chooseBackground()})`, backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed'}}>
         <header className="App-header">
           DeckCheck
         </header>
@@ -55,7 +47,6 @@ class App extends React.Component {
         {/* </Router> */}
 
         <Home/>
-        <Login/>
         <NewUser/>
         <CardSearch/>
         <SearchResults/>

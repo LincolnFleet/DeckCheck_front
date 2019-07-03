@@ -1,6 +1,4 @@
-import React from 'react';
-
-function reducerCardSearch(state={searchResults:null}, action){
+function reducerCardSearch(state={searchResults:[]}, action){
     switch (action.type) {
         case 'UPDATE_RESULTS':
             const cleanCards = action.payload.cards[0].map(card => {
@@ -10,6 +8,7 @@ function reducerCardSearch(state={searchResults:null}, action){
                 return {...keepers, api_id, full_type}
             })
             return {...state, searchResults: cleanCards}
+            
         default:
             return state
     }

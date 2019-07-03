@@ -1,6 +1,5 @@
 import React from 'react';
-import {Consumer} from 'react-redux';
-import { Container, Button,Divider } from 'semantic-ui-react';
+import { Button, Divider } from 'semantic-ui-react';
 import DeckContainer from './DeckContainer.js';
 import {connect} from 'react-redux';
 import {DOMAIN} from './API.js';
@@ -31,6 +30,7 @@ class  MyDecks extends React.Component {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
+                    'AuthToken': `${localStorage.AuthToken}`,
                     'Deck-ID': `${deck.id}`
                 }
             })
@@ -54,7 +54,7 @@ class  MyDecks extends React.Component {
             )}
         else {
             return (
-                <div name='user decks list'>
+                <div name='unlogged user decks'>
                     <Button onClick={(e)=>{this.fetchDecks()}}>Refresh List</Button>
                     <Divider/>
                     Please Log In to view your decks

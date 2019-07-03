@@ -1,12 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Link, Route} from 'react-router-dom';
 import Login from './Login.js';
-import MyDecks from './MyDecks.js';
-import CardSearch from './CardSearch.js';
-import CardModal from './CardModal.js';
-import DeckForm from './DeckForm.js';
-import {DOMAIN} from './API.js';
+import {connect} from 'react-redux';
+
 
 // if NOT LOGGED IN renders:
     // welcome, basic instructions, login window
@@ -19,9 +14,13 @@ import {DOMAIN} from './API.js';
 function Home() {
     return(
         <div>
-            HOME
+            <Login/>
         </div>
     )
 }
+const mapStateToProps=(state)=>{
+    let props=state.backgrounds
+    return props
+}
 
-export default Home
+  export default connect(mapStateToProps)(Home)

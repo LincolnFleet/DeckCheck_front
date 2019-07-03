@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Button,Form, Label, Input, Select, Card, Divider, TextArea } from 'semantic-ui-react';
+import { Button, Form, Input, Select, Divider, TextArea } from 'semantic-ui-react';
 import {DOMAIN} from './API.js';
 
 // renders form and submit for a deck but not for cards in the deck

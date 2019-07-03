@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import ReactDOM from 'react-dom';
-import { Form, Divider, Button, Modal, Message,Label, Input } from 'semantic-ui-react';
+import { Form, Divider, Button, Modal, Message, Input } from 'semantic-ui-react';
 import {DOMAIN} from './API.js';
 
 class Login extends React.Component {
