@@ -15,6 +15,7 @@ function Home() {
     return(
         <div>
             <Login/>
+            THIS IS THE HOME PAGE
         </div>
     )
 }

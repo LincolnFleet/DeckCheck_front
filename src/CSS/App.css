@@ -24,6 +24,16 @@
   color: #909090;
 }
 
+.App-nav {
+  background-color: #282c34;
+  display: inline-block;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  font-size: calc(8px + 2vmin);
+  color: #808080;
+}
+
 .App-link {
   color: #61dafb;
 }
