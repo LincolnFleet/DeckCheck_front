@@ -1,48 +1,78 @@
-.App {
-  text-align: center;
-  min-height: 100vh;
+.App-background {
+  min-height: 100vmax;
   flex-direction: column;
   display: flex;
   background-size: cover;
+  background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+#App-header {
+  background-color: #282c34;
+  min-height: 9vh;
+  display: inline-flex;
+  flex-direction: row;
+  min-width: 100vmax;
 }
 
-.App-header {
-  background-color: #282c34;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+#App-logo {
+  align-self: flex-start;
+  animation: App-logo-anim infinite 10s linear;
+  height: inherit;
+  justify-content: left;
+  font-size: calc(14px + 2vmin);
+  margin: 14px;
   color: #909090;
 }
 
-.App-nav {
-  background-color: #282c34;
-  display: inline-block;
+.App-navbar {
+  background-attachment: local;
+  flex-direction: row;
+  display: inline-flex;
+  min-height: inherit;
+  min-width: 100vmax;
+  color: grey;
+}
+
+.App-navbar-left {
+  justify-content: space-between;
+  flex-direction: row;
+  height: inherit;
+  background-attachment: local;
+  display: flex;
+  margin: 8px;
+  font-size: calc(4px + 2vmin);
+  color: grey;
+}
+
+.App-navbar-right {
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  height: inherit;
+  background-attachment: local;
+  display: flex;
+  margin: 8px;
+  font-size: calc(4px + 2vmin);
+  color: grey;
+}
+
+.App-navbar-item {
   flex-direction: column;
-  align-items: left;
   justify-content: center;
-  font-size: calc(8px + 2vmin);
-  color: #808080;
+  height: inherit;
+  margin: 8px;
 }
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
+@keyframes App-logo-anim {
   from {
-    transform: rotate(0deg);
+    transform: translate(0deg)
   }
   to {
-    transform: rotate(360deg);
+    transform: translate(180deg);
   }
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Form, Input, Select, Divider, Button } from 'semantic-ui-react';
 import {connect} from 'react-redux';
-import {DOMAIN} from './API.js';
+import DOMAIN from './API.js';
+import SearchResults from './SearchResults.js';
 
 class CardSearch extends React.Component {
     constructor() {
@@ -58,6 +59,7 @@ class CardSearch extends React.Component {
 
     render() {
         return (
+            <React.Fragment>
             <div name='search form'>
                 <Form onSubmit={(e)=>{this.submitSearch()}}>
                     CARD SEARCH
@@ -86,19 +88,21 @@ class CardSearch extends React.Component {
         )
         if (this.props.responseStats.length>0) {
             return (
-                <div> */}
+            <div> */}
                     <Button onClick={(e)=>{if (this.state.page>1){
                         this.setState({page: this.state.page-1}, ()=>{this.submitSearch()})
-                            }}}>Previous Page</Button>
+                    }}}>Previous Page</Button>
 
                     <Button onClick={(e)=>{this.setState({page: this.state.page+1}, ()=>{this.submitSearch()})
                         }}>Next Page</Button>
                     {this.countResults()}
                 </div>
+                <SearchResults/>
+        </React.Fragment>
             )
         // }
         // else {
-        //     return null
+            //     return null
         // }
     }
 }

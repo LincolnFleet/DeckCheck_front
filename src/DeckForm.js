@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Input, Select, Divider, TextArea } from 'semantic-ui-react';
-import {DOMAIN} from './API.js';
+import DOMAIN from './API.js';
 
 // renders form and submit for a deck but not for cards in the deck
 // if editing, fields are rendered with preexisting values
@@ -15,7 +15,7 @@ const colorOptions= [
     {key:'black',   text:'black',   value:'Black'}
 ];
 
-class DeckForm extends React.Component {
+export default class DeckForm extends React.Component {
     constructor() {
         super()
         this.state = {
@@ -69,5 +69,3 @@ class DeckForm extends React.Component {
         )
     }
 }
-
-export default DeckForm
