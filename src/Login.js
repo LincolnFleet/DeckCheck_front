@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { Form, Divider, Button, Modal, Message, Input } from 'semantic-ui-react';
-import {DOMAIN} from './API.js';
+import DOMAIN from './API.js';
+import './CSS/App.css';
 
 class Login extends React.Component {
     constructor() {
@@ -54,17 +55,17 @@ class Login extends React.Component {
     render() {
         if (localStorage['AuthToken']) {
             return(
-            <Button onClick={()=>{this.submitLogout()}}>Logout</Button>
+            <Button className='App-navbar-right' onClick={()=>{this.submitLogout()}}>Logout</Button>
             )
         }
         else {
             return (
-                <Modal trigger={<Button>Login</Button>} name='login form'>
+                <Modal className='App-navbar-right' trigger={<Button>Login</Button>} name='login form'>
                     <Modal.Header>Please Enter Your Login Credentials</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>
                                 <Message style={{color:'red'}}>{this.state.errors}</Message>
-                            <Form style={{display: 'flex', alignItems: 'center', JustifyContent: 'center'}} onSubmit={()=> {this.submitLogin()}}>
+                            <Form style={{display: 'flex', justifyContent: 'space-between'}} onSubmit={()=> {this.submitLogin()}}>
                                 <Form.Group widths='equal'>
                                     <Divider/>
                                     <Input  focus   placeholder='Username' onChange={(e)=>{this.setState({username: e.target.value})}}/>

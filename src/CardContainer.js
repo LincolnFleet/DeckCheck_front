@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Button, Divider} from 'semantic-ui-react';
 import CardModal from './CardModal.js';
-import {DOMAIN} from './API.js';
+import DOMAIN from './API.js';
 
 // renders card name, manaCost, quantity for each card in a deck
 // add, remove buttons

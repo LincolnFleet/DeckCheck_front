@@ -18,47 +18,40 @@ class App extends React.Component {
 
   render () {
     return (
-      <div className="App" style={{backgroundImage: `url(${this.chooseBackground()})`, backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed'}}>
-        <Router>
-            <Link to='/' className='App-header'>
+      <Router>
+          <span id='App-header'>
+            <Link to='/' id='App-logo'>
               DeckCheck
             </Link>
-          <ul className='App-nav'>
-            <li>
-              <Link to='/decks'>My Decks</Link>
-            </li>
-            <li>
-              <Link to='/cards/search'>Search Cards</Link>
-            </li>
-            <li>
-              <Link to='/decks/new'>New Deck</Link>
-            </li>
-            <li>
-              <Link to='/users/new'>Create Account</Link>
-            </li>
-            <li style={{justifySelf:'right', paddingRight: '10px'}}>
-              <Link to='/login'>Login</Link>
-            </li>
-          </ul>
+            
+            <span className='App-navbar-left'>
+            <Link to='/cards/search' className='App-navbar-item'>Search Cards</Link>
+            <Link className='App-navbar-item'>Search Decks</Link>
+            </span>
 
-          <Switch>
-            <Route exact path='/' component={ <Home />}/>
-            <Route path='/users/new' component={<NewUser />}/>
-            <Route path='/cards.search' component={<CardSearch />}/>
-            <Route path='/decks' component={<MyDecks />}/>
-            <Route path='/decks/new' component={<DeckForm />}/>
-            <Route path='/login' component={<Login/>}/>
-            <Route component={<h1>404 - Page Not Found</h1>}/>
-          </Switch>
+            <span className='App-navbar-right'>
+            <Link to='/decks' className='App-navbar-item'>My Decks</Link>
+            <Link to='/decks/new' className='App-navbar-item'>New Deck</Link>
+            <Link to='/users/new' className='App-navbar-item'>Create Account</Link>
+            </span>
+            
+            <Login />
+          </span>
+
+          <div className="App-background" style={{backgroundImage: `url(${this.chooseBackground()})`}}>
+            <div style={{margin:'20px'}}>
+              <Switch>
+                <Route exact path='/' component={Home}/>
+                <Route path='/users/new' component={NewUser}/>
+                <Route path='/cards/search' component={CardSearch}/>
+                <Route exact path='/decks' component={MyDecks}/>
+                <Route path='/decks/new' component={DeckForm}/>
+                <Route path='/login' component={Login}/>
+                <Route component={<h1>404 - Page Not Found</h1>}/>
+              </Switch>
+            </div>
+          </div>
         </Router>
-
-        <Home/>
-        <NewUser/>
-        <CardSearch/>
-        <SearchResults/>
-        <DeckForm/>
-        <MyDecks/>
-      </div>
     );
   }
 }
