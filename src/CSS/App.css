@@ -8,71 +8,76 @@
   background-position: center;
 }
 
-#App-header {
+#Navbar-header {
   background-color: #282c34;
-  min-height: 9vh;
   display: inline-flex;
-  flex-direction: row;
-  min-width: 100vmax;
+  position: fixed;
+  min-height: 6vh;
+  min-width: 100vw;
+  top: 0;
 }
 
-#App-logo {
-  align-self: flex-start;
-  animation: App-logo-anim infinite 10s linear;
-  height: inherit;
-  justify-content: left;
+#Navbar {
+  background-attachment: local;
+  justify-content: space-between;
+  flex-direction: row;
+  display: inline-flex;
+  margin: 5px;
+  min-width: 100vmax;
+  font-size: calc(4px + 2vmin);
+  color: grey;
+}
+
+#Navbar .logo {
+  align-content: flex-start;
+  animation: Nav-logo-anim infinite 3s linear;
   font-size: calc(14px + 2vmin);
   margin: 14px;
-  color: #909090;
+  color: darkred;
 }
 
-.App-navbar {
-  background-attachment: local;
+@keyframes Nav-logo-anim {
+  from {
+    transform: rotateY(-90deg)
+  }
+  to {
+    transform: rotateY(90deg);
+  }
+}
+
+#Navbar .login {
+  align-content: flex-end;
+  padding: 10px;
+}
+
+#Navbar .logout {
+  align-content: flex-end;
+  padding: 10px;
+  background-color: darkred;
+}
+
+#Navbar .global {
   flex-direction: row;
-  display: inline-flex;
-  min-height: inherit;
-  min-width: 100vmax;
-  color: grey;
 }
 
-.App-navbar-left {
-  justify-content: space-between;
-  flex-direction: row;
-  height: inherit;
-  background-attachment: local;
-  display: flex;
-  margin: 8px;
-  font-size: calc(4px + 2vmin);
-  color: grey;
-}
-
-.App-navbar-right {
-  justify-content: space-between;
+#Navbar .registered {
   flex-direction: row-reverse;
-  height: inherit;
-  background-attachment: local;
-  display: flex;
-  margin: 8px;
-  font-size: calc(4px + 2vmin);
-  color: grey;
 }
 
-.App-navbar-item {
-  flex-direction: column;
+#Navbar .global .link {
+  color: blanchedalmond;
+  padding: 5px;
+  columns: inherit 1;
   justify-content: center;
-  height: inherit;
-  margin: 8px;
+  border-left: 2px solid #61dafb;
+}
+
+#Navbar .registered .link {
+  color: darkgoldenrod;
+  padding: 5px;
+  border-left: 2px solid #61dafb;
 }
 
 .App-link {
   color: #61dafb;
-}
-
-@keyframes App-logo-anim {
-  from {
-    transform: translate(0deg)
-  }
-  to {
-    transform: translate(180deg);
-  }
 }

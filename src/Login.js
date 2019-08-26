@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { Form, Divider, Button, Modal, Message, Input } from 'semantic-ui-react';
+import { Form, Divider, Button, Modal, Message, Input, ModalHeader } from 'semantic-ui-react';
 import DOMAIN from './API.js';
 import './CSS/App.css';
 
@@ -55,13 +55,13 @@ class Login extends React.Component {
     render() {
         if (localStorage['AuthToken']) {
             return(
-            <Button className='App-navbar-right' onClick={()=>{this.submitLogout()}}>Logout</Button>
+                <Button className='logout' onClick={()=>{this.submitLogout()}}>Logout</Button>
             )
         }
         else {
             return (
-                <Modal className='App-navbar-right' trigger={<Button>Login</Button>} name='login form'>
-                    <Modal.Header>Please Enter Your Login Credentials</Modal.Header>
+                <Modal trigger={<Button className='login'>Login</Button>} name='login form'>
+                    <Modal.Header>Please Enter Your Username and Password</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>
                                 <Message style={{color:'red'}}>{this.state.errors}</Message>
