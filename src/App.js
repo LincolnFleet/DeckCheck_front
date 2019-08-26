@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './CSS/App.css';
 import { connect } from 'react-redux';
-import Home from './Home.js';
+import { Home } from './Pages.js';
 import {
   MyDecks,
   CardSearch,
