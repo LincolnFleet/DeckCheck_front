@@ -1,7 +1,7 @@
 import React from 'react'
-import CardModalSearch from './CardModalSearch';
 import { connect } from 'react-redux';
-import {Divider, Button} from 'semantic-ui-react';
+import { Divider, Button } from 'semantic-ui-react';
+import { CardModalSearch } from '../Components.js';
 
 class SearchResults extends React.Component{
 

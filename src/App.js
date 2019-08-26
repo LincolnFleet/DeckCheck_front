@@ -1,15 +1,16 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Link, Route} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import './CSS/App.css';
-import {connect} from 'react-redux';
-import Home from './Home.js';
-import MyDecks from './MyDecks.js';
-import CardSearch from './CardSearch.js';
-import DeckForm from './DeckForm.js';
-import NewUser from './NewUser.js';
-import SearchResults from './SearchResults.js';
-import Login from './Login.js';
-import NavBar from './NavBar.js';
+import { connect } from 'react-redux';
+import { Home } from './Pages.js';
+import {
+  MyDecks,
+  CardSearch,
+  DeckForm,
+  NewUser,
+  Login,
+  NavBar
+} from './Components.js';
 
 class App extends React.Component {
 

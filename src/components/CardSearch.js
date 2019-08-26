@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, Input, Select, Divider, Button } from 'semantic-ui-react';
-import {connect} from 'react-redux';
-import DOMAIN from './API.js';
-import SearchResults from './SearchResults.js';
+import { connect } from 'react-redux';
+import DOMAIN from '../API.js';
+import { SearchResults } from '../Components.js';
 
 class CardSearch extends React.Component {
     constructor() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider } from 'semantic-ui-react';
-import {connect} from 'react-redux';
-import CardContainer from './CardContainer.js';
+import { connect } from 'react-redux';
+import { CardContainer } from '../Components.js';
 
 // pane header renders basic details of a deck
 // left column renders CardSearch+SearchResults

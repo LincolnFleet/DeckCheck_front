@@ -1,6 +1,5 @@
 import React from 'react';
-import Login from './Login.js';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 
 // if NOT LOGGED IN renders:
