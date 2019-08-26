@@ -1,8 +1,8 @@
 import React from 'react';
-import './CSS/App.css';
-import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
-import Login from './Login.js';
+import '../CSS/App.css';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Login } from '../Components.js';
 
 class NavBar extends React.Component {
     render() {
