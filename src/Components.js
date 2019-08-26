@@ -1,3 +1,6 @@
+// Imports all components and exports them as a single source
+// for organization and ease of import
+
 import CardContainer    from './components/CardContainer.js';
 import CardModal        from './components/CardModal.js';
 import CardModalSearch  from './components/CardModalSearch.js';
