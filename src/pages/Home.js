@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 
 
 // if NOT LOGGED IN renders:
-    // welcome, basic instructions, login window
-    // SearchCard component
-    // card of the day?
-    // register button renders new user form
+    // welcome
+    // basic instructions
+    // daily/dynamic content ( e.g. 'card of the day')
+    // news feed?
 // if LOGGED IN renders:
-    // MyDecks, SearchCard
+    // daily/dynamic content
+    // user decks
+    // news feed?
 
 function Home() {
     return(

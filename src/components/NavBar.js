@@ -6,7 +6,9 @@ import { Login } from '../Components.js';
 
 class NavBar extends React.Component {
     render() {
-// navbar layout for registered and logged in users
+
+// navbar layout for logged in users
+
         if (localStorage['AuthToken']) {
             return (
                 <span id='Navbar-header'>
@@ -30,6 +32,9 @@ class NavBar extends React.Component {
                     </div>
                 </span>
             )}
+
+// navbar layout for users not logged in
+
         else {
             return (
                 <span id='Navbar-header'>

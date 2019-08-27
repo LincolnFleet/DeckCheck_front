@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Form, Divider, Button, Modal, Message, Input } from 'semantic-ui-react';
 import DOMAIN from '../API.js';
 import '../CSS/App.css';
@@ -20,6 +21,10 @@ class Login extends React.Component {
             password: this.state.password,
         }
     }
+
+// login fn validates credentials, loads local
+// storage with JWT auth token and user's deck id's
+// then forces navbar update
 
     submitLogin= ()=> {
         fetch(`${DOMAIN}login`, {
@@ -44,20 +49,31 @@ class Login extends React.Component {
         })
     }
 
+// logout fn clears state, local storage and
+// forces navbar update, then redir to landing page
+
     submitLogout= ()=>{
         this.setState({username:null, password:null})
         this.props.dispatch({type: 'CLEAR_DECKS'})
         localStorage.removeItem('AuthToken')
         localStorage.removeItem('UserDecks')
         this.forceUpdate()
+        this.props.history.push('/')
     }
 
     render() {
+
+// if logged in, presents 'log out' button
+
         if (localStorage['AuthToken']) {
             return(
                 <Button className='logout' onClick={()=>{this.submitLogout()}}>Logout</Button>
             )
         }
+
+// if not logged in, presents 'log in' button which
+// triggers modal with username+password challenge
+
         else {
             return (
                 <Modal trigger={<Button className='login'>Login</Button>} name='login form'>
@@ -87,4 +103,4 @@ function mapStateToProps(state){
     return props
 }
 
-export default connect(mapStateToProps)(Login)
+export default withRouter( connect(mapStateToProps)(Login) )
