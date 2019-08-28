@@ -1,35 +1,43 @@
-.App-background {
+.App {
+  display: grid;
+}
+
+.App .background {
   min-height: 100vmax;
-  flex-direction: column;
-  display: flex;
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-#Navbar-header {
+/* #Navbar {
   background-color: #282c34;
+  background-attachment: fixed;
+  position: fixed;
+  top: 0;
+  min-width: 100vmax;
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  position: fixed;
-  min-width: 100vw;
-  top: 0;
-}
+  justify-content: space-between;
+  font-size: calc(4px + 2vmin);
+} */
 
 #Navbar {
-  background-attachment: local;
+  background-color: #282c34;
+  background-attachment: fixed;
+  position: fixed;
+  top: 0;
+  min-width: 100vmax;
   display: flex;
   flex-flow: row wrap;
-  align-content: center;
+  align-items: center;
   justify-content: space-between;
-  min-width: 100vmax;
   font-size: calc(4px + 2vmin);
-  color: grey;
 }
 
 #Navbar .logo {
+  order: 0;
   animation: Nav-logo-anim infinite 3s linear;
   font-size: calc(14px + 2vmin);
   margin: 14px;
@@ -48,20 +56,28 @@
 }
 
 #Navbar .login {
+  order: 10;
   justify-self: right;
   background-color: darkblue;
 }
 
 #Navbar .logout {
+  order: 10;
   justify-self: right;
   background-color: darkred;
 }
 
 #Navbar .global {
+  order: 1;
+  flex: 1 1 auto;
+  max-height: inherit;
   flex-direction: row;
 }
 
 #Navbar .registered {
+  order: 2;
+  flex: 1 1 auto;
+  max-height: inherit;
   flex-direction: row-reverse;
 }
 
@@ -75,7 +91,6 @@
 #Navbar .registered .link {
   color: darkgoldenrod;
   padding: 10px;
-  display: flex;
   flex-flow: row-reverse nowrap;
   align-items: center;
   border-left: 2px solid #61dafb;

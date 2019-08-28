@@ -20,9 +20,9 @@ class App extends React.Component {
 
   render () {
     return (
-      <React.Fragment>
+      <div className='App'>
         <NavBar/>
-        <div className="App-background" style={{backgroundImage: `url(${this.chooseBackground()})`}}>
+        <div className="background" style={{backgroundImage: `url(${this.chooseBackground()})`}}>
           <div style={{margin:'20px', marginTop:'80px'}}>
             <Switch>
               <Route exact path='/' component={Home}/>
@@ -35,7 +35,7 @@ class App extends React.Component {
             </Switch>
           </div>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

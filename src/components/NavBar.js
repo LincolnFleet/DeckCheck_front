@@ -16,21 +16,19 @@ class NavBar extends React.Component {
 
         if (localStorage['AuthToken']) {
             return (
-                <div id='Navbar-header'>
-                    <div id='Navbar'>
-                        <div className='logo' onClick={this.redirHome}>
-                            <h1>DeckCheck</h1>
-                        </div>
-                        <div className='global'>
-                            <Link to='/cards/search' className='link'>Search Cards</Link>
-                            <Link to='/' className='link'>Search Decks</Link>
-                        </div>
-                        <div className='registered'>
-                            <Link to='/decks' className='link'>My Decks</Link>
-                            <Link to='/decks/new' className='link'>New Deck</Link>
-                        </div>
-                        <Login />
+                <div id='Navbar'>
+                    <div className='logo' onClick={this.redirHome}>
+                        <h1>DeckCheck</h1>
                     </div>
+                    <div className='global'>
+                        <Link to='/cards/search' className='link'>Search Cards</Link>
+                        <Link to='/' className='link'>Search Decks</Link>
+                    </div>
+                    <div className='registered'>
+                        <Link to='/decks' className='link'>My Decks</Link>
+                        <Link to='/decks/new' className='link'>New Deck</Link>
+                    </div>
+                    <Login />
                 </div>
             )}
 
