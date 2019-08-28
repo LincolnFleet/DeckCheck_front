@@ -10,12 +10,14 @@ import { CardModal } from '../Components.js';
 
 class CardContainer extends React.Component {
 
-    // helper method, checks if target card is already in deck
+// helper method, checks if target card is already in deck
+
     found= (target)=>{
         return (this.props.currentDeck.filter(card => card.api_id === target.api_id).length > 0)
     }
 
-    // adds or updates target card to currentDeck state
+// adds or updates target card to currentDeck state
+
     addCardToList= (target)=>{
         let oldList=this.props.currentDeck;
         let newList=[];
@@ -41,7 +43,8 @@ class CardContainer extends React.Component {
         return this.props.dispatch({type:'ADD_CARD', payload:newList})
     }
 
-    // removes or updates card from currentDeck state
+// removes or updates card from currentDeck state
+
     removeCardFromList= (target)=>{
         let oldList=this.props.currentDeck;
         let newList=[];
@@ -69,15 +72,18 @@ class CardContainer extends React.Component {
         return this.props.dispatch({type:'REMOVE_CARD', payload:newList})
     }
 
-    // generates modal and add/remove buttons for each card in argument (currentDeck state)
+// generates modal and add/remove buttons for each card in argument (currentDeck state)
+
     renderCards(list) {
         return list.map(card =>{
             if (card.quantity > 0) {
             return (<p align='left' key={card.api_id}>
-                    <Button onClick={(e)=>{this.addCardToList(card)}}>+</Button>
-                    <Button onClick={(e)=>{this.removeCardFromList(card)}}>-</Button>
+                    <Button.Group>
+                        <Button icon='plus' onClick={(e)=>{this.addCardToList(card)}}/>
+                        <Button icon='minus' onClick={(e)=>{this.removeCardFromList(card)}}/>
+                    </Button.Group>
                     <CardModal card={card}/>
-                </p>
+                    </p>
             )}
             else {
                 return null
@@ -85,8 +91,9 @@ class CardContainer extends React.Component {
         })
     }
 
-    // sends currentDeck state and auth token to back end, returns updated DB list and...
-    // sets it to currentDeck state
+// sends currentDeck state and auth token to back end, returns updated DB list and...
+// sets it to currentDeck state
+
     saveCards= ()=>{
         fetch(`${DOMAIN}submitDeck`, {
             method: 'POST',
@@ -104,7 +111,8 @@ class CardContainer extends React.Component {
         .then(data => this.props.dispatch({type: 'FETCH_CARDS', payload: data.cards}))
     }
 
-    // sends delete request using auth token and currentDeck id (openDeck state)
+// sends delete request using auth token and currentDeck id (openDeck state)
+
     deleteDeck= ()=>{
         fetch(`${DOMAIN}decks`, {
             method: 'DELETE',

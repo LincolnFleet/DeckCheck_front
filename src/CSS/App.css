@@ -10,30 +10,32 @@
 
 #Navbar-header {
   background-color: #282c34;
-  display: inline-flex;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
   position: fixed;
-  min-height: 6vh;
   min-width: 100vw;
   top: 0;
 }
 
 #Navbar {
   background-attachment: local;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: center;
   justify-content: space-between;
-  flex-direction: row;
-  display: inline-flex;
-  margin: 5px;
   min-width: 100vmax;
   font-size: calc(4px + 2vmin);
   color: grey;
 }
 
 #Navbar .logo {
-  align-content: flex-start;
   animation: Nav-logo-anim infinite 3s linear;
   font-size: calc(14px + 2vmin);
   margin: 14px;
-  color: darkred;
+  display: flex;
+  flex-flow: row nowrap;
+  color: rgb(42, 127, 184);
 }
 
 @keyframes Nav-logo-anim {
@@ -46,13 +48,12 @@
 }
 
 #Navbar .login {
-  align-content: flex-end;
-  padding: 10px;
+  justify-self: right;
+  background-color: darkblue;
 }
 
 #Navbar .logout {
-  align-content: flex-end;
-  padding: 10px;
+  justify-self: right;
   background-color: darkred;
 }
 
@@ -66,15 +67,17 @@
 
 #Navbar .global .link {
   color: blanchedalmond;
-  padding: 5px;
-  columns: inherit 1;
-  justify-content: center;
+  padding: 10px;
+  align-items: center;
   border-left: 2px solid #61dafb;
 }
 
 #Navbar .registered .link {
   color: darkgoldenrod;
-  padding: 5px;
+  padding: 10px;
+  display: flex;
+  flex-flow: row-reverse nowrap;
+  align-items: center;
   border-left: 2px solid #61dafb;
 }
 
