@@ -1,98 +1,82 @@
-.App {
+#App {
   display: grid;
+  width: 100vw;
+  height: 100vh;
+  grid-template-rows: 1fr 12fr;
+  grid-template-areas: 
+  "nav"
+  "body";
 }
 
-.App .background {
-  min-height: 100vmax;
+#App .content {
+  grid-area: body;
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-/* #Navbar {
+#App .navbar {
+  grid-area: nav;
   background-color: #282c34;
   background-attachment: fixed;
-  position: fixed;
-  top: 0;
-  min-width: 100vmax;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: space-between;
-  font-size: calc(4px + 2vmin);
-} */
 
-#Navbar {
-  background-color: #282c34;
-  background-attachment: fixed;
-  position: fixed;
-  top: 0;
-  min-width: 100vmax;
-  display: flex;
-  flex-flow: row wrap;
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
+  grid-template-areas:
+  "logo global registered login"
+  ;
+
   align-items: center;
   justify-content: space-between;
   font-size: calc(4px + 2vmin);
 }
 
-#Navbar .logo {
-  order: 0;
+#App .navbar .logo {
+  grid-area: logo;
+  margin: 5%;
   animation: Nav-logo-anim infinite 3s linear;
   font-size: calc(14px + 2vmin);
-  margin: 14px;
-  display: flex;
-  flex-flow: row nowrap;
   color: rgb(42, 127, 184);
 }
 
 @keyframes Nav-logo-anim {
   from {
     transform: rotateY(-90deg)
-  }
-  to {
+  } to {
     transform: rotateY(90deg);
   }
 }
 
-#Navbar .login {
-  order: 10;
-  justify-self: right;
-  background-color: darkblue;
+#App .navbar .login {
+  grid-area: login;
+  margin: 5%;
+  background-color: lightblue;
 }
 
-#Navbar .logout {
-  order: 10;
-  justify-self: right;
-  background-color: darkred;
+#App .navbar .global-user {
+  grid-area: global;
+  display: flex;
+  flex-flow: row wrap;
+  margin-left: 10%;
 }
 
-#Navbar .global {
-  order: 1;
-  flex: 1 1 auto;
-  max-height: inherit;
-  flex-direction: row;
+#App .navbar .registered-user {
+  grid-area: registered;
+  display: flex;
+  flex-flow: row-reverse wrap;
+  margin-right: 10%;
 }
 
-#Navbar .registered {
-  order: 2;
-  flex: 1 1 auto;
-  max-height: inherit;
-  flex-direction: row-reverse;
-}
-
-#Navbar .global .link {
+#App .navbar .global-user .link {
   color: blanchedalmond;
-  padding: 10px;
-  align-items: center;
+  padding: 5px;
   border-left: 2px solid #61dafb;
 }
 
-#Navbar .registered .link {
+#App .navbar .registered-user .link {
   color: darkgoldenrod;
-  padding: 10px;
-  flex-flow: row-reverse nowrap;
-  align-items: center;
+  padding: 5px;
   border-left: 2px solid #61dafb;
 }
 

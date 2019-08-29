@@ -1,0 +1,29 @@
+#Home   {
+    height: 100%;
+    width: 100%;
+    margin: 1%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+        "announce top"
+        "daily top"
+        "new new"
+    ;
+}
+
+#Home .announce {
+    grid-area: announce;
+}
+
+#Home .daily    {
+    grid-area: daily;
+}
+
+#Home .new-decks    {
+    grid-area: new;
+}
+
+#Home .top-decks    {
+    grid-area: top;
+}
