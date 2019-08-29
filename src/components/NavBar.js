@@ -10,46 +10,36 @@ class NavBar extends React.Component {
         this.props.history.push('/')
     }
 
-    render() {
-
-// navbar layout for logged in users
-
+    checkLogin= ()=>{
         if (localStorage['AuthToken']) {
-            return (
-                <div id='Navbar'>
-                    <div className='logo' onClick={this.redirHome}>
-                        <h1>DeckCheck</h1>
-                    </div>
-                    <div className='global'>
-                        <Link to='/cards/search' className='link'>Search Cards</Link>
-                        <Link to='/' className='link'>Search Decks</Link>
-                    </div>
-                    <div className='registered'>
-                        <Link to='/decks' className='link'>My Decks</Link>
-                        <Link to='/decks/new' className='link'>New Deck</Link>
-                    </div>
-                    <Login />
-                </div>
-            )}
-
-// navbar layout for users not logged in
-
+            return [
+                <Link to='/decks' className='link'>My Decks</Link>,
+                <Link to='/decks/new' className='link'>New Deck</Link>
+            ]
+        }
         else {
-            return (
-                <div id='Navbar-header'>
-                    <div id='Navbar'>
-                        <div className='logo' onClick={this.redirHome}>DeckCheck</div>
-                        <div className='global'>
-                            <Link to='/cards/search' className='link'>Search Cards</Link>
-                            <Link to='/' className='link'>Search Decks</Link>
-                        </div>
-                        <div className='registered'>
-                            <Link to='/users/new' className='link'>Create Account</Link>
-                        </div>
-                        <Login />
-                    </div>
+            return [
+                    <Link to='/users/new' className='link'>Create Account</Link>
+            ]
+        }
+    }
+
+    render() {
+        return (
+            <div className='navbar'>
+                <div className='logo' onClick={this.redirHome}>
+                    <h1>DeckCheck</h1>
                 </div>
-            )}
+                <div className='global-user'>
+                    <Link to='/cards/search' className='link'>Search Cards</Link>
+                    <Link to='/' className='link'>Search Decks</Link>
+                </div>
+                <div className='registered-user'>
+                    {this.checkLogin()}
+                </div>
+                <Login />
+            </div>
+        )
     }
 }
 

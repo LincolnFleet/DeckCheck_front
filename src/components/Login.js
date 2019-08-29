@@ -67,7 +67,7 @@ class Login extends React.Component {
 
         if (localStorage['AuthToken']) {
             return(
-                <Button className='logout' onClick={()=>{this.submitLogout()}}>Logout</Button>
+                <Button className='login' style={{backgroundColor:'darkred'}} onClick={()=>{this.submitLogout()}}>Logout</Button>
             )
         }
 

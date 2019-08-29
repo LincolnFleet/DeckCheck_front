@@ -20,21 +20,19 @@ class App extends React.Component {
 
   render () {
     return (
-      <div className='App'>
+      <div id='App'>
         <NavBar/>
-        <div className="background" style={{backgroundImage: `url(${this.chooseBackground()})`}}>
-          <div style={{margin:'20px', marginTop:'80px'}}>
-            <Switch>
-              <Route exact path='/' component={Home}/>
-              <Route path='/users/new' component={NewUser}/>
-              <Route path='/cards/search' component={CardSearch}/>
-              <Route exact path='/decks' component={MyDecks}/>
-              <Route path='/decks/new' component={DeckForm}/>
-              <Route path='/login' component={Login}/>
-              {/* <Route component={<h1>404 - Page Not Found</h1>}/> */}
-            </Switch>
-          </div>
-        </div>
+        <div className='content' style={{backgroundImage: `url(${this.chooseBackground()})`}}>
+          <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route path='/users/new' component={NewUser}/>
+            <Route path='/cards/search' component={CardSearch}/>
+            <Route exact path='/decks' component={MyDecks}/>
+            <Route path='/decks/new' component={DeckForm}/>
+            <Route path='/login' component={Login}/>
+            {/* <Route component={<h1>404 - Page Not Found</h1>}/> */}
+          </Switch>
+        </div> 
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import '../CSS/Home.css';
 import { connect } from 'react-redux';
 
 
@@ -14,8 +15,19 @@ import { connect } from 'react-redux';
 
 function Home() {
     return(
-        <div>
-            THIS IS THE HOME PAGE
+        <div id='Home'>
+            <div className='announce'>
+                Announcement: THIS IS THE HOME PAGE
+            </div>
+            <div className='daily'>
+                Daily updated content
+            </div>
+            <div className='new-decks'>
+                New Decks
+            </div>
+            <div className='top-decks'>
+                Top Decks of Standard
+            </div>
         </div>
     )
 }
