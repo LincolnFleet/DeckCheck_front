@@ -1,0 +1,22 @@
+#layout {
+    display: grid;
+    width: 100vh;
+    height: 100vw;
+    grid-template-columns: repeat(12, [col] 1fr);
+    grid-template-rows: repeat(12, [row] 1fr);
+}
+
+#layout .card-search-form   {
+    grid-column: col 1 / span 4;
+    grid-row: row 2 / span 8;
+}
+
+#layout .search-results    {
+    grid-column: col 7 / span 5;
+    grid-row: row 2 / span 10;
+}
+
+#layout .page-turn  {
+    grid-column: col 7 / span 2;
+    grid-row: row 1;
+}

@@ -65,12 +65,22 @@ class SearchResults extends React.Component{
         let cards=[]
         for (let i=0; i<Object.keys(list).length; i++){
             if (this.props.openDeck) {
-                cards.push(<p align='left'>
-                    <Button onClick={(e)=>{this.addList(list[i.toString()])}}>+</Button> <Button onClick={(e)=>{this.subList(list[i.toString()])}}>-</Button>
-                    <CardModalSearch card={list[i.toString()]} key={list[i.toString()].id}/></p>)
+                cards.push(
+                    <React.Fragment>
+                        <Button.Group>
+                            <Button icon='plus' onClick={(e)=>{this.addList(list[i.toString()])}}/>
+                            <Button icon='minus' onClick={(e)=>{this.subList(list[i.toString()])}}/>
+                        </Button.Group>
+                        <CardModalSearch card={list[i.toString()]} key={list[i.toString()].id}/>
+                    </React.Fragment>
+                )
             }
             else {
-                cards.push(<p align='left'><CardModalSearch card={list[i.toString()]} key={list[i.toString()].id}/></p>)
+                cards.push(
+                    <React.Fragment>
+                        <CardModalSearch card={list[i.toString()]} key={list[i.toString()].id}/>
+                    </React.Fragment>
+                )
             }
         }
         return cards
@@ -79,7 +89,7 @@ class SearchResults extends React.Component{
     render () {
         if (this.props.searchResults) {
         return (
-            <div name='search results'>
+            <div className='search-results'>
                 SEARCH RESULTS
                 <Divider/>
                     {this.renderCards(this.props.searchResults)}
@@ -88,7 +98,7 @@ class SearchResults extends React.Component{
         )}
         else {
             return (
-                <div name='search results'>
+                <div className='search-results'>
                     <Divider/>
                         No Search Results
                     <Divider/>
