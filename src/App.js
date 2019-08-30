@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import './CSS/App.css';
 import { connect } from 'react-redux';
 import { Home, CardSearchPage } from './Pages.js';
@@ -19,9 +19,9 @@ class App extends React.Component {
 
   render () {
     return (
-      <div id='App'>
+      <div id='App' style={{backgroundImage: `url(${this.chooseBackground()})`}}>
         <NavBar/>
-        <div className='content' style={{backgroundImage: `url(${this.chooseBackground()})`}}>
+        <div className='content'>
           <Switch>
             <Route exact path='/' component={Home}/>
             <Route path='/users/new' component={NewUser}/>

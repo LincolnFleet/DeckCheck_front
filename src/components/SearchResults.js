@@ -66,20 +66,26 @@ class SearchResults extends React.Component{
         for (let i=0; i<Object.keys(list).length; i++){
             if (this.props.openDeck) {
                 cards.push(
-                    <React.Fragment>
-                        <Button.Group>
-                            <Button icon='plus' onClick={(e)=>{this.addList(list[i.toString()])}}/>
-                            <Button icon='minus' onClick={(e)=>{this.subList(list[i.toString()])}}/>
-                        </Button.Group>
-                        <CardModalSearch card={list[i.toString()]} key={list[i.toString()].id}/>
-                    </React.Fragment>
+                    <tr>
+                        <td>
+                            <Button.Group>
+                                <Button icon='plus' onClick={(e)=>{this.addList(list[i.toString()])}}/>
+                                <Button icon='minus' onClick={(e)=>{this.subList(list[i.toString()])}}/>
+                            </Button.Group>
+                        </td>
+                        <td>
+                            <CardModalSearch card={list[i.toString()]} key={list[i.toString()].id}/>
+                        </td>
+                    </tr>
                 )
             }
             else {
                 cards.push(
-                    <React.Fragment>
-                        <CardModalSearch card={list[i.toString()]} key={list[i.toString()].id}/>
-                    </React.Fragment>
+                    <tr>
+                        <td>
+                            <CardModalSearch card={list[i.toString()]} key={list[i.toString()].id}/>
+                        </td>
+                    </tr>
                 )
             }
         }
@@ -89,12 +95,13 @@ class SearchResults extends React.Component{
     render () {
         if (this.props.searchResults) {
         return (
-            <div className='search-results'>
-                SEARCH RESULTS
-                <Divider/>
-                    {this.renderCards(this.props.searchResults)}
-                <Divider/>
-            </div>
+            <React.Fragment>
+                <table className='search-results'>
+                    <tbody>
+                        {this.renderCards(this.props.searchResults)}
+                    </tbody>
+                </table>
+            </React.Fragment>
         )}
         else {
             return (

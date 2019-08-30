@@ -50,7 +50,7 @@ class CardSearchForm extends React.Component {
 
     countResults= ()=>{
         if (this.props.responseStats) {
-            return <h5>{this.props.responseStats['total-count'][0]} Match(es) Found</h5>
+            return <h5 className='count-results'>{this.props.responseStats['total-count'][0]} Match(es) Found</h5>
         }
         else {
             return null
@@ -60,28 +60,39 @@ class CardSearchForm extends React.Component {
     render() {
         return (
             <React.Fragment>
+                <h1 className='title'>Card Search</h1>
                 <div className='card-search-form'>
                     <Form onSubmit={(e)=>{this.submitSearch()}}>
-                        CARD SEARCH
-                        <Form.Group width='equal'>
-                            <Input  focus   placeholder='Card Name'             onChange={(e,input)=>{this.setState({name:e.target.value})}}/>
-                            <Select         placeholder='Rarity'                onChange={(e,input)=>{this.setState({rarity:input.value})}}         options={this.props.searchOptions.rarityOptions}/>
-                        </Form.Group>
-                        <Form.Group width='equal'>
-                            <Select         placeholder='Card Color(s)'         onChange={(e,input)=>{this.setState({colorIdentity:input.value})}}  options={this.props.searchOptions.colorOptions}/>
-                            <Select         placeholder='Converted Mana Cost'   onChange={(e,input)=>{this.setState({cmc:input.value})}}            options={this.props.searchOptions.cmcOptions}/>
-                        </Form.Group>
-                        <Form.Group width='equal'>
-                            <Select         placeholder='Type'                  onChange={(e,input)=>{this.setState({types:input.value})}}          options={this.props.searchOptions.typeOptions}/>
-                            <Input          placeholder='Creature Type'         onChange={(e,input)=>{this.setState({subtypes:e.target.value})}}/>
-                        </Form.Group>
-                        <Form.Group width='equal'>
-                            <Select         placeholder='Power'                 onChange={(e,input)=>{this.setState({power:input.value})}}          options={this.props.searchOptions.cmcOptions}/>
-                            <Select         placeholder='Toughness'             onChange={(e,input)=>{this.setState({toughness:input.value})}}      options={this.props.searchOptions.cmcOptions}/>
-                        </Form.Group>
-                        <Form.Group width='equal'>
-                            <Select         placeholder='Results per Page'      onChange={(e,input)=>{this.setState({pageSize:input.value})}}       options={this.props.searchOptions.pageSizes}/>
-                        </Form.Group>
+                        <table>
+                            <tr>
+                                <Input  focus   placeholder='Card Name'             onChange={(e,input)=>{this.setState({name:e.target.value})}}/>
+                            </tr>
+                            <tr>
+                                <Select         placeholder='Rarity'                onChange={(e,input)=>{this.setState({rarity:input.value})}}         options={this.props.searchOptions.rarityOptions}/>
+                            </tr>
+                            <tr>
+                                <Select         placeholder='Card Color(s)'         onChange={(e,input)=>{this.setState({colorIdentity:input.value})}}  options={this.props.searchOptions.colorOptions}/>
+                            </tr>
+                            <tr>
+                                <Select         placeholder='Converted Mana Cost'   onChange={(e,input)=>{this.setState({cmc:input.value})}}            options={this.props.searchOptions.cmcOptions}/>
+                            </tr>
+                            <tr>
+                                <Select         placeholder='Type'                  onChange={(e,input)=>{this.setState({types:input.value})}}          options={this.props.searchOptions.typeOptions}/>
+                            </tr>
+                            <tr>
+                                <Input          placeholder='Creature Type'         onChange={(e,input)=>{this.setState({subtypes:e.target.value})}}/>
+                            </tr>
+                            <tr>
+                                <Select         placeholder='Power'                 onChange={(e,input)=>{this.setState({power:input.value})}}          options={this.props.searchOptions.cmcOptions}/>
+                            </tr>
+                            <tr>
+                                <Select         placeholder='Toughness'             onChange={(e,input)=>{this.setState({toughness:input.value})}}      options={this.props.searchOptions.cmcOptions}/>
+                            </tr>
+                            <tr>
+                                <Select         placeholder='Results per Page'      onChange={(e,input)=>{this.setState({pageSize:input.value})}}       options={this.props.searchOptions.pageSizes}/>
+                            </tr>
+                        </table>
+
                         <Divider/>
                         <Input  type='submit'   value='Search'/>
                         <Input  type='reset'    value='Reset all Fields' onClick={(e)=>{this.resetState()}}/>
@@ -96,8 +107,8 @@ class CardSearchForm extends React.Component {
                         <Button onClick={(e)=>{this.setState({page: this.state.page+1}, ()=>{this.submitSearch()})
                             }}>Next Page</Button>
                     </Button.Group>
-                    {this.countResults()}
                 </div>
+                {this.countResults()}
             </React.Fragment>
         )
     }
