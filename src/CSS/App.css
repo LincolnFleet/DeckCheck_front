@@ -2,7 +2,7 @@
   display: grid;
   width: 100vw;
   height: 100vh;
-  grid-template-rows: 1fr 12fr;
+  grid-template-rows: 1fr 10fr 1fr;
   grid-template-areas: 
   "nav"
   "body";

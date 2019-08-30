@@ -31,6 +31,7 @@ function Home() {
         </div>
     )
 }
+
 const mapStateToProps=(state)=>{
     let props=state.backgrounds
     return props

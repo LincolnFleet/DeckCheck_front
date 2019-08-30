@@ -4,7 +4,7 @@
 import CardContainer    from './components/CardContainer.js';
 import CardModal        from './components/CardModal.js';
 import CardModalSearch  from './components/CardModalSearch.js';
-import CardSearch       from './components/CardSearch.js';
+import CardSearchForm   from './components/CardSearchForm.js';
 import DeckContainer    from './components/DeckContainer.js';
 import DeckExport       from './components/DeckExport.js';
 import DeckForm         from './components/DeckForm.js';
@@ -18,7 +18,7 @@ export {
     CardContainer,
     CardModal,
     CardModalSearch,
-    CardSearch,
+    CardSearchForm,
     DeckContainer,
     DeckExport,
     DeckForm,

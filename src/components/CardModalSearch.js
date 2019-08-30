@@ -11,12 +11,12 @@ export default function CardModalSearch(props) {
             <Modal.Header>{props.card.name}</Modal.Header>
             <Modal.Content image>
                 <Image wrapped size='medium' src={props.card.imageUrl} />
-            <Modal.Description>
-                <Header>{props.card.full_type}, {props.card.manaCost}</Header>
-                <p>{props.card.text}</p>
-                {props.card.power ? <p>{props.card.power}/{props.card.toughness}</p> : ''}
-                <p fontStyle='italic'>{props.card.flavor}</p>
-            </Modal.Description>
+                <Modal.Description>
+                    <Header>{props.card.full_type}, {props.card.manaCost}</Header>
+                    <p>{props.card.text}</p>
+                    {props.card.power ? <p>{props.card.power}/{props.card.toughness}</p> : ''}
+                    <p fontStyle='italic'>{props.card.flavor}</p>
+                </Modal.Description>
             </Modal.Content>
         </Modal>
     )
