@@ -42,6 +42,13 @@ export default function reducerSearchOptions(state={
                 {key:'Black',       text:'Black',       value:'B'},
                 {key:'Colorless',   text:'Colorless',   value:'C'}
             ],
+            gameFormatOptions:[
+                {key:'Standard',    text:'Standard',    value:'Standard'},
+                {key:'Modern',      text:'Modern',      value:'Modern'},
+                {key:'Legacy',      text:'Legacy',      value:'Legacy'},
+                {key:'Classic',     text:'Classic',     value:'Classic'},
+                {key:'Commander',   text:'Commander',   value:'Commander'}
+            ]
         },
 
         responseStats: null

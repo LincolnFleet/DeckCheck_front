@@ -1,28 +1,36 @@
 #App {
-  display: grid;
-  width: 100vw;
-  height: 100vh;
-  grid-template-rows: 1fr 10fr 1fr;
-  grid-template-areas: 
-  "nav"
-  "body";
-}
+  position: relative;
 
-#App .content {
-  grid-area: body;
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center;
+
+  display: grid;
+  grid-template-rows: 8vh minmax(92vh, min-content);
+  grid-template-columns: 100vw;
+}
+
+#App .content {
+  max-height: 100%;
+
+  grid-column: 1;
+  grid-row: 2;
+
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
 }
 
 #App .navbar {
-  grid-area: nav;
+  min-width: 100vmin;
+  grid-column: 1;
+  grid-row: 1;
   background-color: #282c34;
   background-attachment: fixed;
 
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr 1fr;
+  grid-template-columns: 1fr 3fr 3fr 1fr;
   grid-template-areas:
   "logo global registered login"
   ;
@@ -51,6 +59,7 @@
 #App .navbar .login {
   grid-area: login;
   margin: 5%;
+  align-items: center;
   background-color: lightblue;
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
 import './CSS/index.css';
-import App from './App';
+import App from './App.js';
 import * as serviceWorker from './serviceWorker';
 import store from './store';
 import { BrowserRouter as Router } from 'react-router-dom';
