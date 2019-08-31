@@ -1,7 +1,5 @@
 #App {
-  position: absolute;
-  height: 100vh;
-  width: 100vw;
+  position: relative;
 
   background-size: cover;
   background-attachment: fixed;
@@ -9,26 +7,30 @@
   background-position: center;
 
   display: grid;
-  grid-template-columns: [col] 100%;
-  grid-template-rows: repeat(12, [row] 1fr);
+  grid-template-rows: 8vh minmax(92vh, min-content);
+  grid-template-columns: 100vw;
 }
 
 #App .content {
-  grid-column: col 1;
-  grid-row: row 2 / span 11;
-  justify-content: start;
-  align-content: flex-start;
+  max-height: 100%;
+
+  grid-column: 1;
+  grid-row: 2;
+
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
 }
 
 #App .navbar {
   min-width: 100vmin;
-  grid-column: col 1;
-  grid-row: row 1;
+  grid-column: 1;
+  grid-row: 1;
   background-color: #282c34;
   background-attachment: fixed;
 
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr 1fr;
+  grid-template-columns: 1fr 3fr 3fr 1fr;
   grid-template-areas:
   "logo global registered login"
   ;

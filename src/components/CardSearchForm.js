@@ -16,6 +16,7 @@ class CardSearchForm extends React.Component {
             subtypes: '',
             power: '',
             toughness: '',
+            gameFormat: '',
             page: 1,
             pageSize: 10
         }
@@ -31,6 +32,7 @@ class CardSearchForm extends React.Component {
             subtypes: '',
             power: '',
             toughness: '',
+            gameFormat: '',
             page: 1,
             pageSize: 10
         })
@@ -65,31 +67,34 @@ class CardSearchForm extends React.Component {
                     <Form onSubmit={(e)=>{this.submitSearch()}}>
                         <table>
                             <tr>
-                                <Input  focus   placeholder='Card Name'             onChange={(e,input)=>{this.setState({name:e.target.value})}}/>
+                                <Select placeholder='Format' onChange={(e,input)=>{this.setState({gameFormat:input.value})}} options={this.props.searchOptions.gameFormatOptions}/>
                             </tr>
                             <tr>
-                                <Select         placeholder='Rarity'                onChange={(e,input)=>{this.setState({rarity:input.value})}}         options={this.props.searchOptions.rarityOptions}/>
+                                <Input focus placeholder='Card Name' onChange={(e,input)=>{this.setState({name:e.target.value})}}/>
                             </tr>
                             <tr>
-                                <Select         placeholder='Card Color(s)'         onChange={(e,input)=>{this.setState({colorIdentity:input.value})}}  options={this.props.searchOptions.colorOptions}/>
+                                <Select placeholder='Rarity' onChange={(e,input)=>{this.setState({rarity:input.value})}} options={this.props.searchOptions.rarityOptions}/>
                             </tr>
                             <tr>
-                                <Select         placeholder='Converted Mana Cost'   onChange={(e,input)=>{this.setState({cmc:input.value})}}            options={this.props.searchOptions.cmcOptions}/>
+                                <Select placeholder='Card Color(s)' onChange={(e,input)=>{this.setState({colorIdentity:input.value})}} options={this.props.searchOptions.colorOptions}/>
                             </tr>
                             <tr>
-                                <Select         placeholder='Type'                  onChange={(e,input)=>{this.setState({types:input.value})}}          options={this.props.searchOptions.typeOptions}/>
+                                <Select placeholder='Converted Mana Cost' onChange={(e,input)=>{this.setState({cmc:input.value})}} options={this.props.searchOptions.cmcOptions}/>
                             </tr>
                             <tr>
-                                <Input          placeholder='Creature Type'         onChange={(e,input)=>{this.setState({subtypes:e.target.value})}}/>
+                                <Select placeholder='Type' onChange={(e,input)=>{this.setState({types:input.value})}} options={this.props.searchOptions.typeOptions}/>
                             </tr>
                             <tr>
-                                <Select         placeholder='Power'                 onChange={(e,input)=>{this.setState({power:input.value})}}          options={this.props.searchOptions.cmcOptions}/>
+                                <Input placeholder='Creature Type' onChange={(e,input)=>{this.setState({subtypes:e.target.value})}}/>
                             </tr>
                             <tr>
-                                <Select         placeholder='Toughness'             onChange={(e,input)=>{this.setState({toughness:input.value})}}      options={this.props.searchOptions.cmcOptions}/>
+                                <Select placeholder='Power' onChange={(e,input)=>{this.setState({power:input.value})}} options={this.props.searchOptions.cmcOptions}/>
                             </tr>
                             <tr>
-                                <Select         placeholder='Results per Page'      onChange={(e,input)=>{this.setState({pageSize:input.value})}}       options={this.props.searchOptions.pageSizes}/>
+                                <Select placeholder='Toughness' onChange={(e,input)=>{this.setState({toughness:input.value})}} options={this.props.searchOptions.cmcOptions}/>
+                            </tr>
+                            <tr>
+                                <Select placeholder='Results per Page' onChange={(e,input)=>{this.setState({pageSize:input.value})}} options={this.props.searchOptions.pageSizes}/>
                             </tr>
                         </table>
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Divider, Button } from 'semantic-ui-react';
+import { Divider, Button, Image } from 'semantic-ui-react';
 import { CardModalSearch } from '../Components.js';
 
 class SearchResults extends React.Component{
@@ -61,33 +61,54 @@ class SearchResults extends React.Component{
         return this.props.dispatch({type:'REMOVE_CARD', payload:newList})
     }
 
+    // renderCards=(list)=>{
+    //     let cards=[]
+    //     for (let i=0; i<Object.keys(list).length; i++){
+    //         if (this.props.openDeck) {
+    //             cards.push(
+    //                 <div className='item'>
+    //                     <Button.Group>
+    //                         <Button icon='plus' onClick={(e)=>{this.addList(list[i.toString()])}}/>
+    //                         <Button icon='minus' onClick={(e)=>{this.subList(list[i.toString()])}}/>
+    //                     </Button.Group>
+    //                     <CardModalSearch card={list[i.toString()]} key={list[i.toString()].id}/>
+    //                 </div>
+    //             )
+    //         }
+    //         else {
+    //             cards.push(
+    //                 <tr>
+    //                     <td>
+    //                         <CardModalSearch card={list[i.toString()]} key={list[i.toString()].id}/>
+    //                     </td>
+    //                 </tr>
+    //             )
+    //         }
+    //     }
+    //     return cards
+    // }
+
     renderCards=(list)=>{
         let cards=[]
         for (let i=0; i<Object.keys(list).length; i++){
-            if (this.props.openDeck) {
-                cards.push(
-                    <tr>
-                        <td>
-                            <Button.Group>
-                                <Button icon='plus' onClick={(e)=>{this.addList(list[i.toString()])}}/>
-                                <Button icon='minus' onClick={(e)=>{this.subList(list[i.toString()])}}/>
-                            </Button.Group>
-                        </td>
-                        <td>
-                            <CardModalSearch card={list[i.toString()]} key={list[i.toString()].id}/>
-                        </td>
-                    </tr>
-                )
-            }
-            else {
-                cards.push(
-                    <tr>
-                        <td>
-                            <CardModalSearch card={list[i.toString()]} key={list[i.toString()].id}/>
-                        </td>
-                    </tr>
-                )
-            }
+            const card=list[i.toString()]
+            cards.push(
+                <tr className='item'>
+                    <td>
+                        <Image wrapped size='medium' src={card.imageUrl}></Image>
+                    </td>
+                    <td>
+                        <h3>{card.name}</h3>
+                        <div>{card.manaCost}</div>
+                        <div>{card.full_type}</div>
+                    </td>
+                    <td>
+                        {()=>{if (card.power && card.toughness) {return <h4>{card.power + "/" + card.toughness}</h4>}}}
+                        {()=>{if (card.loyalty) {return <h4>{"Loyalty: " + card.loyalty}</h4>}}}
+                        <p>{card.text}</p>
+                    </td>
+                </tr>
+            )
         }
         return cards
     }
@@ -96,11 +117,11 @@ class SearchResults extends React.Component{
         if (this.props.searchResults) {
         return (
             <React.Fragment>
-                <table className='search-results'>
-                    <tbody>
+                <div className='search-results'>
+                    <table>
                         {this.renderCards(this.props.searchResults)}
-                    </tbody>
-                </table>
+                    </table>
+                </div>
             </React.Fragment>
         )}
         else {
