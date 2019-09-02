@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Divider, Button, Image } from 'semantic-ui-react';
+import { Divider, Button, Image, Popup } from 'semantic-ui-react';
 import { CardModalSearch } from '../Components.js';
 
 class SearchResults extends React.Component{
@@ -95,7 +95,11 @@ class SearchResults extends React.Component{
             cards.push(
                 <tr className='item'>
                     <td>
-                        <Image wrapped size='medium' src={card.imageUrl}></Image>
+                        <Popup position='right center' trigger={
+                            <Image size='small' src={card.imageUrl}></Image>
+                        }>
+                            <Image size='big' src={card.imageUrl}></Image>
+                        </Popup>
                     </td>
                     <td>
                         <h3>{card.name}</h3>

@@ -38,7 +38,7 @@ class Login extends React.Component {
         .then(data => {
             if (data.errors) {
                 this.setState({errors: data.errors})
-                alert(data.errors)
+                console.log(data.errors)
             }
             else {
                 this.setState({errors:null})
@@ -81,12 +81,10 @@ class Login extends React.Component {
                     <Modal.Content>
                         <Modal.Description>
                                 <Message style={{color:'red'}}>{this.state.errors}</Message>
-                            <Form style={{display: 'flex', justifyContent: 'space-between'}} onSubmit={()=> {this.submitLogin()}}>
-                                <Form.Group widths='equal'>
-                                    <Divider/>
-                                    <Input  focus   placeholder='Username' onChange={(e)=>{this.setState({username: e.target.value})}}/>
-                                    <Divider/>
-                                    <Input  focus   type='password' placeholder='Password' onChange={(e)=>{this.setState({password: e.target.value})}}/>
+                            <Form style={{display:'flex', justifyContent:'space-between'}} onSubmit={()=> {this.submitLogin()}}>
+                                <Form.Group inline widths='equal'>
+                                    <Input  fluid focus   placeholder='Username' onChange={(e)=>{this.setState({username: e.target.value})}}/>
+                                    <Input  fluid focus   type='password' placeholder='Password' onChange={(e)=>{this.setState({password: e.target.value})}}/>
                                 </Form.Group>
                                 <Button type='submit' value='submit'>Submit</Button>
                             </Form>
