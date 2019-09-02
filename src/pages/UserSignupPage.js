@@ -1,8 +1,9 @@
 import React from 'react';
 import { Form, Divider, Button, Input } from 'semantic-ui-react';
+import '../CSS/UserSignup.css';
 import DOMAIN from '../API.js';
 
-class NewUser extends React.Component {
+class UserSignup extends React.Component {
     constructor() {
         super()
         this.state= {
@@ -51,25 +52,31 @@ class NewUser extends React.Component {
 
     render() {
         return(
-            <Form onSubmit={()=>{this.submitUser()}} name='new user form'>
-                <Form.Group widths='equal'>
+            <div id='page-layout'>
+                <Form className='user-signup-form' onSubmit={()=>{this.submitUser()}}>
+                    <Form.Group widths='equal'>
+                        <Form.Field>
+                            <Input  fluid focus   placeholder='Username' name='username' onChange={(e)=> {this.setState({username: e.target.value})}}/>
+                        </Form.Field>
+                        {/* <Input  focus   placeholder='Email Address' name='email'/> */}
+                    </Form.Group>
+                    <Form.Group widths='equal'>
+                        <Form.Field>
+                            <Input  fluid focus   type='password' placeholder='Password' name='pw1' onChange={(e)=>{this.setState({pwCheck: e.target.value})}}/>
+                        </Form.Field>
+                        <Form.Field>
+                            <Input  fluid   type='password' placeholder='Confirm Password' name='pw2' onChange={(e)=>{this.setState({password: e.target.value})}}/>
+                        </Form.Field>
+                    </Form.Group>
+                    {/* <Form.Group widths='equal'>
+                        <Input  fluid focus   placeholder='Avatar URL' name='avatar_img' onChange={(e)=>{this.setState({avatar_img:e.target.value})}}/>
+                    </Form.Group> */}
                     <Divider/>
-                        <Input  focus   placeholder='Username' name='username' onChange={(e)=> {this.setState({username: e.target.value})}}/>
-                    {/* <Divider/> */}
-                    {/* <Input  focus   placeholder='Email Address' name='email'/> */}
-                </Form.Group>
-                <Form.Group widths='equal'>
-                        <Input  focus   type='password' placeholder='Password' name='pw1' onChange={(e)=>{this.setState({pwCheck: e.target.value})}}/>
-                        <Input  focus   type='password' placeholder='Confirm Password' name='pw2' onChange={(e)=>{this.setState({password: e.target.value})}}/>
-                </Form.Group>
-                <Form.Group widths='equal'>
-                    <Input  focus   placeholder='Avatar URL' name='avatar_img' onChange={(e)=>{this.setState({avatar_img:e.target.value})}}/>
-                    <Button type='submit' onClick={(e)=>{this.submitUser(e)}}>Submit</Button>
-                </Form.Group>
-                <Divider/>
-            </Form>
+                        <Button type='submit' onClick={(e)=>{this.submitUser(e)}}>Create Account!</Button>
+                </Form>
+            </div>
         )
     }
 }
 
-export default NewUser
+export default UserSignup

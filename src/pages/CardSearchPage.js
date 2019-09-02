@@ -3,7 +3,7 @@ import '../CSS/CardSearch.css';
 import { withRouter } from 'react-router-dom';
 import { CardSearchForm, SearchResults } from '../Components.js';
 
-class CardSearchPage extends React.Component {
+class CardSearch extends React.Component {
     render(){
         return (
             <div id='page-layout'>
@@ -14,4 +14,4 @@ class CardSearchPage extends React.Component {
     }
 }
 
-export default withRouter(CardSearchPage)
+export default withRouter(CardSearch)
