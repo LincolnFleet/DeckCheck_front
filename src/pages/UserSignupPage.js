@@ -24,7 +24,7 @@ class UserSignup extends React.Component {
     }
 
     submitUser= ()=>{
-        if (this.state.pwCheck===this.state.password){
+        if ((this.state.pwCheck===this.state.password)&&(this.state.password!=null)){
             fetch(`${DOMAIN}users`, {
                 method: 'POST',
                 headers: {
@@ -46,40 +46,45 @@ class UserSignup extends React.Component {
             })
         }
         else{
-            this.setState({errors:'Password fields do no match. Please re-enter'})
-            this.setState({pwCheck:null, password:null})
+            this.setState({
+                pwCheck:null, 
+                password:null, 
+                errors:['Password fields do no match. Please re-enter']
+            })
+            console.log(this.state)
         }
     }
 
     render() {
         return(
             <div id='page-layout'>
-                <Form className='user-signup-form' onSubmit={()=>{this.submitUser()}}>
+                <Form className='user-signup-form' onSubmit={()=>{this.submitUser()}} widths='equal'>
 
-                    <Form.Group widths='equal'>
+                    <Form.Group>
                         <Form.Field>
-                            <Input  fluid focus   placeholder='Username' name='username' onChange={(e)=> {this.setState({username: e.target.value})}} autocomplete='username'/>
+                            <Input  fluid focus   placeholder='Username' name='username' onSubmit={(e)=> {this.setState({username: e.target.value})}} autoComplete='username'/>
                         </Form.Field>
                         {/* <Input  focus   placeholder='Email Address' name='email'/> */}
                     </Form.Group>
-                    <Form.Group widths='equal'>
+                    <Form.Group>
                         <Form.Field>
-                            <Input  fluid focus   type='password' placeholder='Password' onChange={(e)=>{this.setState({pwCheck: e.target.value})}} autocomplete='new-password'/>
+                            <Input  fluid focus   type='password' placeholder='Password' name='pw1' onChange={(e)=>{this.setState({pwCheck: e.target.value})}} autoComplete='new-password'/>
                         </Form.Field>
                         <Form.Field>
-                            <Input  fluid   type='password' placeholder='Confirm Password' onChange={(e)=>{this.setState({password: e.target.value})}} autocomplete='new-password'/>
+                            <Input  fluid   type='password' placeholder='Confirm Password' name='pw2' onChange={(e)=>{this.setState({password: e.target.value})}} autoComplete='new-password'/>
                         </Form.Field>
                     </Form.Group>
-                    {/* <Form.Group widths='equal'>
+                    {/* <Form.Group>
                         <Input  fluid focus   placeholder='Avatar URL' name='avatar_img' onChange={(e)=>{this.setState({avatar_img:e.target.value})}}/>
                     </Form.Group> */}
-
-                    <Form.Group>
-                        <Message error fluid hidden={!this.state.errors}>{this.state.errors}</Message>
-                    </Form.Group>
+                        <Form.Group hidden={!this.state.errors}>
+                            <Form.Field>
+                                <Message color='red' hidden={!this.state.errors} list={this.state.errors}/>
+                            </Form.Field>
+                        </Form.Group>
 
                     <Divider/>
-                        <Button type='submit' onClick={(e)=>{this.submitUser(e)}}>Create Account!</Button>
+                    <Button type='submit' onClick={(e)=>{this.submitUser(e)}}>Create Account</Button>
                 </Form>
             </div>
         )

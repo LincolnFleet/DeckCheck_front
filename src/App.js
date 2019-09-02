@@ -28,7 +28,7 @@ class App extends React.Component {
             <Route exact path='/decks' component={MyDecks}/>
             <Route path='/decks/new' component={DeckForm}/>
             <Route path='/login' component={Login}/>
-            <Route component={<h1>404 - Page Not Found</h1>}/>
+            <Route component={()=><h1>404 - Page Not Found</h1>}/>
           </Switch>
         </div> 
       </div>

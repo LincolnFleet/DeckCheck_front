@@ -84,10 +84,10 @@ class Login extends React.Component {
                             <Form widths='equal' onSubmit={()=> {this.submitLogin()}}>
                                 <Form.Group inline>
                                     <Form.Field>
-                                        <Input  fluid focus   placeholder='Username' onChange={(e)=>{this.setState({username: e.target.value})}}/>
+                                        <Input  fluid focus   placeholder='Username' onChange={(e)=>{this.setState({username: e.target.value})}} autoComplete='username'/>
                                     </Form.Field>
                                     <Form.Field>
-                                        <Input  fluid focus   type='password' placeholder='Password' onChange={(e)=>{this.setState({password: e.target.value})}}/>
+                                        <Input  fluid focus   type='password' placeholder='Password' onChange={(e)=>{this.setState({password: e.target.value})}} autoComplete='current-password'/>
                                     </Form.Field>
                                 </Form.Group>
                                 <Button type='submit' value='submit'>Submit</Button>

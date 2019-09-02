@@ -21,6 +21,6 @@
     border-radius: 12px;
 
     display: grid;
-    grid-template: 3/3;
+    grid-template: 6/8;
     padding: 3%;
 }
