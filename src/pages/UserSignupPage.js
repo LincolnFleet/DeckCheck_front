@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Divider, Button, Input } from 'semantic-ui-react';
+import { Form, Divider, Button, Input, Message } from 'semantic-ui-react';
 import '../CSS/UserSignup.css';
 import DOMAIN from '../API.js';
 
@@ -11,6 +11,7 @@ class UserSignup extends React.Component {
             password:null,
             pwCheck:null,
             avatar_img: 'https://i.kfs.io/album/global/38365732,0v1/fit/500x500.jpg',
+            errors:null
         }
     }
 
@@ -34,13 +35,13 @@ class UserSignup extends React.Component {
             .then(resp => resp.json())
             .then(data => {
                 if (data.errors) {
-                    console.log(data.errors)
+                    this.setState({errors:data.errors})
                 }
                 else {
                     localStorage.setItem('AuthToken', data.AuthToken)
                     localStorage.setItem('UserDecks', data.user_decks)
                     this.forceUpdate()
-                    alert('Your account has been created! You are now logged in.')
+                    console.log('Your account has been created! You are now logged in.')
                 }
             })
         }
@@ -54,6 +55,7 @@ class UserSignup extends React.Component {
         return(
             <div id='page-layout'>
                 <Form className='user-signup-form' onSubmit={()=>{this.submitUser()}}>
+
                     <Form.Group widths='equal'>
                         <Form.Field>
                             <Input  fluid focus   placeholder='Username' name='username' onChange={(e)=> {this.setState({username: e.target.value})}}/>
@@ -71,6 +73,10 @@ class UserSignup extends React.Component {
                     {/* <Form.Group widths='equal'>
                         <Input  fluid focus   placeholder='Avatar URL' name='avatar_img' onChange={(e)=>{this.setState({avatar_img:e.target.value})}}/>
                     </Form.Group> */}
+
+                    <Form.Group>
+                        <Message hidden={!this.state.errors}>{this.state.errors}</Message>
+                    </Form.Group>
                     <Divider/>
                         <Button type='submit' onClick={(e)=>{this.submitUser(e)}}>Create Account!</Button>
                 </Form>
