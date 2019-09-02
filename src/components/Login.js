@@ -80,11 +80,15 @@ class Login extends React.Component {
                     <Modal.Header>Please Enter Your Username and Password</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>
-                                <Message style={{color:'red'}}>{this.state.errors}</Message>
-                            <Form style={{display:'flex', justifyContent:'space-between'}} onSubmit={()=> {this.submitLogin()}}>
-                                <Form.Group inline widths='equal'>
-                                    <Input  fluid focus   placeholder='Username' onChange={(e)=>{this.setState({username: e.target.value})}}/>
-                                    <Input  fluid focus   type='password' placeholder='Password' onChange={(e)=>{this.setState({password: e.target.value})}}/>
+                                <Message error hidden={!this.state.errors}>{this.state.errors}</Message>
+                            <Form widths='equal' onSubmit={()=> {this.submitLogin()}}>
+                                <Form.Group inline>
+                                    <Form.Field>
+                                        <Input  fluid focus   placeholder='Username' onChange={(e)=>{this.setState({username: e.target.value})}}/>
+                                    </Form.Field>
+                                    <Form.Field>
+                                        <Input  fluid focus   type='password' placeholder='Password' onChange={(e)=>{this.setState({password: e.target.value})}}/>
+                                    </Form.Field>
                                 </Form.Group>
                                 <Button type='submit' value='submit'>Submit</Button>
                             </Form>
