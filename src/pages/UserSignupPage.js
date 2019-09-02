@@ -46,7 +46,7 @@ class UserSignup extends React.Component {
             })
         }
         else{
-            alert('Password fields do no match. Please re-enter')
+            this.setState({errors:'Password fields do no match. Please re-enter'})
             this.setState({pwCheck:null, password:null})
         }
     }
@@ -58,16 +58,16 @@ class UserSignup extends React.Component {
 
                     <Form.Group widths='equal'>
                         <Form.Field>
-                            <Input  fluid focus   placeholder='Username' name='username' onChange={(e)=> {this.setState({username: e.target.value})}}/>
+                            <Input  fluid focus   placeholder='Username' name='username' onChange={(e)=> {this.setState({username: e.target.value})}} autocomplete='username'/>
                         </Form.Field>
                         {/* <Input  focus   placeholder='Email Address' name='email'/> */}
                     </Form.Group>
                     <Form.Group widths='equal'>
                         <Form.Field>
-                            <Input  fluid focus   type='password' placeholder='Password' name='pw1' onChange={(e)=>{this.setState({pwCheck: e.target.value})}}/>
+                            <Input  fluid focus   type='password' placeholder='Password' onChange={(e)=>{this.setState({pwCheck: e.target.value})}} autocomplete='new-password'/>
                         </Form.Field>
                         <Form.Field>
-                            <Input  fluid   type='password' placeholder='Confirm Password' name='pw2' onChange={(e)=>{this.setState({password: e.target.value})}}/>
+                            <Input  fluid   type='password' placeholder='Confirm Password' onChange={(e)=>{this.setState({password: e.target.value})}} autocomplete='new-password'/>
                         </Form.Field>
                     </Form.Group>
                     {/* <Form.Group widths='equal'>
@@ -75,8 +75,9 @@ class UserSignup extends React.Component {
                     </Form.Group> */}
 
                     <Form.Group>
-                        <Message hidden={!this.state.errors}>{this.state.errors}</Message>
+                        <Message error fluid hidden={!this.state.errors}>{this.state.errors}</Message>
                     </Form.Group>
+
                     <Divider/>
                         <Button type='submit' onClick={(e)=>{this.submitUser(e)}}>Create Account!</Button>
                 </Form>
