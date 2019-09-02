@@ -2,9 +2,11 @@
 // for organization and ease of import
 
 import Home from './pages/HomePage.js';
-import CardSearchPage from './pages/CardSearchPage.js';
+import CardSearch from './pages/CardSearchPage.js';
+import UserSignup from'./pages/UserSignupPage.js';
 
 export {
     Home,
-    CardSearchPage,
+    CardSearch,
+    UserSignup,
 }

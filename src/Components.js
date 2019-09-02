@@ -11,7 +11,6 @@ import DeckForm         from './components/DeckForm.js';
 import Login            from './components/Login.js';
 import MyDecks          from './components/MyDecks.js';
 import NavBar           from './components/NavBar.js';
-import NewUser          from './components/NewUser.js';
 import SearchResults    from './components/SearchResults.js';
 
 export {
@@ -25,6 +24,5 @@ export {
     Login,
     MyDecks,
     NavBar,
-    NewUser,
     SearchResults
 }
