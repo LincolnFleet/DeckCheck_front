@@ -33,7 +33,7 @@ class NewUser extends React.Component {
             .then(resp => resp.json())
             .then(data => {
                 if (data.errors) {
-                    alert(data.errors)
+                    console.log(data.errors)
                 }
                 else {
                     localStorage.setItem('AuthToken', data.AuthToken)
@@ -44,7 +44,7 @@ class NewUser extends React.Component {
             })
         }
         else{
-            alert('Password fields do no match. Please re-enter and try again')
+            alert('Password fields do no match. Please re-enter')
             this.setState({pwCheck:null, password:null})
         }
     }

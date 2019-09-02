@@ -18,7 +18,7 @@
 
     background-color: rgba(0,0,0,0.5);
     border: 3px solid black;
-    border-radius: 1%;
+    border-radius: 12px;
 }
 
 .search-results    {
@@ -33,7 +33,7 @@
     color: blanchedalmond;
     background-color: rgba(0,0,0,0.5);
     border: 3px solid black;
-    border-radius: 2%;
+    border-radius: 12px;
 }
 
 .page-turn  {

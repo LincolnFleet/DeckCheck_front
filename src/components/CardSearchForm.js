@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Select, Divider, Button } from 'semantic-ui-react';
+import { Form, Input, Select, Divider, Button, Dropdown } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import DOMAIN from '../API.js';
 import { SearchResults } from '../Components.js';
@@ -45,7 +45,7 @@ class CardSearchForm extends React.Component {
             body: JSON.stringify(this.state)
         })
         .then(resp => resp.json())
-        .catch(resp => alert(resp.error))
+        .catch(resp => console.log(resp.error))
         .then(data => {console.log('~CARDSEARCH FETCH RESULTS~:',data); return data})
         .then(data => {this.props.dispatch({type: 'UPDATE_RESULTS', payload:data}); this.props.dispatch({type: 'UPDATE_STATS', payload:data})})
     }
@@ -64,43 +64,53 @@ class CardSearchForm extends React.Component {
             <React.Fragment>
                 <h1 className='title'>Card Search</h1>
                 <div className='card-search-form'>
-                    <Form onSubmit={(e)=>{this.submitSearch()}}>
-                        <table>
-                            <tr>
-                                <Select placeholder='Format' onChange={(e,input)=>{this.setState({gameFormat:input.value})}} options={this.props.searchOptions.gameFormatOptions}/>
-                            </tr>
-                            <tr>
-                                <Input focus placeholder='Card Name' onChange={(e,input)=>{this.setState({name:e.target.value})}}/>
-                            </tr>
-                            <tr>
-                                <Select placeholder='Rarity' onChange={(e,input)=>{this.setState({rarity:input.value})}} options={this.props.searchOptions.rarityOptions}/>
-                            </tr>
-                            <tr>
-                                <Select placeholder='Card Color(s)' onChange={(e,input)=>{this.setState({colorIdentity:input.value})}} options={this.props.searchOptions.colorOptions}/>
-                            </tr>
-                            <tr>
-                                <Select placeholder='Converted Mana Cost' onChange={(e,input)=>{this.setState({cmc:input.value})}} options={this.props.searchOptions.cmcOptions}/>
-                            </tr>
-                            <tr>
-                                <Select placeholder='Type' onChange={(e,input)=>{this.setState({types:input.value})}} options={this.props.searchOptions.typeOptions}/>
-                            </tr>
-                            <tr>
-                                <Input placeholder='Creature Type' onChange={(e,input)=>{this.setState({subtypes:e.target.value})}}/>
-                            </tr>
-                            <tr>
-                                <Select placeholder='Power' onChange={(e,input)=>{this.setState({power:input.value})}} options={this.props.searchOptions.cmcOptions}/>
-                            </tr>
-                            <tr>
-                                <Select placeholder='Toughness' onChange={(e,input)=>{this.setState({toughness:input.value})}} options={this.props.searchOptions.cmcOptions}/>
-                            </tr>
-                            <tr>
-                                <Select placeholder='Results per Page' onChange={(e,input)=>{this.setState({pageSize:input.value})}} options={this.props.searchOptions.pageSizes}/>
-                            </tr>
-                        </table>
+                    <Form style={{margin:'2%'}} widths='equal' onSubmit={(e)=>{this.submitSearch()}}>
+                        <Form.Field>
+                            <label style={{color:'blanchedalmond'}}>Format</label>
+                            <Select fluid placeholder='Format' onChange={(e,input)=>{this.setState({gameFormat:input.value})}} options={this.props.searchOptions.gameFormatOptions}/>
+                        </Form.Field>
+                        <Form.Field>
+                            <label style={{color:'blanchedalmond'}}>Card Name</label>
+                            <Input focus fluid placeholder='Case Insensitive' onChange={(e,input)=>{this.setState({name:e.target.value})}}/>
+                        </Form.Field>
+                        <Form.Field>
+                            <label style={{color:'blanchedalmond'}}>Rarity</label>
+                            <Select fluid placeholder='Any' onChange={(e,input)=>{this.setState({rarity:input.value})}} options={this.props.searchOptions.rarityOptions}/>
+                        </Form.Field>
+                        <Form.Field>
+                            <label style={{color:'blanchedalmond'}}>Card Color(s)</label>
+                                <Dropdown fluid multiple selection placeholder='Any' onChange={(e,input)=>{this.setState({colorIdentity:input.value})}} options={this.props.searchOptions.colorOptions}/>
+                        </Form.Field>
+                        <Form.Field>
+                            <label style={{color:'blanchedalmond'}}>Converted Mana Cost</label>
+                            <Select fluid placeholder='Any' onChange={(e,input)=>{this.setState({cmc:input.value})}} options={this.props.searchOptions.cmcOptions}/>
+                        </Form.Field>
+                        <Form.Field>
+                            <label style={{color:'blanchedalmond'}}>Card Type</label>
+                            <Select fluid placeholder='Any' onChange={(e,input)=>{this.setState({types:input.value})}} options={this.props.searchOptions.typeOptions}/>
+                        </Form.Field>
+                        <Form.Field>
+                            <label style={{color:'blanchedalmond'}}>Creature Type</label>
+                            <Input fluid placeholder='Any' onChange={(e,input)=>{this.setState({subtypes:e.target.value})}}/>
+                        </Form.Field>
+                        <Form.Group inline widths='equal'>
+                            <Form.Field>
+                                <Select fluid placeholder='Power' onChange={(e,input)=>{this.setState({power:input.value})}} options={this.props.searchOptions.cmcOptions}/>
+                            </Form.Field>
+                            <label style={{color:'blanchedalmond'}}> / </label>
+                            <Form.Field>
+                                <Select fluid placeholder='Toughness' onChange={(e,input)=>{this.setState({toughness:input.value})}} options={this.props.searchOptions.cmcOptions}/>
+                            </Form.Field>
+                        </Form.Group>
 
                         <Divider/>
-                        <Input  type='submit'   value='Search'/>
-                        <Input  type='reset'    value='Reset all Fields' onClick={(e)=>{this.resetState()}}/>
+                        <Form.Field>
+                            <Select fluid placeholder='Results per Page' onChange={(e,input)=>{this.setState({pageSize:input.value})}} options={this.props.searchOptions.pageSizes}/>
+                        </Form.Field>
+                        <Form.Field inline>
+                            <Input  type='submit'   value='Search'/>
+                            <Input  type='reset'    value='Reset all Fields' onClick={(e)=>{this.resetState()}}/>
+                        </Form.Field>
                     </Form>
                 </div>
                 <div className='page-turn'>
