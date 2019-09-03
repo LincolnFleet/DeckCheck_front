@@ -9,7 +9,7 @@ import DeckContainer    from './components/DeckContainer.js';
 import DeckExport       from './components/DeckExport.js';
 import DeckForm         from './components/DeckForm.js';
 import Login            from './components/Login.js';
-import UserDecks        from './components/UserDecks.js';
+import UserDeckList     from './components/UserDeckList.js';
 import NavBar           from './components/NavBar.js';
 import SearchResults    from './components/SearchResults.js';
 
@@ -22,7 +22,7 @@ export {
     DeckExport,
     DeckForm,
     Login,
-    UserDecks,
+    UserDeckList,
     NavBar,
     SearchResults
 }

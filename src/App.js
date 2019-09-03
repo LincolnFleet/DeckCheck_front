@@ -2,12 +2,16 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './CSS/App.css';
 import { connect } from 'react-redux';
-import { Home, CardSearch, UserSignup } from './Pages.js';
 import {
+  Home,
+  CardSearch,
+  UserSignup,
   UserDecks,
+} from './Pages.js';
+import {
   DeckForm,
   Login,
-  NavBar
+  NavBar,
 } from './Components.js';
 
 class App extends React.Component {
@@ -26,7 +30,7 @@ class App extends React.Component {
             <Route path='/user/new' component={UserSignup}/>
             <Route path='/cards/search' component={CardSearch}/>
             <Route exact path='/user/decks' component={UserDecks}/>
-            <Route path='/deck/new' component={DeckForm}/>
+            <Route path='/user/decks/new' component={DeckForm}/>
             <Route path='/login' component={Login}/>
             <Route component={
               ()=><h3 style={{
