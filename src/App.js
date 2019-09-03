@@ -4,7 +4,7 @@ import './CSS/App.css';
 import { connect } from 'react-redux';
 import { Home, CardSearch, UserSignup } from './Pages.js';
 import {
-  MyDecks,
+  UserDecks,
   DeckForm,
   Login,
   NavBar
@@ -23,12 +23,23 @@ class App extends React.Component {
         <div className='content'>
           <Switch>
             <Route exact path='/' component={Home}/>
-            <Route path='/users/new' component={UserSignup}/>
+            <Route path='/user/new' component={UserSignup}/>
             <Route path='/cards/search' component={CardSearch}/>
-            <Route exact path='/decks' component={MyDecks}/>
-            <Route path='/decks/new' component={DeckForm}/>
+            <Route exact path='/user/decks' component={UserDecks}/>
+            <Route path='/deck/new' component={DeckForm}/>
             <Route path='/login' component={Login}/>
-            <Route component={()=><h1>404 - Page Not Found</h1>}/>
+            <Route component={
+              ()=><h3 style={{
+                justifySelf:'center',
+                backgroundColor:'rgb(256,50,50,0.8)',
+                margin:'5%',
+                maxHeight: 'max-content'
+              }}>
+                  404 - Page Not Found <br/>
+                  The selected URL path is currently unavailable. <br/>
+                  Please try a different page.
+                </h3>
+              }/>
           </Switch>
         </div> 
       </div>

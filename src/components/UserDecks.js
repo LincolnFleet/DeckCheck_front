@@ -11,7 +11,7 @@ import { DeckContainer } from '../Components.js';
 // edit
 // new
 
-class  MyDecks extends React.Component {
+class  UserDecks extends React.Component {
 
     fetchDecks= ()=>{
         fetch(`${DOMAIN}decks`, {
@@ -69,4 +69,4 @@ function mapStateToProps(state){
     return props
 }
 
-export default connect(mapStateToProps)(MyDecks)
+export default connect(mapStateToProps)(UserDecks)
