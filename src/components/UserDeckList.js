@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Divider } from 'semantic-ui-react';
+import { Button, Message, Divider } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import DOMAIN from '../API.js';
 import { DeckContainer } from '../Components.js';
@@ -22,7 +22,7 @@ class  UserDeckList extends React.Component {
             }
         })
         .then(resp => resp.json())
-        .then(data => this.props.dispatch({type:'FETCH_DECKS', payload:data.decks}))
+        .then(data => this.props.dispatch({type:'FETCH_DECKS', payload:data}))
     }
 
     fetchCards= (deck)=>{
@@ -39,15 +39,31 @@ class  UserDeckList extends React.Component {
         .then(() => this.props.dispatch({type:'OPEN_DECK', payload:deck}))
     }
 
+    renderDeckList= ()=>{
+        try {
+            const deckElements=[]
+            this.props.userDecks.deckList.map((deck)=> {
+                deckElements.push( <Button key={deck.id} onClick={(e)=>{this.fetchCards(deck)}}>
+                                        {deck.name}
+                                    </Button>)
+            })
+            return(deckElements)
+        }
+        catch(error) {
+            return(<Message warning>
+                No Saved Decks to Display <br/>
+                Click on the "New Deck" tab above to create one!
+            </Message>)
+        }
+    }
+
     render() {
         if (localStorage.AuthToken) {
             return (
                 <div name='user decks list'>
                     <Button onClick={(e)=>{this.fetchDecks()}}>Refresh List</Button>
                     <Divider/>
-                    {this.props.userDecks.deckList.map(deck => {
-                        return <Button key={deck.id} onClick={(e)=>{this.fetchCards(deck)}}>{deck.name}</Button>
-                    })}
+                    {this.renderDeckList()}
                     <Divider/>
                     <DeckContainer />
                 </div>
@@ -56,7 +72,6 @@ class  UserDeckList extends React.Component {
             return (
                 <div name='unlogged user decks'>
                     <Button onClick={(e)=>{this.fetchDecks()}}>Refresh List</Button>
-                    <Divider/>
                     Please Log In to view your decks
                 </div>
             )
