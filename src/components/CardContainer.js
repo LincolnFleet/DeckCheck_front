@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Divider } from 'semantic-ui-react';
+import { Button, Divider, Message } from 'semantic-ui-react';
 import DOMAIN from '../API.js';
 import { CardModal } from '../Components.js';
 
@@ -73,34 +73,43 @@ class CardContainer extends React.Component {
     }
 
     groupCards(list)    {
-        const groupedCards={
-            Lands:[],
-            Creatures:[],
-            Spells:[],
-            Enchantments:[],
-            Artifacts:[],
-            Planeswalkers:[],
-            Other:[]
-        }
+        const groupedCards=[]
         
+        const Lands=[]
+        const Creatures=[]
+        const Spells=[]
+        const Enchantments=[]
+        const Artifacts=[]
+        const Planeswalkers=[]
+        const Other=[]
+
         list.forEach((card)=> {
             switch (this.categorizeCard(card)) {
                 case 'Land' :
-                    groupedCards.Lands.push(card)
+                    Lands.push(card)
                 case 'Creature' :
-                    groupedCards.Creatures.push(card)
+                    Creatures.push(card)
                 case 'Spell' :
-                    groupedCards.Spells.push(card)
+                    Spells.push(card)
                 case 'Enchantment' :
-                    groupedCards.Enchantments.push(card)
+                    Enchantments.push(card)
                 case 'Artifact' :
-                    groupedCards.Artifacts.push(card)
+                    Artifacts.push(card)
                 case 'Planeswalker' :
-                    groupedCards.Planeswalkers.push(card)
+                    Planeswalkers.push(card)
                 case 'No Category' :
-                    groupedCards.Other.push(card)
+                    Other.push(card)
             }
         })
+        groupedCards.push(
+            {'Lands':Lands},
+            {'Creatures':Creatures},
+            {'Spells':Spells},
+            {'Enchantments':Enchantments},
+            {'Artifacts':Artifacts},
+            {'Planeswalkers':Planeswalkers},
+            {'Other':Other}
+            )
         return groupedCards
     }
 
@@ -110,38 +119,56 @@ class CardContainer extends React.Component {
         else if (card.full_type.match(/Instant/g)) {return 'Spell'}
         else if (card.full_type.match(/Sorcery/g)) {return 'Spell'}
         else if (card.full_type.match(/Enchant/g)) {return 'Enchantment'}
-        else if (card.full_type.match(/Artifact/g && !/Creature/g)) {return 'Artifact'}
+        else if (card.full_type.match('Artifact') && !card.full_type.match('Creature')) {return 'Artifact'}
         else if (card.full_type.match(/Planeswalker/g)) {return 'Planeswalker'}
         else {return 'No Category'}
     }
 
     mapCardsToModal(cards)   {
-        cards.map((card)=>{
-            if (card.quantity > 0) {
-                return <CardModal card={card}/>
-            }
-            else {
-                return null
-            }
-        })
+        return (
+            cards.map((card)=>{
+                if (card.quantity > 0) {
+                    return <CardModal card={card}/>
+                }
+                else {
+                    return null
+                }
+            })
+        )
     }
 
 // generates modal and add/remove buttons for each card in argument (currentDeck state)
 
     renderCards(list) {
         console.log('renderCards groupCards(list)', this.groupCards(list))
-        const groupedElements = this.groupCards(list).map((category, cards) =>{
-            return (
+        // const groupedArray = this.groupCards(list).entries
+        const groupedElements = []
+        try {
+            for (const [category, cards] of this.groupCards(list)) {
+            groupedElements.push(
                 <div className={category}>
                     <div className='category-header' content={category}/>
                     {this.mapCardsToModal(cards)}
                 </div>
+            )}
+        }
+        catch(errors) {
+            console.log('CardContainer renderCards() errors', errors)
+            return (
+                <Message alert>
+                    Something Went Wrong! :( Cannot Display Cards <br/>
+                    Errors echoed to console.
+                </Message>
             )
-        })
-        
+        }
         return groupedElements
     }
 
+    countCards=(list)=>{
+        list.reduce( (acc=0, card)=>{
+            acc += card.quantity
+        })
+    }
 // sends currentDeck state and auth token to back end, returns updated DB list and...
 // sets it to currentDeck state
 
@@ -175,6 +202,7 @@ class CardContainer extends React.Component {
         })
     }
 
+
     render() {
         if (this.props.currentDeck.length > 0){
             return (
@@ -183,6 +211,9 @@ class CardContainer extends React.Component {
                         <Button onClick={(e)=>{this.saveCards()}}>Save Deck</Button>
                         <Button onClick={(e)=>{this.deleteDeck()}}>Delete Deck</Button>
                     </p>
+                    <div className='cards-count'>
+                        {this.countCards(this.props.currentDeck)}
+                    </div>
                     <Divider/>
                     {this.renderCards(this.props.currentDeck)}
                 </div>
