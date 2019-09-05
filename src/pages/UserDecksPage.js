@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../CSS/UserDecks.css'
 import { Tab } from 'semantic-ui-react';
 import {
     UserDeckList,
-    DeckForm
+    DeckForm,
+    CardContainer,
 } from '../Components.js';
 
 
 class UserDecks extends React.Component {
-    state={activeTabIndex:1}
-
 
     tabPanes = ()=>[
         {
@@ -34,6 +33,7 @@ class UserDecks extends React.Component {
                         onTabChange={(e, value)=> this.setState({activeTabIndex:value})}
                     />
                 </div>
+                <CardContainer/>
             </div>
         )
     }

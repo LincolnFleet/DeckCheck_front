@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, Message, Divider } from 'semantic-ui-react';
+import { Button, Message, Divider, Popup } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import DOMAIN from '../API.js';
-import { DeckContainer } from '../Components.js';
+import { CardContainer } from '../Components.js';
 
 // renders list of decks for a particular user
 // shows deck name, color, image?, description?
@@ -43,9 +43,11 @@ class  UserDeckList extends React.Component {
         try {
             const deckElements=[]
             this.props.userDecks.deckList.map((deck)=> {
-                deckElements.push( <Button key={deck.id} onClick={(e)=>{this.fetchCards(deck)}}>
-                                        {deck.name}
-                                    </Button>)
+                deckElements.push(
+                    <Button key={deck.id} onClick={(e)=>{this.fetchCards(deck)}}>
+                        {deck.name} {deck.color}
+                    </Button>
+                )
             })
             return(deckElements)
         }
@@ -60,12 +62,11 @@ class  UserDeckList extends React.Component {
     render() {
         if (localStorage.AuthToken) {
             return (
-                <div name='user decks list'>
+                <div name='user decks list' ref={this.contextRef}>
                     <Button onClick={(e)=>{this.fetchDecks()}}>Refresh List</Button>
                     <Divider/>
                     {this.renderDeckList()}
                     <Divider/>
-                    <DeckContainer />
                 </div>
             )}
         else {

@@ -1,24 +1,25 @@
 import React from 'react';
+import '../CSS/UserDecks.css';
 import { Tab } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { CardContainer } from '../Components.js';
-
-// pane header renders basic details of a deck
-// left column renders CardSearch+SearchResults
-// right column renders CardContainer
 
 class DeckContainer extends React.Component {
 
     render(){
         if (this.props.currentDeck.length > 0){
             return (
-                <div name='selected deck container'>
+                <div className='deck-cards-container'>
                     <CardContainer />
                 </div>
             )
         }
         else {
-            return 'Card Container[Empty]'
+            return (
+                <div className='deck-cards-container'>
+                    'Card Container[Empty]'
+                </div>
+            )
         }
     }
 }
