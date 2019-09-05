@@ -8,14 +8,6 @@ import { connect } from 'react-redux';
 // validations?
 // on submit, redirects to DeckContainer
 
-const colorOptions= [
-    {key:'white',   text:'white',   value:'White'},
-    {key:'blue',    text:'blue',    value:'Blue'},
-    {key:'green',   text:'green',   value:'Green'},
-    {key:'red',     text:'red',     value:'Red'},
-    {key:'black',   text:'black',   value:'Black'}
-];
-
 class DeckForm extends React.Component {
     constructor() {
         super()
@@ -102,7 +94,7 @@ class DeckForm extends React.Component {
 }
 
 function mapStateToProps(state)    {
-    const props= {...state.searchOptions, ...state.userDecks}
+    const props= ({ searchOptions:state.searchOptions, userDecks:state.userDecks })
     return props
 }
 
