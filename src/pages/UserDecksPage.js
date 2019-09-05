@@ -29,7 +29,7 @@ class UserDecks extends React.Component {
                 <div className='decks-tab'>
                     <Tab 
                         panes={this.tabPanes()}
-                        menu={{color:'blue', inverted:true, attached:true}}
+                        menu={{color:'blue', inverted:true, attached:true, tabular:true}}
                         onTabChange={(e, value)=> this.setState({activeTabIndex:value})}
                     />
                 </div>
@@ -40,7 +40,7 @@ class UserDecks extends React.Component {
 }
 
 function mapStateToProps(state) {
-    let props={ userDecks:state.userDecks, currentDeck:state.currentDeck, OpenDeck:state.openDeck }
+    let props={ userDecks:state.userDecks, currentDeck:state.currentDeck, openDeck: state.openDeck }
     return props
 }
 
