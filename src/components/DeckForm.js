@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Form, Input, Select, Divider, TextArea } from 'semantic-ui-react';
+import { Button, Form, Input, Select, Divider, TextArea, Dropdown } from 'semantic-ui-react';
 import DOMAIN from '../API.js';
+import { connect } from 'react-redux';
 
 // renders form and submit for a deck but not for cards in the deck
 // if editing, fields are rendered with preexisting values
@@ -15,13 +16,14 @@ const colorOptions= [
     {key:'black',   text:'black',   value:'Black'}
 ];
 
-export default class DeckForm extends React.Component {
+class DeckForm extends React.Component {
     constructor() {
         super()
         this.state = {
             newDeckName: null,
             newDeckColors: null,
-            newDeckDescription: null
+            newDeckDescription: null,
+            newDeckFormat:null,
         }
     }
 
@@ -45,7 +47,7 @@ export default class DeckForm extends React.Component {
                 body: JSON.stringify({deck: this.cleanState()})
             })
             .then(resp => resp.json())
-            .then(data => console.log('new deck resp', data))
+            .then(data => {this.props.dispatch({type:'ADD_DECK', payload:data})})
         }
         else {
             console.log('not all fields filled', this.state)
@@ -56,16 +58,52 @@ export default class DeckForm extends React.Component {
 
         return (
             <Form onSubmit={this.createDeck} name='deck form'>
-                DECK FORM
                 <Form.Group width='equal'>
-                    <Input  focus name='name' placeholder='Deck Name' onChange={(e,input)=>{this.setState({newDeckName:e.target.value})}}/>
-                    <Select name='colors' placeholder='Deck Color(s)' onChange={(e,input)=>{this.setState({newDeckColors:input.value})}} options={colorOptions}/>
-                    <Divider/>
-                        <TextArea name='description' placeholder='Deck Description (optional)' onChange={(e,input)=>{this.setState({newDeckDescription:e.target.value})}} />
-                    <Divider/>
+                    <Form.Field>
+                        <Input  focus 
+                            name='name'
+                            placeholder='Deck Name'
+                            onChange={(e,input)=>{this.setState({newDeckName:e.target.value})}}
+                        />
+                    </Form.Field>
                 </Form.Group>
+                <Form.Group>
+                    <Form.Field>
+                        <Select fluid
+                            placeholder='Deck Format'
+                            onChange={(e,input)=>{this.setState({newDeckFormat:input.value})}}
+                            options={this.props.searchOptions.gameFormatOptions}
+                        />
+                    </Form.Field>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Field>
+                        <Dropdown fluid multiple selection
+                            placeholder='Deck Color(s)'
+                            onChange={(e,input)=>{this.setState({newDeckColors:input.value})}}
+                            options={this.props.searchOptions.colorOptions}
+                        />
+                    </Form.Field>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Field>
+                        <TextArea
+                            name='description'
+                            placeholder='Deck Description (optional)'
+                            onChange={(e,input)=>{this.setState({newDeckDescription:e.target.value})}}
+                        />
+                    </Form.Field>
+                </Form.Group>
+                <Divider/>
                 <Button type='submit'>Submit</Button>
             </Form>
         )
     }
 }
+
+function mapStateToProps(state)    {
+    const props= {...state.searchOptions, ...state.userDecks}
+    return props
+}
+
+export default connect(mapStateToProps)(DeckForm)
