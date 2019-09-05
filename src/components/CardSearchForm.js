@@ -2,7 +2,6 @@ import React from 'react';
 import { Form, Input, Select, Divider, Button, Dropdown } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import DOMAIN from '../API.js';
-import { SearchResults } from '../Components.js';
 
 class CardSearchForm extends React.Component {
     constructor() {
@@ -67,45 +66,83 @@ class CardSearchForm extends React.Component {
                     <Form style={{margin:'2%'}} widths='equal' onSubmit={(e)=>{this.submitSearch()}}>
                         <Form.Field>
                             <label style={{color:'blanchedalmond'}}>Format</label>
-                            <Select fluid placeholder='Format' onChange={(e,input)=>{this.setState({gameFormat:input.value})}} options={this.props.searchOptions.gameFormatOptions}/>
+                            <Select fluid
+                                placeholder='Format'
+                                onChange={(e,input)=>{this.setState({gameFormat:input.value})}}
+                                options={this.props.searchOptions.gameFormatOptions}
+                            />
                         </Form.Field>
                         <Form.Field>
                             <label style={{color:'blanchedalmond'}}>Card Name</label>
-                            <Input focus fluid placeholder='Case Insensitive' onChange={(e,input)=>{this.setState({name:e.target.value})}}/>
+                            <Input focus fluid 
+                                placeholder='Case Insensitive'
+                                onChange={(e,input)=>{this.setState({name:e.target.value})}}
+                            />
                         </Form.Field>
                         <Form.Field>
                             <label style={{color:'blanchedalmond'}}>Rarity</label>
-                            <Select fluid placeholder='Any' onChange={(e,input)=>{this.setState({rarity:input.value})}} options={this.props.searchOptions.rarityOptions}/>
+                            <Select fluid
+                                placeholder='Any'
+                                onChange={(e,input)=>{this.setState({rarity:input.value})}}
+                                options={this.props.searchOptions.rarityOptions}
+                            />
                         </Form.Field>
                         <Form.Field>
                             <label style={{color:'blanchedalmond'}}>Card Color(s)</label>
-                                <Dropdown fluid multiple selection placeholder='Any' onChange={(e,input)=>{this.setState({colorIdentity:input.value})}} options={this.props.searchOptions.colorOptions}/>
+                                <Dropdown fluid multiple selection
+                                    placeholder='Any'
+                                    onChange={(e,input)=>{this.setState({colorIdentity:input.value})}}
+                                    options={this.props.searchOptions.colorOptions}
+                                />
                         </Form.Field>
                         <Form.Field>
                             <label style={{color:'blanchedalmond'}}>Converted Mana Cost</label>
-                            <Select fluid placeholder='Any' onChange={(e,input)=>{this.setState({cmc:input.value})}} options={this.props.searchOptions.cmcOptions}/>
+                            <Select fluid
+                                placeholder='Any'
+                                onChange={(e,input)=>{this.setState({cmc:input.value})}}
+                                options={this.props.searchOptions.cmcOptions}
+                            />
                         </Form.Field>
                         <Form.Field>
                             <label style={{color:'blanchedalmond'}}>Card Type</label>
-                            <Select fluid placeholder='Any' onChange={(e,input)=>{this.setState({types:input.value})}} options={this.props.searchOptions.typeOptions}/>
+                            <Select fluid
+                                placeholder='Any'
+                                onChange={(e,input)=>{this.setState({types:input.value})}}
+                                options={this.props.searchOptions.typeOptions}
+                            />
                         </Form.Field>
                         <Form.Field>
                             <label style={{color:'blanchedalmond'}}>Creature Type</label>
-                            <Input fluid placeholder='Any' onChange={(e,input)=>{this.setState({subtypes:e.target.value})}}/>
+                            <Input fluid
+                                placeholder='Any'
+                                onChange={(e,input)=>{this.setState({subtypes:e.target.value})}}
+                            />
                         </Form.Field>
                         <Form.Group inline widths='equal'>
                             <Form.Field>
-                                <Select fluid placeholder='Power' onChange={(e,input)=>{this.setState({power:input.value})}} options={this.props.searchOptions.cmcOptions}/>
+                                <Select fluid
+                                    placeholder='Power'
+                                    onChange={(e,input)=>{this.setState({power:input.value})}}
+                                    options={this.props.searchOptions.cmcOptions}
+                                />
                             </Form.Field>
                             <label style={{color:'blanchedalmond'}}> / </label>
                             <Form.Field>
-                                <Select fluid placeholder='Toughness' onChange={(e,input)=>{this.setState({toughness:input.value})}} options={this.props.searchOptions.cmcOptions}/>
+                                <Select fluid
+                                    placeholder='Toughness'
+                                    onChange={(e,input)=>{this.setState({toughness:input.value})}}
+                                    options={this.props.searchOptions.cmcOptions}
+                                />
                             </Form.Field>
                         </Form.Group>
 
                         <Divider/>
                         <Form.Field>
-                            <Select fluid placeholder='Results per Page' onChange={(e,input)=>{this.setState({pageSize:input.value})}} options={this.props.searchOptions.pageSizes}/>
+                            <Select fluid
+                                placeholder='Results per Page'
+                                onChange={(e,input)=>{this.setState({pageSize:input.value})}}
+                                options={this.props.searchOptions.pageSizes}
+                            />
                         </Form.Field>
                         <Form.Field inline>
                             <Input  type='submit'   value='Search'/>
