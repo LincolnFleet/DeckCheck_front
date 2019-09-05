@@ -13,8 +13,8 @@ class NavBar extends React.Component {
     checkLogin= ()=>{
         if (localStorage['AuthToken']) {
             return [
-                <Link to='/decks' className='link'>My Decks</Link>,
-                <Link to='/decks/new' className='link'>New Deck</Link>
+                <Link to='/user/decks' className='link'>My Decks</Link>,
+                <Link to='/user/decks/new' className='link'>New Deck</Link>
             ]
         }
         else {
@@ -32,7 +32,7 @@ class NavBar extends React.Component {
                 </div>
                 <div className='global-user'>
                     <Link to='/cards/search' className='link'>Search Cards</Link>
-                    <Link to='/' className='link'>Search Decks</Link>
+                    <Link to='/decks/search' className='link'>Search Decks</Link>
                 </div>
                 <div className='registered-user'>
                     {this.checkLogin()}

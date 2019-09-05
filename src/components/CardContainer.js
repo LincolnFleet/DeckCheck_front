@@ -72,23 +72,74 @@ class CardContainer extends React.Component {
         return this.props.dispatch({type:'REMOVE_CARD', payload:newList})
     }
 
-// generates modal and add/remove buttons for each card in argument (currentDeck state)
+    groupCards(list)    {
+        const groupedCards={
+            Lands:[],
+            Creatures:[],
+            Spells:[],
+            Enchantments:[],
+            Artifacts:[],
+            Planeswalkers:[],
+            Other:[]
+        }
+        
+        list.forEach((card)=> {
+            switch (this.categorizeCard(card)) {
+                case 'Land' :
+                    groupedCards.Lands.push(card)
+                case 'Creature' :
+                    groupedCards.Creatures.push(card)
+                case 'Spell' :
+                    groupedCards.Spells.push(card)
+                case 'Enchantment' :
+                    groupedCards.Enchantments.push(card)
+                case 'Artifact' :
+                    groupedCards.Artifacts.push(card)
+                case 'Planeswalker' :
+                    groupedCards.Planeswalkers.push(card)
+                case 'No Category' :
+                    groupedCards.Other.push(card)
+            }
+        })
+        return groupedCards
+    }
 
-    renderCards(list) {
-        return list.map(card =>{
+    categorizeCard(card)    {
+        if (card.full_type.match(/Land/g)) {return 'Land'}
+        else if (card.full_type.match(/Creature/g)) {return 'Creature'}
+        else if (card.full_type.match(/Instant/g)) {return 'Spell'}
+        else if (card.full_type.match(/Sorcery/g)) {return 'Spell'}
+        else if (card.full_type.match(/Enchant/g)) {return 'Enchantment'}
+        else if (card.full_type.match(/Artifact/g && !/Creature/g)) {return 'Artifact'}
+        else if (card.full_type.match(/Planeswalker/g)) {return 'Planeswalker'}
+        else {return 'No Category'}
+    }
+
+    mapCardsToModal(cards)   {
+        cards.map((card)=>{
             if (card.quantity > 0) {
-            return (<p align='left' key={card.api_id}>
-                    <Button.Group>
-                        <Button icon='plus' onClick={(e)=>{this.addCardToList(card)}}/>
-                        <Button icon='minus' onClick={(e)=>{this.removeCardFromList(card)}}/>
-                    </Button.Group>
-                    <CardModal card={card}/>
-                    </p>
-            )}
+                return <CardModal card={card}/>
+            }
             else {
                 return null
             }
         })
+    }
+
+// generates modal and add/remove buttons for each card in argument (currentDeck state)
+
+    renderCards(list) {
+        console.log('renderCards groupCards(list)', this.groupCards(list))
+        const groupedElements = this.groupCards(list).map((category, cards) =>{
+            return (
+                <div className={category}>
+                    <div className='category-header' content={category}/>
+                    {this.mapCardsToModal(cards)}
+                </div>
+            )
+        })
+        
+        return groupedElements
     }
 
 // sends currentDeck state and auth token to back end, returns updated DB list and...
@@ -127,20 +178,20 @@ class CardContainer extends React.Component {
     render() {
         if (this.props.currentDeck.length > 0){
             return (
-                <div align='left' name='deck cards container'>
-                    {this.renderCards(this.props.currentDeck)}
-                    <Divider/>
+                <div className='deck-cards-container'>
                     <p align='center'>
                         <Button onClick={(e)=>{this.saveCards()}}>Save Deck</Button>
                         <Button onClick={(e)=>{this.deleteDeck()}}>Delete Deck</Button>
                     </p>
+                    <Divider/>
+                    {this.renderCards(this.props.currentDeck)}
                 </div>
             )
             }
         else {
             return(
-                <div name='deck cards container'>
-                    Cards added to the deck will be displayed here
+                <div className='deck-cards-container'>
+                    This deck currently has no cards!
                 </div>
             )
         }

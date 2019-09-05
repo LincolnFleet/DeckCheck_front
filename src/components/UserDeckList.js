@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, Divider } from 'semantic-ui-react';
+import { Button, Message, Divider, Popup } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import DOMAIN from '../API.js';
-import { DeckContainer } from '../Components.js';
+import { CardContainer } from '../Components.js';
 
 // renders list of decks for a particular user
 // shows deck name, color, image?, description?
@@ -11,7 +11,7 @@ import { DeckContainer } from '../Components.js';
 // edit
 // new
 
-class  UserDecks extends React.Component {
+class  UserDeckList extends React.Component {
 
     fetchDecks= ()=>{
         fetch(`${DOMAIN}decks`, {
@@ -22,7 +22,7 @@ class  UserDecks extends React.Component {
             }
         })
         .then(resp => resp.json())
-        .then(data => this.props.dispatch({type:'FETCH_DECKS', payload:data.decks}))
+        .then(data => this.props.dispatch({type:'FETCH_DECKS', payload:data}))
     }
 
     fetchCards= (deck)=>{
@@ -39,24 +39,40 @@ class  UserDecks extends React.Component {
         .then(() => this.props.dispatch({type:'OPEN_DECK', payload:deck}))
     }
 
+    renderDeckList= ()=>{
+        try {
+            const deckElements=[]
+            this.props.userDecks.deckList.map((deck)=> {
+                deckElements.push(
+                    <Button key={deck.id} onClick={(e)=>{this.fetchCards(deck)}}>
+                        {deck.name} {deck.color}
+                    </Button>
+                )
+            })
+            return(deckElements)
+        }
+        catch(error) {
+            return(<Message warning>
+                No Saved Decks to Display <br/>
+                Click on the "New Deck" tab above to create one!
+            </Message>)
+        }
+    }
+
     render() {
         if (localStorage.AuthToken) {
             return (
-                <div name='user decks list'>
+                <div name='user decks list' ref={this.contextRef}>
                     <Button onClick={(e)=>{this.fetchDecks()}}>Refresh List</Button>
                     <Divider/>
-                    {this.props.userDecks.deckList.map(deck => {
-                        return <Button key={deck.id} onClick={(e)=>{this.fetchCards(deck)}}>{deck.name}</Button>
-                    })}
+                    {this.renderDeckList()}
                     <Divider/>
-                    <DeckContainer />
                 </div>
             )}
         else {
             return (
                 <div name='unlogged user decks'>
                     <Button onClick={(e)=>{this.fetchDecks()}}>Refresh List</Button>
-                    <Divider/>
                     Please Log In to view your decks
                 </div>
             )
@@ -69,4 +85,4 @@ function mapStateToProps(state){
     return props
 }
 
-export default connect(mapStateToProps)(UserDecks)
+export default connect(mapStateToProps)(UserDeckList)
