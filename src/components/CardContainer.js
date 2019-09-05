@@ -86,29 +86,35 @@ class CardContainer extends React.Component {
         list.forEach((card)=> {
             switch (this.categorizeCard(card)) {
                 case 'Land' :
-                    Lands.push(card)
+                    Lands.push(card);
+                    break;
                 case 'Creature' :
-                    Creatures.push(card)
+                    Creatures.push(card);
+                    break;
                 case 'Spell' :
-                    Spells.push(card)
+                    Spells.push(card);
+                    break;
                 case 'Enchantment' :
-                    Enchantments.push(card)
+                    Enchantments.push(card);
+                    break;
                 case 'Artifact' :
-                    Artifacts.push(card)
+                    Artifacts.push(card);
+                    break;
                 case 'Planeswalker' :
-                    Planeswalkers.push(card)
-                case 'No Category' :
-                    Other.push(card)
+                    Planeswalkers.push(card);
+                    break;
+                default :
+                    Other.push(card);
             }
         })
         groupedCards.push(
-            {'Lands':Lands},
-            {'Creatures':Creatures},
-            {'Spells':Spells},
-            {'Enchantments':Enchantments},
-            {'Artifacts':Artifacts},
-            {'Planeswalkers':Planeswalkers},
-            {'Other':Other}
+            {category:'Lands', cards:Lands},
+            {category:'Creatures', cards:Creatures},
+            {category:'Spells', cards:Spells},
+            {category:'Enchantments', cards:Enchantments},
+            {category:'Artifacts', cards:Artifacts},
+            {category:'Planeswalkers', cards:Planeswalkers},
+            {category:'Other', cards:Other}
             )
         return groupedCards
     }
@@ -128,7 +134,7 @@ class CardContainer extends React.Component {
         return (
             cards.map((card)=>{
                 if (card.quantity > 0) {
-                    return <CardModal card={card}/>
+                    return <CardModal card={card} id={card.id}/>
                 }
                 else {
                     return null
@@ -140,17 +146,19 @@ class CardContainer extends React.Component {
 // generates modal and add/remove buttons for each card in argument (currentDeck state)
 
     renderCards(list) {
-        console.log('renderCards groupCards(list)', this.groupCards(list))
-        // const groupedArray = this.groupCards(list).entries
         const groupedElements = []
         try {
-            for (const [category, cards] of this.groupCards(list)) {
-            groupedElements.push(
-                <div className={category}>
-                    <div className='category-header' content={category}/>
-                    {this.mapCardsToModal(cards)}
-                </div>
-            )}
+            this.groupCards(list).map( (cardObj) =>{
+                const [category, cards] = [cardObj.category, cardObj.cards]
+                groupedElements.push(
+                    <div className={category}>
+                        <div className='category-header'>
+                            {category} {this.countCards(cards)}
+                        </div>
+                        {this.mapCardsToModal(cards)}
+                    </div>
+                )
+            })
         }
         catch(errors) {
             console.log('CardContainer renderCards() errors', errors)
@@ -165,9 +173,7 @@ class CardContainer extends React.Component {
     }
 
     countCards=(list)=>{
-        list.reduce( (acc=0, card)=>{
-            acc += card.quantity
-        })
+        return list.reduce((acc, card)=>{return acc + card.quantity}, 0)
     }
 // sends currentDeck state and auth token to back end, returns updated DB list and...
 // sets it to currentDeck state
@@ -212,7 +218,7 @@ class CardContainer extends React.Component {
                         <Button onClick={(e)=>{this.deleteDeck()}}>Delete Deck</Button>
                     </p>
                     <div className='cards-count'>
-                        {this.countCards(this.props.currentDeck)}
+                        Total Cards: {this.countCards(this.props.currentDeck)}
                     </div>
                     <Divider/>
                     {this.renderCards(this.props.currentDeck)}
