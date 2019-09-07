@@ -9,7 +9,6 @@ import {
   UserDecks,
 } from './Pages.js';
 import {
-  DeckForm,
   Login,
   NavBar,
 } from './Components.js';
@@ -30,7 +29,7 @@ class App extends React.Component {
             <Route path='/user/new' component={UserSignup}/>
             <Route path='/cards/search' component={CardSearch}/>
             <Route exact path='/user/decks' component={UserDecks}/>
-            <Route path='/user/decks/new' component={DeckForm}/>
+            <Route path='/user/decks/new' render={(props) => <UserDecks {...props} activeTabIndex={1}/> }/>
             <Route path='/login' component={Login}/>
             <Route component={
               ()=><h3 style={{

@@ -11,6 +11,12 @@ import {
 
 
 class UserDecks extends React.Component {
+    constructor(props)  {
+        super(props);
+        this.state= {
+            activeTabIndex: 0,
+        };
+    };
 
     tabPanes = ()=>[
         {
@@ -21,7 +27,7 @@ class UserDecks extends React.Component {
             menuItem: 'New Deck',
             render: ()=><Tab.Pane> <DeckForm/> </Tab.Pane>
         }
-    ]
+    ];
 
     render() {
         return(
@@ -30,18 +36,19 @@ class UserDecks extends React.Component {
                     <Tab 
                         panes={this.tabPanes()}
                         menu={{color:'blue', inverted:true, attached:true}}
+                        defaultActiveIndex={this.props.activeTabIndex || this.state.activeTabIndex}
                         onTabChange={(e, value)=> this.setState({activeTabIndex:value})}
                     />
                 </div>
                 <CardContainer/>
             </div>
-        )
-    }
-}
+        );
+    };
+};
 
 function mapStateToProps(state) {
     let props={ userDecks:state.userDecks, currentDeck:state.currentDeck, OpenDeck:state.openDeck }
     return props
-}
+};
 
 export default connect(mapStateToProps)(UserDecks)
