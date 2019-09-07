@@ -9,6 +9,10 @@ import {
     CardContainer,
 } from '../Components.js';
 
+// Presents logged-in user with view and create interfaces
+    // for their decks;
+
+// Currently the closest thing a user has to a profile page;
 
 class UserDecks extends React.Component {
     constructor(props)  {
@@ -32,7 +36,7 @@ class UserDecks extends React.Component {
     render() {
         return(
             <div className='layout'>
-                <div className='decks-tab'>
+                <div className='tab'>
                     <Tab 
                         panes={this.tabPanes()}
                         menu={{color:'blue', inverted:true, attached:true}}
@@ -47,8 +51,11 @@ class UserDecks extends React.Component {
 };
 
 function mapStateToProps(state) {
-    let props={ userDecks:state.userDecks, currentDeck:state.currentDeck, OpenDeck:state.openDeck }
-    return props
+    return {
+        userDecks:state.userDecks,
+        currentDeck:state.currentDeck,
+        OpenDeck:state.openDeck
+    };
 };
 
 export default connect(mapStateToProps)(UserDecks)

@@ -4,20 +4,28 @@ import { Button, Divider, Message } from 'semantic-ui-react';
 import DOMAIN from '../API.js';
 import { CardModal } from '../Components.js';
 
-// renders card name, manaCost, quantity for each card in a deck
-// add, remove buttons
-// onClick, renders CardModal
+// Renders card list for a particular deck;
+
+// Render is currently triggered by population of redux store{currentDeck};
+
+// Initial concept of store was rushed and not as streamlined
+    // as it should be, needs to be reorganized after which
+    // this component's render should be controlled by a deck :id;
 
 class CardContainer extends React.Component {
 
-// helper method, checks if target card is already in deck
-
+// helper fn, checks if target card is already in deck;
     found= (target)=>{
         return (this.props.currentDeck.filter(card => card.api_id === target.api_id).length > 0)
     }
 
-// adds or updates target card to currentDeck state
-
+// adds or updates target card in store{currentDeck};
+// MUCH BAD, VERY WOW. NEEDS REFACTOR!!!!!
+    // quantity should be modified with reducer actions
+    // creates new copy of deck list for every card change WHY???
+        // step 1: validate in component, send card w/ new quantity to reducer
+        // step 2: spread currentDeck in store and rewrite indiv card
+        // step 3: rush delivery on copy of "The Complete Dumbass' Guide to Not Being A Dumbass"
     addCardToList= (target)=>{
         let oldList=this.props.currentDeck;
         let newList=[];
@@ -43,8 +51,13 @@ class CardContainer extends React.Component {
         return this.props.dispatch({type:'ADD_CARD', payload:newList})
     }
 
-// removes or updates card from currentDeck state
-
+// removes or updates card from currentDeck state;
+// MUCH BAD, VERY WOW. NEEDS REFACTOR!!!!!
+    // quantity should be modified with reducer actions
+    // creates new copy of deck list for every card change WHY???
+        // step 1: validate in component, send card w/ new quantity to reducer
+        // step 2: spread currentDeck in store and rewrite indiv card
+        // step 3: rush delivery on copy of "The Complete Dumbass' Guide to Not Being A Dumbass"
     removeCardFromList= (target)=>{
         let oldList=this.props.currentDeck;
         let newList=[];
@@ -52,36 +65,38 @@ class CardContainer extends React.Component {
             oldList.map(card => {
                 if (card.api_id === target.api_id){
                     if (card.quantity < 2) {
-                        card.quantity=0
-                        newList.push(card)
+                        card.quantity=0;
+                        newList.push(card);
                     }
                     else {
-                        card.quantity=card.quantity-1
-                        newList.push(card)
+                        card.quantity=card.quantity-1;
+                        newList.push(card);
                     }
                 }
                 else {
-                    newList.push(card)
+                    newList.push(card);
                 }
             })
         }
         else {
             alert('Cannot find that card in deck')
             newList=oldList
-        }
-        return this.props.dispatch({type:'REMOVE_CARD', payload:newList})
+        };
+        return this.props.dispatch({type:'REMOVE_CARD', payload:newList});
     }
 
+
+
     groupCards(list)    {
-        const groupedCards=[]
+        const grouped=[];
         
-        const Lands=[]
-        const Creatures=[]
-        const Spells=[]
-        const Enchantments=[]
-        const Artifacts=[]
-        const Planeswalkers=[]
-        const Other=[]
+        const Lands=[];
+        const Creatures=[];
+        const Spells=[];
+        const Enchantments=[];
+        const Artifacts=[];
+        const Planeswalkers=[];
+        const Other=[];
 
         list.forEach((card)=> {
             switch (this.categorizeCard(card)) {
@@ -105,9 +120,9 @@ class CardContainer extends React.Component {
                     break;
                 default :
                     Other.push(card);
-            }
-        })
-        groupedCards.push(
+            };
+        });
+        grouped.push(
             {category:'Lands', cards:Lands},
             {category:'Creatures', cards:Creatures},
             {category:'Spells', cards:Spells},
@@ -115,35 +130,53 @@ class CardContainer extends React.Component {
             {category:'Artifacts', cards:Artifacts},
             {category:'Planeswalkers', cards:Planeswalkers},
             {category:'Other', cards:Other}
-            )
-        return groupedCards
+            );
+        return grouped;
     }
+
+// delegate fn to check card's data and determine card's main category
+    // cards can have sub-types (ex. 'Creature - Artifact'), so main type
+    // needs to be distilled;
 
     categorizeCard(card)    {
-        if (card.full_type.match(/Land/g)) {return 'Land'}
-        else if (card.full_type.match(/Creature/g)) {return 'Creature'}
-        else if (card.full_type.match(/Instant/g)) {return 'Spell'}
-        else if (card.full_type.match(/Sorcery/g)) {return 'Spell'}
-        else if (card.full_type.match(/Enchant/g)) {return 'Enchantment'}
-        else if (card.full_type.match('Artifact') && !card.full_type.match('Creature')) {return 'Artifact'}
-        else if (card.full_type.match(/Planeswalker/g)) {return 'Planeswalker'}
-        else {return 'No Category'}
+        return  (card.full_type.match(/Land/g)) ? 'Land' :
+                (card.full_type.match(/Creature/g)) ? 'Creature' :
+                (card.full_type.match(/Instant/g || /Sorcery/g)) ? 'Spell' :
+                (card.full_type.match(/Enchant/g)) ? 'Enchantment' :
+                (card.full_type.match(/Artifact/g) &&
+                    !card.full_type.match(/Creature/g)) ? 'Artifact' :
+                (card.full_type.match(/Planeswalker/g)) ? 'Planeswalker' :
+                'No Category';
     }
 
-    mapCardsToModal(cards)   {
+// Below is probably the more correct way of doing this^
+// but it's Saturday and I'm feelin' fancy
+
+    // categorizeCard(card)    {
+    //     if (card.full_type.match(/Land/g)) {return 'Land'}
+    //     else if (card.full_type.match(/Creature/g)) {return 'Creature'}
+    //     else if (card.full_type.match(/Instant/g)) {return 'Spell'}
+    //     else if (card.full_type.match(/Sorcery/g)) {return 'Spell'}
+    //     else if (card.full_type.match(/Enchant/g)) {return 'Enchantment'}
+    //     else if (card.full_type.match(/Artifact/g) && !card.full_type.match(/Creature/g)) {return 'Artifact'}
+    //     else if (card.full_type.match(/Planeswalker/g)) {return 'Planeswalker'}
+    //     else {return 'No Category'};
+    // }
+
+    mapCardsToModals(cards)   {
         return (
             cards.map((card)=>{
                 if (card.quantity > 0) {
-                    return <CardModal card={card} id={card.id}/>
+                    return <CardModal card={card} id={card.id}/>;
                 }
                 else {
-                    return null
-                }
+                    return null;
+                };
             })
-        )
-    }
+        );
+    };
 
-// generates modal and add/remove buttons for each card in argument (currentDeck state)
+// generates modal for each card
 
     renderCards(list) {
         const groupedElements = []
@@ -155,7 +188,7 @@ class CardContainer extends React.Component {
                         <div className='category-header'>
                             {category} {this.countCards(cards)}
                         </div>
-                        {this.mapCardsToModal(cards)}
+                        {this.mapCardsToModals(cards)}
                     </div>
                 )
             })
@@ -172,12 +205,14 @@ class CardContainer extends React.Component {
         return groupedElements
     }
 
+// helper fn, sums .quantity of all card objs
     countCards=(list)=>{
-        return list.reduce((acc, card)=>{return acc + card.quantity}, 0)
-    }
-// sends currentDeck state and auth token to back end, returns updated DB list and...
-// sets it to currentDeck state
+        return list.reduce((acc, card)=>{return acc + card.quantity}, 0);
+    };
 
+// POST to backend which auths/validates,
+    // if successful, responds with saved list and sets store{currentDeck}
+    // if fails, triggers alert with error info
     saveCards= ()=>{
         fetch(`${DOMAIN}submitDeck`, {
             method: 'POST',
@@ -188,12 +223,14 @@ class CardContainer extends React.Component {
             body: JSON.stringify({cards: this.props.currentDeck})
         })
         .then(resp => resp.json())
-        .catch(data => {
-            if (data.errors.length > 0) { return alert(data.errors) }
-        })
-        .then(data => {console.log('save deck return', data.cards); return data} )
-        .then(data => this.props.dispatch({type: 'FETCH_CARDS', payload: data.cards}))
-    }
+        .then(data => {
+            if (data.errors.length > 0) {
+                alert(data.errors);
+            } else {
+                this.props.dispatch({type: 'FETCH_CARDS', payload: data.cards});
+            };
+        });
+    };
 
 // sends delete request using auth token and currentDeck id (openDeck state)
 
@@ -206,11 +243,16 @@ class CardContainer extends React.Component {
             },
             body: JSON.stringify(this.props.openDeck)
         })
-    }
+        .then(data => {
+            if (data.errors.length > 0) {
+                alert(data.errors);
+            };
+        });
+    };
 
 
     render() {
-        if (this.props.currentDeck.length > 0){
+        if (this.props.currentDeck.length > 0) {
             return (
                 <div className='deck-cards-container'>
                     <p align='center'>
@@ -223,9 +265,8 @@ class CardContainer extends React.Component {
                     <Divider/>
                     {this.renderCards(this.props.currentDeck)}
                 </div>
-            )
-            }
-        else {
+            );
+        } else {
             return(
                 <div className='deck-cards-container'>
                     <p align='center'>
@@ -234,14 +275,16 @@ class CardContainer extends React.Component {
                     </p>
                     This deck currently has no cards!
                 </div>
-            )
-        }
-    }
-}
+            );
+        };
+    };
+};
 
 function mapStateToProps(state){
-    let props= {currentDeck: state.currentDeck.currentDeck, openDeck:state.openDeck.openDeck}
-    return props
+    return {
+        currentDeck: state.currentDeck.currentDeck,
+        openDeck: state.openDeck.openDeck
+    };
 }
 
 export default connect(mapStateToProps)(CardContainer)

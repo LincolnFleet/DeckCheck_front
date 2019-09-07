@@ -51,8 +51,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps=(state)=>{
-  let props=state.backgrounds
-  return props
+  return state.backgrounds
 }
 
 export default connect(mapStateToProps)(App)
