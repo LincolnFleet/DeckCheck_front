@@ -1,7 +1,6 @@
 import React from 'react';
-import { Button, Form, Input, Select, Divider, TextArea, Dropdown } from 'semantic-ui-react';
+import { Button, Form, Input, Select, Divider, TextArea } from 'semantic-ui-react';
 import DOMAIN from '../API.js';
-import { connect } from 'react-redux';
 
 // Sits inside tab[1] of UserDecksPage;
 
@@ -10,6 +9,7 @@ import { connect } from 'react-redux';
 // Submit POST's to backend which validates and auths,
     // then fetches user's deck list to trigger hidden
     // re-render of tab[0], UserDeckList;
+
 
 class DeckForm extends React.Component {
     constructor(props) {
@@ -42,7 +42,7 @@ class DeckForm extends React.Component {
                 body: JSON.stringify({deck: this.cleanState()})
             })
             .then(resp => resp.json())
-            .then(data => {this.props.dispatch({type:'ADD_DECK', payload:data})})
+            .then(data => console.log('new deck resp', data))
         }
         else {
             alert('All required fields must be filled!')

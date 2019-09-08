@@ -236,7 +236,7 @@ class CardContainer extends React.Component {
 
     deleteDeck= ()=>{
         fetch(`${DOMAIN}decks`, {
-            method: 'DESTROY',
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 'AuthToken': `${localStorage.AuthToken}`
@@ -269,10 +269,6 @@ class CardContainer extends React.Component {
         } else {
             return(
                 <div className='deck-cards-container'>
-                    <p align='center'>
-                        <Button onClick={(e)=>{this.saveCards()}}>Save Deck</Button>
-                        <Button onClick={(e)=>{this.deleteDeck()}}>Delete Deck</Button>
-                    </p>
                     This deck currently has no cards!
                 </div>
             );
