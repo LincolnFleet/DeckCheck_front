@@ -5,6 +5,8 @@
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center;
+  background-color: rgba(20, 20, 36, 0.50) !important;
+  background-blend-mode: color;
 
   display: grid;
   grid-template-rows: 8vh minmax(92vh, min-content);

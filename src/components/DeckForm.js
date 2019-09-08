@@ -2,28 +2,25 @@ import React from 'react';
 import { Button, Form, Input, Select, Divider, TextArea } from 'semantic-ui-react';
 import DOMAIN from '../API.js';
 
-// renders form and submit for a deck but not for cards in the deck
-// if editing, fields are rendered with preexisting values
-// validations?
-// on submit, redirects to DeckContainer
+// Sits inside tab[1] of UserDecksPage;
 
-const colorOptions= [
-    {key:'white',   text:'white',   value:'White'},
-    {key:'blue',    text:'blue',    value:'Blue'},
-    {key:'green',   text:'green',   value:'Green'},
-    {key:'red',     text:'red',     value:'Red'},
-    {key:'black',   text:'black',   value:'Black'}
-];
+// Renders form for creation of a new deck;
 
-export default class DeckForm extends React.Component {
-    constructor() {
-        super()
+// Submit POST's to backend which validates and auths,
+    // then fetches user's deck list to trigger hidden
+    // re-render of tab[0], UserDeckList;
+
+
+class DeckForm extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {
             newDeckName: null,
             newDeckColors: null,
-            newDeckDescription: null
-        }
-    }
+            newDeckDescription: null,
+            newDeckFormat: null,
+        };
+    };
 
     cleanState= ()=>{
         return {
@@ -31,11 +28,11 @@ export default class DeckForm extends React.Component {
             color: this.state.newDeckColors,
             description: this.state.newDeckDescription,
             user_id: localStorage.AuthToken
-        }
-    }
+        };
+    };
 
     createDeck= ()=>{
-        if (this.state.newDeckColors && this.state.newDeckDescription && this.state.newDeckName) {
+        if (this.state.newDeckColors && this.state.newDeckName && this.state.newDeckFormat) {
             fetch(`${DOMAIN}decks`, {
                 method: 'POST',
                 headers: {
@@ -48,24 +45,69 @@ export default class DeckForm extends React.Component {
             .then(data => console.log('new deck resp', data))
         }
         else {
-            console.log('not all fields filled', this.state)
-        }
-    }
+            alert('All required fields must be filled!')
+        };
+    };
     
     render() {
-
         return (
-            <Form onSubmit={this.createDeck} name='deck form'>
-                DECK FORM
-                <Form.Group width='equal'>
-                    <Input  focus name='name' placeholder='Deck Name' onChange={(e,input)=>{this.setState({newDeckName:e.target.value})}}/>
-                    <Select name='colors' placeholder='Deck Color(s)' onChange={(e,input)=>{this.setState({newDeckColors:input.value})}} options={colorOptions}/>
-                    <Divider/>
-                        <TextArea name='description' placeholder='Deck Description (optional)' onChange={(e,input)=>{this.setState({newDeckDescription:e.target.value})}} />
-                    <Divider/>
+            <Form fluid onSubmit={this.createDeck} name='deck form'>
+                <Form.Group>
+                    <Form.Field>
+                        <Input  focus 
+                            name='name'
+                            placeholder='Deck Name'
+                            onChange={(e,input)=>{
+                                this.setState({newDeckName:e.target.value})
+                            }}
+                        />
+                    </Form.Field>
                 </Form.Group>
+                <Form.Group>
+                    <Form.Field>
+                        <Select
+                            placeholder='Format'
+                            onChange={(e,input)=>{
+                                this.setState({newDeckFormat:input.value})
+                            }}
+                            options={this.props.searchOptions.gameFormatOptions}
+                        />
+                    </Form.Field>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Field>
+                        <Dropdown multiple selection
+                            placeholder='Color(s)'
+                            onChange={(e,input)=>{
+                                this.setState({newDeckColors:input.value})
+                            }}
+                            options={this.props.searchOptions.colorOptions}
+                        />
+                    </Form.Field>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Field>
+                        <TextArea
+                            name='description'
+                            placeholder='Description (optional)'
+                            onChange={(e,input)=>{
+                                this.setState({newDeckDescription: e.target.value})
+                            }}
+                        />
+                    </Form.Field>
+                </Form.Group>
+                <Divider/>
                 <Button type='submit'>Submit</Button>
             </Form>
-        )
-    }
-}
+        );
+    };
+};
+
+function mapStateToProps(state) {
+    return {
+        searchOptions:state.searchOptions,
+        userDecks:state.userDecks
+    };
+};
+
+export default connect(mapStateToProps)(DeckForm);
