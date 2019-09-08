@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Form, Input, Select, Divider, TextArea } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { Button, Form, Input, Select, Divider, TextArea, Dropdown } from 'semantic-ui-react';
 import DOMAIN from '../API.js';
 
 // Sits inside tab[1] of UserDecksPage;
