@@ -28,10 +28,16 @@ class  UserDeckList extends React.Component {
     triggerAccordion = (titleProps)=> {
         console.log('accordion titleProps', titleProps)
         const {index} = titleProps;
+        const {id} = titleProps
         const {activeIndex} = this.state;
-        const newIndex = activeIndex === index ? -1 : index;
     
-        this.setState({activeIndex: newIndex});
+        if (activeIndex === index) {
+            this.setState({activeIndex: -1});
+        } else {
+            this.setState({activeIndex: index})
+            this.fetchCards(id);
+        }
+        console.log(this.state)
     };
 
     fetchDecks= ()=> {
@@ -46,70 +52,74 @@ class  UserDeckList extends React.Component {
         .then(data => this.props.dispatch({type:'FETCH_DECKS', payload:data}));
     };
 
-    fetchCards= (deck)=> {
+    fetchCards= (deckID)=> {
         fetch(`${DOMAIN}cards`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'AuthToken': `${localStorage.AuthToken}`,
-                    'Deck-ID': `${deck.id}`
+                    'Deck-ID': `${deckID}`
                 }
             })
         .then(resp => resp.json())
         .then(data => this.props.dispatch({type:'FETCH_CARDS', payload:data.currentDeck}))
-        .then(() => this.props.dispatch({type:'OPEN_DECK', payload:deck}));
+        // .then(() => this.props.dispatch({type:'OPEN_DECK', payload:deck})); **I don't know why this is here
     };
 
     renderDeckList= ()=> {
         try {
             const deckElements=[];
+            let indexNum=0;
+
             this.props.userDecks.deckList.map((deck)=> {
-                let id=deck.id;
                 let activeIndex=this.state.activeIndex;
 
                 deckElements.push(
                     <React.Fragment>
+
                         <Accordion.Title
-                            active={activeIndex === id}
-                            index={id}
-                            onClick={(e,titleProps)=>{
-                                this.fetchCards(deck);
-                                this.triggerAccordion(titleProps);
-                            }}
+                            id={deck.id}
+                            index={indexNum}
+                            active={activeIndex === deck.id}
+                            onClick={(e,titleProps)=>{this.triggerAccordion(titleProps)}}
                         >
                             <Icon name='dropdown'/>
                             {deck.name} {deck.color}
                         </Accordion.Title>
 
-                        <Accordion.Content active={activeIndex === id}>
-                            <Popup
-                                trigger={<Button content='Edit'/>}
-                                content={'This button will probably do something... later'}
-                                on='click'
-                                position='top right'
-                            />
-                            <Popup
-                                trigger={<Button color='red' content='Delete'/>}
-                                on='click'
-                            >
+                        <Accordion.Content active={activeIndex === indexNum}>
+                            <div id={deck.id}>
                                 <Popup
-                                    trigger={<Button
-                                        color='red'
-                                        content='Confirm Delete'
-                                    />}
+                                    trigger={<Button content='Edit' id={deck.id}/>}
                                     content={'This button will probably do something... later'}
                                     on='click'
                                     position='top right'
                                 />
-                            </Popup>
+                                <Popup
+                                    trigger={<Button color='red' content='Delete' id={deck.id}/>}
+                                    on='click'
+                                >
+                                    <Popup
+                                        trigger={<Button
+                                            color='red'
+                                            content='Confirm Delete'
+                                        />}
+                                        content={'This button will probably do something... later'}
+                                        on='click'
+                                        position='top right'
+                                    />
+                                </Popup>
+                            </div>
                         </Accordion.Content>
 
                     </React.Fragment>
                 );
+                indexNum+=1;
             });
             return(deckElements);
-        }
-        catch(error) {
+
+        } catch(error) {
+            console.log('renderDeckList() catch', error)
             return(<Message warning>
                 No Saved Decks to Display <br/>
                 Click on the "New Deck" tab above to create one!
@@ -125,7 +135,9 @@ class  UserDeckList extends React.Component {
                 <div name='user decks list'>
                     <Button onClick={(e)=>{this.fetchDecks()}}>Refresh List</Button>
                     <Divider/>
-                    <Accordion fluid styled activeIndex={this.state.activeIndex}>
+                    <Accordion fluid styled
+                        activeIndex={this.state.activeIndex}
+                    >
                         {this.renderDeckList()}
                     </Accordion>
                 </div>
