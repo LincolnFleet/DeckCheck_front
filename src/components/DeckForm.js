@@ -28,6 +28,7 @@ class DeckForm extends React.Component {
             name: this.state.newDeckName,
             color: this.state.newDeckColors,
             description: this.state.newDeckDescription,
+            gameFormat: this.state.newDeckFormat,
             user_id: localStorage.AuthToken
         };
     };

@@ -12,6 +12,7 @@ import Login            from './components/Login.js';
 import UserDeckList     from './components/UserDeckList.js';
 import NavBar           from './components/NavBar.js';
 import SearchResults    from './components/SearchResults.js';
+import EditDeckCards    from './components/EditDeckCards.js';
 
 export {
     CardContainer,
@@ -24,5 +25,6 @@ export {
     Login,
     UserDeckList,
     NavBar,
-    SearchResults
+    SearchResults,
+    EditDeckCards,
 }
