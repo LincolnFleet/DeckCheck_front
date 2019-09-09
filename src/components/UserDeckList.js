@@ -76,12 +76,13 @@ class  UserDeckList extends React.Component {
 
                 deckElements.push(
                     <React.Fragment>
-
                         <Accordion.Title
                             id={deck.id}
                             index={indexNum}
                             active={activeIndex === deck.id}
-                            onClick={(e,titleProps)=>{this.triggerAccordion(titleProps)}}
+                            onClick={(e,titleProps)=>{
+                                this.triggerAccordion(titleProps)
+                            }}
                         >
                             <Icon name='dropdown'/>
                             {deck.name} {deck.color}
@@ -89,12 +90,8 @@ class  UserDeckList extends React.Component {
 
                         <Accordion.Content active={activeIndex === indexNum}>
                             <div id={deck.id}>
-                                <Popup
-                                    trigger={<Button content='Edit' id={deck.id}/>}
-                                    content={'This button will probably do something... later'}
-                                    on='click'
-                                    position='top right'
-                                />
+                                    <Button content='Edit' id={deck.id}/>
+
                                 <Popup
                                     trigger={<Button color='red' content='Delete' id={deck.id}/>}
                                     on='click'
@@ -110,8 +107,8 @@ class  UserDeckList extends React.Component {
                                     />
                                 </Popup>
                             </div>
-                        </Accordion.Content>
 
+                        </Accordion.Content>
                     </React.Fragment>
                 );
                 indexNum+=1;
@@ -132,9 +129,15 @@ class  UserDeckList extends React.Component {
 
         if (localStorage.AuthToken) {
             return (
-                <div name='user decks list'>
-                    <Button onClick={(e)=>{this.fetchDecks()}}>Refresh List</Button>
+                <div className='user-decks-list'>
+                    <Button onClick={(e)=>{
+                        this.fetchDecks()
+                    }}>
+                        Refresh List
+                    </Button>
+
                     <Divider/>
+                    
                     <Accordion fluid styled
                         activeIndex={this.state.activeIndex}
                     >
@@ -144,8 +147,7 @@ class  UserDeckList extends React.Component {
             );
         } else {
             return (
-                <div name='unlogged user decks'>
-                    <Button onClick={(e)=>{this.fetchDecks()}}>Refresh List</Button>
+                <div className='user-decks-list'>
                     <Message warning>
                         Please {<Login />} to view your decks
                     </Message>

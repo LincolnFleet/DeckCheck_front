@@ -45,7 +45,6 @@ class CardSearchForm extends React.Component {
             body: JSON.stringify(this.state)
         })
         .then(resp => resp.json())
-        .catch(resp => console.log(resp.error))
         .then(data => {console.log('~CARDSEARCH FETCH RESULTS~:',data); return data})
         .then(data => {this.props.dispatch({type: 'UPDATE_RESULTS', payload:data}); this.props.dispatch({type: 'UPDATE_STATS', payload:data})})
     }
