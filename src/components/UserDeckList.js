@@ -64,6 +64,23 @@ class  UserDeckList extends React.Component {
         // .then(() => this.props.dispatch({type:'OPEN_DECK', payload:deck})); **I don't know why this is here
     };
 
+    // sends delete request using auth token and currentDeck id
+    deleteDeck= (deckID)=>{
+        fetch(`${DOMAIN}decks`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'AuthToken': `${localStorage.AuthToken}`
+            },
+            body: JSON.stringify(deckID)
+        })
+        .then(data => {
+            if (data.errors.length > 0) {
+                alert(data.errors);
+            };
+        });
+    };
+
     renderDeckList= ()=> {
         try {
             const deckElements=[];
@@ -103,6 +120,7 @@ class  UserDeckList extends React.Component {
                                     trigger={<Button
                                         color='red'
                                         content='Confirm Delete'
+                                        onClick={()=>this.deleteDeck(deck.id)}
                                     />}
                                     content={'This button will probably do something... later'}
                                     on='click'

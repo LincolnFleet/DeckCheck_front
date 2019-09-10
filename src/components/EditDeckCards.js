@@ -75,10 +75,32 @@ class EditDeckCards extends React.Component {
         return this.props.dispatch({type:'REMOVE_CARD', payload:newList});
     }
 
+    // POST to backend which auths/validates,
+    // if successful, responds with saved list and sets store{currentDeck}
+    // if fails, triggers alert with error info
+    saveCards= ()=>{
+        fetch(`${DOMAIN}submitDeck`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'AuthToken': `${localStorage.AuthToken}`
+            },
+            body: JSON.stringify({cards: this.props.currentDeck})
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            if (data.errors.length > 0) {
+                alert(data.errors);
+            } else {
+                this.props.dispatch({type: 'FETCH_CARDS', payload: data.cards});
+            };
+        });
+    };
+
     render(){
         return (
             <div className='deck-cards-list'>
-                card container
+
             </div>
         )
     }

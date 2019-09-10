@@ -17,7 +17,7 @@ class DeckContainer extends React.Component {
         else {
             return (
                 <div className='deck-cards-container'>
-                    'Card Container[Empty]'
+                    'No Cards to Show'
                 </div>
             )
         }

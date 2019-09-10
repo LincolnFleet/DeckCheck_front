@@ -5,9 +5,7 @@ import DOMAIN from '../API.js';
 import { CardModal } from '../Components.js';
 
 // Renders card list for a particular deck;
-
 // Render is currently triggered by population of redux store{currentDeck};
-
 // Initial concept of store was rushed and not as streamlined
     // as it should be, needs to be reorganized after which
     // this component's render should be controlled by a deck :id;
@@ -120,54 +118,10 @@ class CardContainer extends React.Component {
         return list.reduce((acc, card)=>{return acc + card.quantity}, 0);
     };
 
-// POST to backend which auths/validates,
-    // if successful, responds with saved list and sets store{currentDeck}
-    // if fails, triggers alert with error info
-    saveCards= ()=>{
-        fetch(`${DOMAIN}submitDeck`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'AuthToken': `${localStorage.AuthToken}`
-            },
-            body: JSON.stringify({cards: this.props.currentDeck})
-        })
-        .then(resp => resp.json())
-        .then(data => {
-            if (data.errors.length > 0) {
-                alert(data.errors);
-            } else {
-                this.props.dispatch({type: 'FETCH_CARDS', payload: data.cards});
-            };
-        });
-    };
-
-// sends delete request using auth token and currentDeck id (openDeck state)
-    deleteDeck= ()=>{
-        fetch(`${DOMAIN}decks`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'AuthToken': `${localStorage.AuthToken}`
-            },
-            body: JSON.stringify(this.props.openDeck)
-        })
-        .then(data => {
-            if (data.errors.length > 0) {
-                alert(data.errors);
-            };
-        });
-    };
-
-
     render() {
         if (this.props.currentDeck.length > 0) {
             return (
                 <div className='deck-cards-container'>
-                    <p align='center'>
-                        <Button onClick={(e)=>{this.saveCards()}}>Save Deck</Button>
-                        <Button onClick={(e)=>{this.deleteDeck()}}>Delete Deck</Button>
-                    </p>
                     <div className='cards-count'>
                         Total Cards: {this.countCards(this.props.currentDeck)}
                     </div>
