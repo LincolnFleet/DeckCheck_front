@@ -14,79 +14,7 @@ import { CardModal } from '../Components.js';
 
 class CardContainer extends React.Component {
 
-// helper fn, checks if target card is already in deck;
-    found= (target)=>{
-        return (this.props.currentDeck.filter(card => card.api_id === target.api_id).length > 0)
-    }
-
-// adds or updates target card in store{currentDeck};
-// MUCH BAD, VERY WOW. NEEDS REFACTOR!!!!!
-    // quantity should be modified with reducer actions
-    // creates new copy of deck list for every card change WHY???
-        // step 1: validate in component, send card w/ new quantity to reducer
-        // step 2: spread currentDeck in store and rewrite indiv card
-        // step 3: rush delivery on copy of "The Complete Dumbass' Guide to Not Being A Dumbass"
-    addCardToList= (target)=>{
-        let oldList=this.props.currentDeck;
-        let newList=[];
-        if (this.found(target)) {
-            oldList.map(card => { 
-                if (card.api_id === target.api_id){
-                    if ( (card.quantity < 4) || (card.supertypes.includes('Basic')) ) {
-                        card.quantity=card.quantity+1
-                        newList.push(card)
-                    }
-                    else {
-                        newList.push(card)
-                    }
-                }
-                else {
-                    newList.push(card)
-                }
-            })
-        }
-        else {
-            newList= oldList.push({...target, quantity:1, deck_id:this.props.openDeck.id})
-        }
-        return this.props.dispatch({type:'ADD_CARD', payload:newList})
-    }
-
-// removes or updates card from currentDeck state;
-// MUCH BAD, VERY WOW. NEEDS REFACTOR!!!!!
-    // quantity should be modified with reducer actions
-    // creates new copy of deck list for every card change WHY???
-        // step 1: validate in component, send card w/ new quantity to reducer
-        // step 2: spread currentDeck in store and rewrite indiv card
-        // step 3: rush delivery on copy of "The Complete Dumbass' Guide to Not Being A Dumbass"
-    removeCardFromList= (target)=>{
-        let oldList=this.props.currentDeck;
-        let newList=[];
-        if (this.found(target)) {
-            oldList.map(card => {
-                if (card.api_id === target.api_id){
-                    if (card.quantity < 2) {
-                        card.quantity=0;
-                        newList.push(card);
-                    }
-                    else {
-                        card.quantity=card.quantity-1;
-                        newList.push(card);
-                    }
-                }
-                else {
-                    newList.push(card);
-                }
-            })
-        }
-        else {
-            alert('Cannot find that card in deck')
-            newList=oldList
-        };
-        return this.props.dispatch({type:'REMOVE_CARD', payload:newList});
-    }
-
-
-
+// categorizes cards by full_type, returns [{ category:'', cards:[{cards}] }]
     groupCards(list)    {
         const grouped=[];
         
@@ -134,34 +62,18 @@ class CardContainer extends React.Component {
         return grouped;
     }
 
-// delegate fn to check card's data and determine card's main category
+// helper fn to determine a card's main category
     // cards can have sub-types (ex. 'Creature - Artifact'), so main type
     // needs to be distilled;
-
     categorizeCard(card)    {
         return  (card.full_type.match(/Land/g)) ? 'Land' :
                 (card.full_type.match(/Creature/g)) ? 'Creature' :
                 (card.full_type.match(/Instant/g || /Sorcery/g)) ? 'Spell' :
                 (card.full_type.match(/Enchant/g)) ? 'Enchantment' :
-                (card.full_type.match(/Artifact/g) &&
-                    !card.full_type.match(/Creature/g)) ? 'Artifact' :
+                (card.full_type.match(/Artifact/g) && !card.full_type.match(/Creature/g)) ? 'Artifact' :
                 (card.full_type.match(/Planeswalker/g)) ? 'Planeswalker' :
                 'No Category';
     }
-
-// Below is probably the more correct way of doing this^
-// but it's Saturday and I'm feelin' fancy
-
-    // categorizeCard(card)    {
-    //     if (card.full_type.match(/Land/g)) {return 'Land'}
-    //     else if (card.full_type.match(/Creature/g)) {return 'Creature'}
-    //     else if (card.full_type.match(/Instant/g)) {return 'Spell'}
-    //     else if (card.full_type.match(/Sorcery/g)) {return 'Spell'}
-    //     else if (card.full_type.match(/Enchant/g)) {return 'Enchantment'}
-    //     else if (card.full_type.match(/Artifact/g) && !card.full_type.match(/Creature/g)) {return 'Artifact'}
-    //     else if (card.full_type.match(/Planeswalker/g)) {return 'Planeswalker'}
-    //     else {return 'No Category'};
-    // }
 
     mapCardsToModals(cards)   {
         return (
@@ -177,7 +89,6 @@ class CardContainer extends React.Component {
     };
 
 // generates modal for each card
-
     renderCards(list) {
         const groupedElements = []
         try {
@@ -192,11 +103,10 @@ class CardContainer extends React.Component {
                     </div>
                 )
             })
-        }
-        catch(errors) {
+        } catch(errors) {
             console.log('CardContainer renderCards() errors', errors)
             return (
-                <Message alert>
+                <Message error>
                     Something Went Wrong! :( Cannot Display Cards <br/>
                     Errors echoed to console.
                 </Message>
@@ -205,7 +115,7 @@ class CardContainer extends React.Component {
         return groupedElements
     }
 
-// helper fn, sums .quantity of all card objs
+// helper fn, sums .quantity of all card objs in given list
     countCards=(list)=>{
         return list.reduce((acc, card)=>{return acc + card.quantity}, 0);
     };
@@ -233,7 +143,6 @@ class CardContainer extends React.Component {
     };
 
 // sends delete request using auth token and currentDeck id (openDeck state)
-
     deleteDeck= ()=>{
         fetch(`${DOMAIN}decks`, {
             method: 'DELETE',

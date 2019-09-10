@@ -22,6 +22,12 @@ class CardSearchForm extends React.Component {
         }
     }
 
+    componentDidMount() {
+        if (this.props.deckFormat) {
+            this.setState({gameFormat: this.props.deckFormat})
+        }
+    }
+
     resetState=()=>{
         this.setState({
             name: '',
@@ -58,16 +64,24 @@ class CardSearchForm extends React.Component {
         }
     }
 
+    renderBasedOnParent= (parent, elements)=>{
+        if (this.props.parentPage === parent) {
+            return elements
+        }
+    }
+
     render() {
         return (
             <React.Fragment>
                 <h1 className='title'>Card Search</h1>
                 <div className='card-search-form'>
                     <Form style={{margin:'2%'}} widths='equal' onSubmit={(e)=>{this.submitSearch()}}>
-                        <Form.Field>
-                            <label style={{color:'blanchedalmond'}}>Format</label>
-                            <Select fluid placeholder='Format' onChange={(e,input)=>{this.setState({gameFormat:input.value})}} options={this.props.searchOptions.gameFormatOptions}/>
-                        </Form.Field>
+                        {this.renderBasedOnParent('search', 
+                            <Form.Field>
+                                <label style={{color:'blanchedalmond'}}>Format</label>
+                                <Select fluid placeholder='Format' onChange={(e,input)=>{this.setState({gameFormat:input.value})}} options={this.props.searchOptions.gameFormatOptions}/>
+                            </Form.Field>
+                        )}
                         <Form.Field>
                             <label style={{color:'blanchedalmond'}}>Card Name</label>
                             <Input focus fluid placeholder='Case Insensitive' onChange={(e,input)=>{this.setState({name:e.target.value})}}/>

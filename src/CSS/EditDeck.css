@@ -1,0 +1,31 @@
+.ui.segment {
+    background: transparent;
+}
+
+#edit-deck-page {
+    grid-column: 1;
+    grid-row: 1;
+
+    min-height: 100%;
+    min-width: 100%;
+
+    display: grid;
+    grid-template-rows: min-content min-content auto;
+    grid-template-columns: repeat(8, 1fr);
+    margin: 2%;
+    gap: 5px;
+}
+
+#edit-deck-page .search-results {
+    grid-column: 1/4;
+    grid-row: 1/-1;
+    
+    max-height: initial;
+}
+
+#edit-deck-page .deck-cards-list    {
+    grid-column: 4/-1;
+    grid-row: 1/-1;
+
+    max-height: 100vh;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Message, Divider, Accordion, Popup, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import DOMAIN from '../API.js';
 import { 
@@ -8,11 +9,8 @@ import {
 } from '../Components.js';
 
 // Sits inside tab[0] of UserDecksPage;
-
 // Presents full list of decks created by user;
-
 // Presents CRUD actions per-deck;
-
 // Deck onClick fetches card list to CurrentDeck store,
     // which hydrates tab sibling CardContainer;
 
@@ -49,7 +47,7 @@ class  UserDeckList extends React.Component {
             }
         })
         .then(resp => resp.json())
-        .then(data => this.props.dispatch({type:'FETCH_DECKS', payload:data}));
+        .then(data => this.props.dispatch({type: 'FETCH_DECKS', payload: data}));
     };
 
     fetchCards= (deckID)=> {
@@ -73,13 +71,14 @@ class  UserDeckList extends React.Component {
 
             this.props.userDecks.deckList.map((deck)=> {
                 let activeIndex=this.state.activeIndex;
+                console.log('userdecklist.js 74 renderDeckList deck obj', deck)
 
                 deckElements.push(
                     <React.Fragment>
                         <Accordion.Title
                             id={deck.id}
                             index={indexNum}
-                            active={activeIndex === deck.id}
+                            active={activeIndex === indexNum}
                             onClick={(e,titleProps)=>{
                                 this.triggerAccordion(titleProps)
                             }}
@@ -89,32 +88,33 @@ class  UserDeckList extends React.Component {
                         </Accordion.Title>
 
                         <Accordion.Content active={activeIndex === indexNum}>
-                            <div id={deck.id}>
-                                    <Button content='Edit' id={deck.id}/>
+                            <Link to={{
+                                pathname:'/user/decks/edit',
+                                state:{selectedDeck: deck}
+                            }}>
+                                <Button content='Edit'/>
+                            </Link>
 
+                            <Popup
+                                trigger={<Button color='red' content='Delete' id={deck.id}/>}
+                                on='click'
+                            >
                                 <Popup
-                                    trigger={<Button color='red' content='Delete' id={deck.id}/>}
+                                    trigger={<Button
+                                        color='red'
+                                        content='Confirm Delete'
+                                    />}
+                                    content={'This button will probably do something... later'}
                                     on='click'
-                                >
-                                    <Popup
-                                        trigger={<Button
-                                            color='red'
-                                            content='Confirm Delete'
-                                        />}
-                                        content={'This button will probably do something... later'}
-                                        on='click'
-                                        position='top right'
-                                    />
-                                </Popup>
-                            </div>
-
+                                    position='top right'
+                                />
+                            </Popup>
                         </Accordion.Content>
                     </React.Fragment>
                 );
                 indexNum+=1;
             });
             return(deckElements);
-
         } catch(error) {
             console.log('renderDeckList() catch', error)
             return(<Message warning>

@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import '../CSS/CardSearch.css';
 import { connect } from 'react-redux';
 import { Divider, Button, Image, Popup, Message } from 'semantic-ui-react';
 import { CardModalSearch } from '../Components.js';
