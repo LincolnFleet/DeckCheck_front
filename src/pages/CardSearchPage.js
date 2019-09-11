@@ -6,9 +6,9 @@ import { CardSearchForm, SearchResults } from '../Components.js';
 class CardSearch extends React.Component {
     render(){
         return (
-            <div id='page-layout'>
-                <CardSearchForm/>
-                <SearchResults/>
+            <div id='card-search-page'>
+                <CardSearchForm parentPage={'search'}/>
+                <SearchResults parentPage={'search'}/>
             </div>
         )
     }

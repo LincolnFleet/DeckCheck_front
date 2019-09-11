@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import '../CSS/CardSearch.css';
+import '../CSS/EditDeck.css';
 import { connect } from 'react-redux';
 import { Divider, Button, Image, Popup, Message } from 'semantic-ui-react';
 import { CardModalSearch } from '../Components.js';
@@ -18,75 +20,30 @@ class SearchResults extends React.Component{
                     if ( (card.quantity < 4) || (card.supertypes.includes('Basic')) ){
                         card.quantity=card.quantity+1
                         newList.push(card)
-                    }
-                    else {
+                    } else {
                         newList.push(card)
-                    }
-                }
-                else {
+                    };
+                } else {
                     newList.push(card)
-                }
-            })
-        }
-        else {
-            newList= [...oldList, {...target, quantity:1, deck_id:this.props.openDeck.id}]
-        }
-        return this.props.dispatch({type:'ADD_CARD', payload:newList})
-    }
+                };
+            });
+        } else {
+            newList= [...oldList, {...target, quantity:1, deck_id:this.props.openDeck.id}];
+        };
+        return this.props.dispatch({type:'ADD_CARD', payload:newList});
+    };
 
-    subList= (target)=>{
-        let oldList=this.props.currentDeck;
-        let newList=[];
-        if (this.found(oldList, target)) {
-            oldList.map(card => {
-                if (card.api_id === target.api_id){
-                    if (card.quantity < 2) {
-                        card.quantity=0
-                        newList.push(card)
-                    }
-                    else {
-                        card.quantity=card.quantity-1
-                        newList.push(card)
-                    }
-                }
-                else {
-                    newList.push(card)
-                }
-            })
-        }
-        else {
-            alert('Cannot find that card in deck')
-            newList=oldList
-        }
-        return this.props.dispatch({type:'REMOVE_CARD', payload:newList})
-    }
-
-    // renderCards=(list)=>{
-    //     let cards=[]
-    //     for (let i=0; i<Object.keys(list).length; i++){
-    //         if (this.props.openDeck) {
-    //             cards.push(
-    //                 <div className='item'>
-    //                     <Button.Group>
-    //                         <Button icon='plus' onClick={(e)=>{this.addList(list[i.toString()])}}/>
-    //                         <Button icon='minus' onClick={(e)=>{this.subList(list[i.toString()])}}/>
-    //                     </Button.Group>
-    //                     <CardModalSearch card={list[i.toString()]} key={list[i.toString()].id}/>
-    //                 </div>
-    //             )
-    //         }
-    //         else {
-    //             cards.push(
-    //                 <tr>
-    //                     <td>
-    //                         <CardModalSearch card={list[i.toString()]} key={list[i.toString()].id}/>
-    //                     </td>
-    //                 </tr>
-    //             )
-    //         }
-    //     }
-    //     return cards
-    // }
+    quantityChangeButton(card) {
+        if (this.props.parentPage==='edit') {
+            return (
+                <td>
+                    <Button icon='plus' onClick={(e)=>{this.addList(card.api_id)}}/>
+                </td>
+            );
+        } else {
+            return null;
+        };
+    };
 
     renderCards=(list)=>{
         let cards=[]
@@ -112,12 +69,13 @@ class SearchResults extends React.Component{
                             {()=>{if (card.loyalty) {return <h4>{"Loyalty: " + card.loyalty}</h4>}}}
                             <p>{card.text}</p>
                         </td>
+                        {this.quantityChangeButton(card)}
                     </tr>
-                )
-            }
-            return cards
+                );
+            };
+            return cards;
         } catch (errors) { 
-            console.log("Render search results Errors:", errors)
+            console.log("Render search results Errors:", errors);
             return (
             <Message error>
                 Search attempt failed. <br/>
@@ -125,8 +83,8 @@ class SearchResults extends React.Component{
                 If this is the case, the search functionality will be inoperable until our server is reset. <br/>
                 We appologize for the inconvenience.
             </Message>
-        )}
-    }
+        )};
+    };
 
     render () {
         if (this.props.searchResults) {
@@ -136,7 +94,7 @@ class SearchResults extends React.Component{
                         {this.renderCards(this.props.searchResults)}
                     </table>
                 </div>
-            )
+            );
         } else {
             return (
                 <div className='search-results'>
@@ -144,10 +102,10 @@ class SearchResults extends React.Component{
                         No Search Results
                     <Divider/>
                 </div>
-            )
-        }
-    }
-}
+            );
+        };
+    };
+};
 
 const mapStateToProps=(state)=> {
     let props= {searchResults: state.cardSearch.searchResults, currentDeck: state.currentDeck.currentDeck, openDeck: state.openDeck.openDeck}

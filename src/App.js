@@ -7,6 +7,7 @@ import {
   CardSearch,
   UserSignup,
   UserDecks,
+  EditDeck,
 } from './Pages.js';
 import {
   Login,
@@ -31,6 +32,7 @@ class App extends React.Component {
             <Route exact path='/user/decks' component={UserDecks}/>
             <Route path='/user/decks/new' render={(props) => <UserDecks {...props} activeTabIndex={1}/> }/>
             <Route path='/login' component={Login}/>
+            <Route path='/user/decks/edit' component={EditDeck}/>
             <Route component={
               ()=><h3 style={{
                 justifySelf:'center',

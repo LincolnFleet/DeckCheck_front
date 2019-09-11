@@ -35,7 +35,7 @@ class UserDecks extends React.Component {
 
     render() {
         return(
-            <div className='layout'>
+            <div id='user-decks-page'>
                 <div className='tab'>
                     <Tab 
                         panes={this.tabPanes()}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Message, Divider, Accordion, Popup, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import DOMAIN from '../API.js';
 import { 
@@ -8,11 +9,8 @@ import {
 } from '../Components.js';
 
 // Sits inside tab[0] of UserDecksPage;
-
 // Presents full list of decks created by user;
-
 // Presents CRUD actions per-deck;
-
 // Deck onClick fetches card list to CurrentDeck store,
     // which hydrates tab sibling CardContainer;
 
@@ -49,7 +47,7 @@ class  UserDeckList extends React.Component {
             }
         })
         .then(resp => resp.json())
-        .then(data => this.props.dispatch({type:'FETCH_DECKS', payload:data}));
+        .then(data => this.props.dispatch({type: 'FETCH_DECKS', payload: data}));
     };
 
     fetchCards= (deckID)=> {
@@ -66,6 +64,23 @@ class  UserDeckList extends React.Component {
         // .then(() => this.props.dispatch({type:'OPEN_DECK', payload:deck})); **I don't know why this is here
     };
 
+    // sends delete request using auth token and currentDeck id
+    deleteDeck= (deckID)=>{
+        fetch(`${DOMAIN}decks`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'AuthToken': `${localStorage.AuthToken}`
+            },
+            body: JSON.stringify(deckID)
+        })
+        .then(data => {
+            if (data.errors.length > 0) {
+                alert(data.errors);
+            };
+        });
+    };
+
     renderDeckList= ()=> {
         try {
             const deckElements=[];
@@ -73,13 +88,14 @@ class  UserDeckList extends React.Component {
 
             this.props.userDecks.deckList.map((deck)=> {
                 let activeIndex=this.state.activeIndex;
+                console.log('userdecklist.js 74 renderDeckList deck obj', deck)
 
                 deckElements.push(
                     <React.Fragment>
                         <Accordion.Title
                             id={deck.id}
                             index={indexNum}
-                            active={activeIndex === deck.id}
+                            active={activeIndex === indexNum}
                             onClick={(e,titleProps)=>{
                                 this.triggerAccordion(titleProps)
                             }}
@@ -89,8 +105,13 @@ class  UserDeckList extends React.Component {
                         </Accordion.Title>
 
                         <Accordion.Content active={activeIndex === indexNum}>
-                            <div id={deck.id}>
-                                    <Button content='Edit' id={deck.id}/>
+                            <div>
+                                <Link to={{
+                                    pathname:'/user/decks/edit',
+                                    state:{selectedDeck: deck}
+                                }}>
+                                    <Button content='Edit'/>
+                                </Link>
 
                                 <Popup
                                     trigger={<Button color='red' content='Delete' id={deck.id}/>}
@@ -100,6 +121,7 @@ class  UserDeckList extends React.Component {
                                         trigger={<Button
                                             color='red'
                                             content='Confirm Delete'
+                                            onClick={()=>this.deleteDeck(deck.id)}
                                         />}
                                         content={'This button will probably do something... later'}
                                         on='click'
@@ -107,14 +129,12 @@ class  UserDeckList extends React.Component {
                                     />
                                 </Popup>
                             </div>
-
                         </Accordion.Content>
                     </React.Fragment>
                 );
                 indexNum+=1;
             });
             return(deckElements);
-
         } catch(error) {
             console.log('renderDeckList() catch', error)
             return(<Message warning>
@@ -130,11 +150,7 @@ class  UserDeckList extends React.Component {
         if (localStorage.AuthToken) {
             return (
                 <div className='user-decks-list'>
-                    <Button onClick={(e)=>{
-                        this.fetchDecks()
-                    }}>
-                        Refresh List
-                    </Button>
+                    <Button onClick={(e)=>{this.fetchDecks()}} content={'Refresh List'}/>
 
                     <Divider/>
                     
