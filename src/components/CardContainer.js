@@ -95,8 +95,8 @@ class CardContainer extends React.Component {
         if (this.props.parentPage==='edit') {
             return (
                 <Button.Group>
-                    <Button icon='plus' onClick={(e)=>{this.addList(card.api_id)}}/>
-                    <Button icon='minus' onClick={(e)=>{this.subList(card.api_id)}}/>
+                    <Button compact icon='plus' onClick={(e)=>{this.addList(card.api_id)}}/>
+                    <Button compact icon='minus' onClick={(e)=>{this.subList(card.api_id)}}/>
                 </Button.Group>
             );
         } else {

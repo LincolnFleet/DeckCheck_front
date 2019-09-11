@@ -3,7 +3,6 @@ import '../CSS/CardSearch.css';
 import '../CSS/EditDeck.css';
 import { connect } from 'react-redux';
 import { Divider, Button, Image, Popup, Message } from 'semantic-ui-react';
-import { CardModalSearch } from '../Components.js';
 
 class SearchResults extends React.Component{
 
@@ -108,8 +107,11 @@ class SearchResults extends React.Component{
 };
 
 const mapStateToProps=(state)=> {
-    let props= {searchResults: state.cardSearch.searchResults, currentDeck: state.currentDeck.currentDeck, openDeck: state.openDeck.openDeck}
-    return props
+    return {
+        searchResults: state.cardSearch.searchResults,
+        currentDeck: state.currentDeck.currentDeck,
+        openDeck: state.openDeck.openDeck
+    }
 }
 
 export default connect(mapStateToProps)(SearchResults)

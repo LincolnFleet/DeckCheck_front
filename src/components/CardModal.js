@@ -18,7 +18,7 @@ export default function CardModal(props) {
     }
     if (props.card.quantity > 0) {
         return (
-            <Modal trigger={<Button>{qty(props.card)} {props.card.name}, {props.card.manaCost}</Button>} name='card modal'>
+            <Modal trigger={<Button compact>{qty(props.card)} {props.card.name}, {props.card.manaCost}</Button>} className='card modal'>
                 <Modal.Header>{props.card.name}</Modal.Header>
                 <Modal.Content image>
                     <Image wrapped size='large' src={
