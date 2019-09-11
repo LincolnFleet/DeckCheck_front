@@ -57,7 +57,7 @@ class UserSignup extends React.Component {
 
     render() {
         return(
-            <div id='page-layout'>
+            <div id='user-signup-page'>
                 <Form className='user-signup-form' onSubmit={()=>{this.submitUser()}} widths='equal'>
 
                     <Form.Group>

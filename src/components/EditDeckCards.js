@@ -1,6 +1,8 @@
 import React from 'react';
-import { Button, } from 'semantic-ui-react';
+import { Button, Divider } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { CardContainer } from '../Components.js';
+import DOMAIN from '../API.js';
 
 class EditDeckCards extends React.Component {
 
@@ -97,10 +99,21 @@ class EditDeckCards extends React.Component {
         });
     };
 
+// helper fn, sums .quantity of all card objs in given list
+    countCards=(list)=>{
+        return list.reduce((acc, card)=>{return acc + card.quantity}, 0);
+    };
+
     render(){
         return (
-            <div className='deck-cards-list'>
-
+            <div className='deck-edit-container'>
+                <span className='deck-header'>
+                    <div className='cards-count'>
+                        Total Cards: {this.countCards(this.props.currentDeck)}
+                    </div>
+                </span>
+                <Divider/>
+                <CardContainer parentPage='edit'/>
             </div>
         )
     }

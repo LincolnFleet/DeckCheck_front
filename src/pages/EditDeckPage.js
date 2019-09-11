@@ -20,23 +20,23 @@ class EditDeck extends React.Component {
     render() {
         return  (
             <React.Fragment>
-                <Sidebar.Pushable as={Segment}>
+                <Sidebar.Pushable style={{background:'transparent'}}>
                     <Sidebar
                         as={Form}
                         animation='overlay'
                         icon='labeled'
-                        inverted
                         onHide={()=>this.setVisible(false)}
                         vertical
                         visible={this.state.sidebarVisible}
                         width='thick'
+                        style={{backgroundColor: 'rgba(20,20,36,1.0)', backgroundRadius:'2%'}}
                     >
                         <CardSearchForm parentPage={'edit'} deckFormat={this.state.deck.gameFormat}/>
                     </Sidebar>
 
                     <Sidebar.Pusher dimmed={this.state.sidebarVisible}>
-                        <div className='edit-deck-page'>
-                            <Button className='sidebar-toggle' onClick={()=>this.setVisible(true)} content={'Search for Cards'} />
+                        <div id='edit-deck-page'>
+                            <Button className='sidebar-toggle' onClick={()=>this.setVisible(true)} content={'Show Search Menu'} />
                             <SearchResults parentPage={'edit'}/>
                             <EditDeckCards />
                         </div>

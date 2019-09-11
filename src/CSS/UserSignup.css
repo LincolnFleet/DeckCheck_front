@@ -1,4 +1,4 @@
-#page-layout {
+#user-signup-page   {
     max-width: 100vw;
     min-height: 100vh;
 
@@ -12,15 +12,15 @@
     grid-template-columns: 3fr 3fr 3fr;
 }
 
-.user-signup-form   {
-    grid-column: 2;
-    grid-row: 2;
+    #user-signup-page .user-signup-form   {
+        grid-column: 2;
+        grid-row: 2;
 
-    background-color: rgba(0,0,0,0.5);
-    border: 3px solid black;
-    border-radius: 12px;
+        background-color: rgba(20,20,36,0.5);
+        border: 3px solid black;
+        border-radius: 12px;
 
-    display: grid;
-    grid-template: 6/8;
-    padding: 3%;
-}
+        display: grid;
+        grid-template: 6/8;
+        padding: 3%;
+    }

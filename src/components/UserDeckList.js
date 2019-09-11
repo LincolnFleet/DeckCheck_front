@@ -105,28 +105,30 @@ class  UserDeckList extends React.Component {
                         </Accordion.Title>
 
                         <Accordion.Content active={activeIndex === indexNum}>
-                            <Link to={{
-                                pathname:'/user/decks/edit',
-                                state:{selectedDeck: deck}
-                            }}>
-                                <Button content='Edit'/>
-                            </Link>
+                            <div>
+                                <Link to={{
+                                    pathname:'/user/decks/edit',
+                                    state:{selectedDeck: deck}
+                                }}>
+                                    <Button content='Edit'/>
+                                </Link>
 
-                            <Popup
-                                trigger={<Button color='red' content='Delete' id={deck.id}/>}
-                                on='click'
-                            >
                                 <Popup
-                                    trigger={<Button
-                                        color='red'
-                                        content='Confirm Delete'
-                                        onClick={()=>this.deleteDeck(deck.id)}
-                                    />}
-                                    content={'This button will probably do something... later'}
+                                    trigger={<Button color='red' content='Delete' id={deck.id}/>}
                                     on='click'
-                                    position='top right'
-                                />
-                            </Popup>
+                                >
+                                    <Popup
+                                        trigger={<Button
+                                            color='red'
+                                            content='Confirm Delete'
+                                            onClick={()=>this.deleteDeck(deck.id)}
+                                        />}
+                                        content={'This button will probably do something... later'}
+                                        on='click'
+                                        position='top right'
+                                    />
+                                </Popup>
+                            </div>
                         </Accordion.Content>
                     </React.Fragment>
                 );
@@ -148,11 +150,7 @@ class  UserDeckList extends React.Component {
         if (localStorage.AuthToken) {
             return (
                 <div className='user-decks-list'>
-                    <Button onClick={(e)=>{
-                        this.fetchDecks()
-                    }}>
-                        Refresh List
-                    </Button>
+                    <Button onClick={(e)=>{this.fetchDecks()}} content={'Refresh List'}/>
 
                     <Divider/>
                     

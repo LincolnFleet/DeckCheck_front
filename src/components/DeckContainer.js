@@ -9,7 +9,7 @@ class DeckContainer extends React.Component {
     render(){
         if (this.props.currentDeck.length > 0){
             return (
-                <div className='deck-cards-container'>
+                <div className='deck-display-container'>
                     <CardContainer />
                 </div>
             )

@@ -73,34 +73,106 @@ class CardContainer extends React.Component {
                 'No Category';
     }
 
+// generates modal for each card
     mapCardsToModals(cards)   {
         return (
             cards.map((card)=>{
                 if (card.quantity > 0) {
-                    return <CardModal card={card} id={card.id}/>;
-                }
-                else {
+                    return (
+                        <ul>
+                            {this.quantityChangeButtons(card)}
+                            <CardModal card={card} id={card.id}/>
+                        </ul>
+                    );
+                } else {
                     return null;
                 };
             })
         );
     };
 
-// generates modal for each card
+    quantityChangeButtons(card) {
+        if (this.props.parentPage==='edit') {
+            return (
+                <Button.Group>
+                    <Button icon='plus' onClick={(e)=>{this.addList(card.api_id)}}/>
+                    <Button icon='minus' onClick={(e)=>{this.subList(card.api_id)}}/>
+                </Button.Group>
+            );
+        } else {
+            return null;
+        };
+    };
+
+    found= (oldList, target)=>{
+        return (oldList.filter(card => {return card.api_id === target.api_id}).length > 0)
+    }
+
+    subList= (target)=>{
+        let oldList=this.props.currentDeck;
+        let newList=[];
+        if (this.found(oldList, target)) {
+            oldList.map(card => {
+                if (card.api_id === target.api_id){
+                    if (card.quantity < 2) {
+                        card.quantity=0
+                        newList.push(card)
+                    } else {
+                        card.quantity=card.quantity-1
+                        newList.push(card)
+                    }
+                } else {
+                    newList.push(card)
+                }
+            });
+        } else {
+            alert('Cannot find that card in deck');
+            newList=oldList;
+        };
+        return this.props.dispatch({type:'REMOVE_CARD', payload:newList});
+    };
+
+    addList= (target)=>{
+        let oldList=this.props.currentDeck;
+        let newList=[];
+        if (this.found(oldList, target)) {
+            oldList.map(card => { 
+                if (card.api_id === target.api_id){
+                    if ( (card.quantity < 4) || (card.supertypes.includes('Basic')) ){
+                        card.quantity=card.quantity+1
+                        newList.push(card)
+                    } else {
+                        newList.push(card);
+                    };
+                } else {
+                    newList.push(card);
+                };
+            });
+        } else {
+            newList= [...oldList, {...target, quantity:1, deck_id:this.props.openDeck.id}];
+        };
+        return this.props.dispatch({type:'ADD_CARD', payload:newList});
+    };
+
+// helper fn, sums .quantity of all card objs in given list
+    countCards=(list)=>{
+        return list.reduce((acc, card)=>{return acc + card.quantity}, 0);
+    };
+
     renderCards(list) {
-        const groupedElements = []
+        const groupedElements = [];
         try {
             this.groupCards(list).map( (cardObj) =>{
                 const [category, cards] = [cardObj.category, cardObj.cards]
                 groupedElements.push(
-                    <div className={category}>
-                        <div className='category-header'>
+                    <div className='card-category'>
+                        <h4 className='category-header'>
                             {category} {this.countCards(cards)}
-                        </div>
+                        </h4>
                         {this.mapCardsToModals(cards)}
                     </div>
-                )
-            })
+                );
+            });
         } catch(errors) {
             console.log('CardContainer renderCards() errors', errors)
             return (
@@ -108,24 +180,15 @@ class CardContainer extends React.Component {
                     Something Went Wrong! :( Cannot Display Cards <br/>
                     Errors echoed to console.
                 </Message>
-            )
-        }
-        return groupedElements
-    }
-
-// helper fn, sums .quantity of all card objs in given list
-    countCards=(list)=>{
-        return list.reduce((acc, card)=>{return acc + card.quantity}, 0);
+            );
+        };
+        return groupedElements;
     };
 
     render() {
         if (this.props.currentDeck.length > 0) {
             return (
                 <div className='deck-cards-container'>
-                    <div className='cards-count'>
-                        Total Cards: {this.countCards(this.props.currentDeck)}
-                    </div>
-                    <Divider/>
                     {this.renderCards(this.props.currentDeck)}
                 </div>
             );
@@ -142,7 +205,6 @@ class CardContainer extends React.Component {
 function mapStateToProps(state){
     return {
         currentDeck: state.currentDeck.currentDeck,
-        openDeck: state.openDeck.openDeck
     };
 }
 
