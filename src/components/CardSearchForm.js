@@ -73,7 +73,6 @@ class CardSearchForm extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <h1 className='title'>Card Search</h1>
                 <div className='card-search-form'>
                     <Form style={{margin:'2%'}} widths='equal' onSubmit={(e)=>{this.submitSearch()}}>
                         {this.renderBasedOnParent('search', 

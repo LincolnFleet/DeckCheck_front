@@ -162,16 +162,18 @@ class CardContainer extends React.Component {
     renderCards(list) {
         const groupedElements = [];
         try {
-            this.groupCards(list).map( (cardObj) =>{
-                const [category, cards] = [cardObj.category, cardObj.cards]
-                groupedElements.push(
-                    <div className='card-category'>
-                        <h4 className='category-header'>
-                            {category} {this.countCards(cards)}
-                        </h4>
-                        {this.mapCardsToModals(cards)}
-                    </div>
-                );
+            this.groupCards(list).map( (categoryObj) =>{
+                const [category, cards] = [categoryObj.category, categoryObj.cards]
+                if (cards.length > 0) {
+                    groupedElements.push(
+                        <div className='card-category'>
+                            <h4 className='category-header'>
+                                {category} {this.countCards(cards)}
+                            </h4>
+                            {this.mapCardsToModals(cards)}
+                        </div>
+                    );
+                }
             });
         } catch(errors) {
             console.log('CardContainer renderCards() errors', errors)
