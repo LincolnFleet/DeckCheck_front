@@ -3,41 +3,36 @@ import '../CSS/CardSearch.css';
 import '../CSS/EditDeck.css';
 import { connect } from 'react-redux';
 import { Divider, Button, Image, Popup, Message } from 'semantic-ui-react';
-import { CardModalSearch } from '../Components.js';
 
 class SearchResults extends React.Component{
 
-    found= (oldList, target)=>{
-        return (oldList.filter(card => {return card.api_id === target.api_id}).length > 0)
-    }
-
-    addList= (target)=>{
-        let oldList=this.props.currentDeck;
-        let newList=[];
-        if (this.found(oldList, target)) {
-            oldList.map(card => { 
-                if (card.api_id === target.api_id){
-                    if ( (card.quantity < 4) || (card.supertypes.includes('Basic')) ){
-                        card.quantity=card.quantity+1
-                        newList.push(card)
-                    } else {
-                        newList.push(card)
-                    };
-                } else {
-                    newList.push(card)
-                };
-            });
-        } else {
-            newList= [...oldList, {...target, quantity:1, deck_id:this.props.openDeck.id}];
-        };
-        return this.props.dispatch({type:'ADD_CARD', payload:newList});
+// helper fn, checks if target card is already in deck
+    scanCurrentDeck= (target)=>{
+        let existingCard= this.props.currentDeck.filter(
+            function(card) {return card.name === target.name}
+        );
+        return existingCard
     };
 
+// dispatch fn to increase quantity or add new card to store{currentDeck};
+    addOrIncreaseCard= (newCard)=>{
+        let existingCard= this.scanCurrentDeck(newCard)[0];
+        if (existingCard)   {
+            if (existingCard.quantity <4 || existingCard.full_type.match(/Basic/g)) {
+                return this.props.dispatch({type: 'UP_CARD_QUANTITY', payload: existingCard});
+            };
+        } else {
+            newCard.quantity=1;
+            return this.props.dispatch({type: 'ADD_CARD', payload: newCard});
+        };
+    };
+
+// determines if card needs to be accompanied by quantity editing buttons
     quantityChangeButton(card) {
         if (this.props.parentPage==='edit') {
             return (
                 <td>
-                    <Button icon='plus' onClick={(e)=>{this.addList(card.api_id)}}/>
+                    <Button icon='plus' onClick={(e)=>{this.addOrIncreaseCard(card)}}/>
                 </td>
             );
         } else {
@@ -90,8 +85,13 @@ class SearchResults extends React.Component{
         if (this.props.searchResults) {
             return (
                 <div className='search-results'>
+                    <h2 style={{justifySelf: 'center'}}>
+                        Card Search
+                    </h2>
                     <table>
-                        {this.renderCards(this.props.searchResults)}
+                        <tbody>
+                            {this.renderCards(this.props.searchResults)}
+                        </tbody>
                     </table>
                 </div>
             );
@@ -108,8 +108,10 @@ class SearchResults extends React.Component{
 };
 
 const mapStateToProps=(state)=> {
-    let props= {searchResults: state.cardSearch.searchResults, currentDeck: state.currentDeck.currentDeck, openDeck: state.openDeck.openDeck}
-    return props
+    return {
+        searchResults: state.cardSearch.searchResults,
+        currentDeck: state.currentDeck.currentDeck,
+    }
 }
 
 export default connect(mapStateToProps)(SearchResults)

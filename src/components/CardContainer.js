@@ -79,10 +79,10 @@ class CardContainer extends React.Component {
             cards.map((card)=>{
                 if (card.quantity > 0) {
                     return (
-                        <ul>
+                        <div style={{margin: '1%'}}>
                             {this.quantityChangeButtons(card)}
                             <CardModal card={card} id={card.id}/>
-                        </ul>
+                        </div>
                     );
                 } else {
                     return null;
@@ -95,8 +95,8 @@ class CardContainer extends React.Component {
         if (this.props.parentPage==='edit') {
             return (
                 <Button.Group>
-                    <Button icon='plus' onClick={(e)=>{this.addList(card.api_id)}}/>
-                    <Button icon='minus' onClick={(e)=>{this.subList(card.api_id)}}/>
+                    <Button compact icon='plus' onClick={(e)=>{this.addOrIncreaseCard(card)}}/>
+                    <Button compact icon='minus' onClick={(e)=>{this.decreaseCard(card)}}/>
                 </Button.Group>
             );
         } else {
@@ -104,54 +104,34 @@ class CardContainer extends React.Component {
         };
     };
 
-    found= (oldList, target)=>{
-        return (oldList.filter(card => {return card.api_id === target.api_id}).length > 0)
-    }
-
-    subList= (target)=>{
-        let oldList=this.props.currentDeck;
-        let newList=[];
-        if (this.found(oldList, target)) {
-            oldList.map(card => {
-                if (card.api_id === target.api_id){
-                    if (card.quantity < 2) {
-                        card.quantity=0
-                        newList.push(card)
-                    } else {
-                        card.quantity=card.quantity-1
-                        newList.push(card)
-                    }
-                } else {
-                    newList.push(card)
-                }
-            });
-        } else {
-            alert('Cannot find that card in deck');
-            newList=oldList;
-        };
-        return this.props.dispatch({type:'REMOVE_CARD', payload:newList});
+// helper fn, checks if target card is already in deck
+    scanCurrentDeck= (target)=>{
+        let existingCard= this.props.currentDeck.filter(
+            function(card) {return card.name === target.name}
+        );
+        return existingCard
     };
 
-    addList= (target)=>{
-        let oldList=this.props.currentDeck;
-        let newList=[];
-        if (this.found(oldList, target)) {
-            oldList.map(card => { 
-                if (card.api_id === target.api_id){
-                    if ( (card.quantity < 4) || (card.supertypes.includes('Basic')) ){
-                        card.quantity=card.quantity+1
-                        newList.push(card)
-                    } else {
-                        newList.push(card);
-                    };
-                } else {
-                    newList.push(card);
-                };
-            });
+// dispatch fn to increase quantity or add new card to store{currentDeck};
+    addOrIncreaseCard= (newCard)=>{
+        let existingCard= this.scanCurrentDeck(newCard)[0];
+        if (existingCard)   {
+            if (existingCard.quantity <4 || existingCard.full_type.match(/Basic/g)) {
+                return this.props.dispatch({type: 'UP_CARD_QUANTITY', payload: existingCard});
+            };
         } else {
-            newList= [...oldList, {...target, quantity:1, deck_id:this.props.openDeck.id}];
+            newCard.quantity=1;
+            return this.props.dispatch({type: 'ADD_CARD', payload: newCard});
         };
-        return this.props.dispatch({type:'ADD_CARD', payload:newList});
+    };
+
+// dispatch fn to decrease quantity of a card in store{currentDeck}
+    decreaseCard= (targetCard)=>{
+        let existingCard= this.scanCurrentDeck(targetCard)[0];
+        console.log('cardcontainer 130 decreaseCard() existingCard', existingCard)
+        if (!!existingCard && existingCard.quantity>0) {
+            return this.props.dispatch({type: 'DOWN_CARD_QUANTITY', payload: targetCard});
+        };
     };
 
 // helper fn, sums .quantity of all card objs in given list
@@ -208,6 +188,6 @@ function mapStateToProps(state){
     return {
         currentDeck: state.currentDeck.currentDeck,
     };
-}
+};
 
-export default connect(mapStateToProps)(CardContainer)
+export default connect(mapStateToProps)(CardContainer);

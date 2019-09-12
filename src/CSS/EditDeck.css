@@ -1,6 +1,8 @@
-/* .ui.segment {
-    background: transparent;
-} */
+#edit-page-wrapper  {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 2%;
+}
 
 #edit-deck-page {
     display: grid;
@@ -14,7 +16,7 @@
         grid-column: 1/4;
         grid-row: 2;
 
-        min-height: 100vh;
+        height: 100%;
 
         color: blanchedalmond;
         background-color: rgba(20,20,36,0.5);
@@ -25,8 +27,8 @@
     #edit-deck-page .deck-edit-container   {
         grid-column: 4/-1;
         grid-row: 2;
-
         padding: 2%;
+        min-height: 80vh;
 
         color: blanchedalmond;
         background-color: rgba(20,20,36,0.5);
