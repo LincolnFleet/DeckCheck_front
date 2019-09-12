@@ -36,8 +36,8 @@ class EditDeck extends React.Component {
                 <Sidebar.Pusher dimmed={this.state.sidebarVisible}>
                     <div id='edit-deck-page'>
                         <Button className='sidebar-toggle' onClick={()=>this.setVisible(true)} content={'Show Search Menu'} />
-                        <SearchResults parentPage={'edit'}/>
-                        <EditDeckCards />
+                        <SearchResults parentPage={'edit'} deckID={this.state.deck}/>
+                        <EditDeckCards deckID={this.state.deck}/>
                     </div>
                 </Sidebar.Pusher>
             </Sidebar.Pushable>

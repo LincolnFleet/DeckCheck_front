@@ -6,32 +6,6 @@ import DOMAIN from '../API.js';
 
 class EditDeckCards extends React.Component {
 
-// helper fn, checks if target card is already in deck;
-    scanCurrentDeck= (target)=>{
-        return (this.props.currentDeck.filter(card => card.name === target.name))
-    }
-    
-// dispatch fn to increase quantity or add new card to store{currentDeck};
-    addOrIncreaseCard= (newCard)=>{
-        let existingCard= this.scanCurrentDeck(newCard)
-        if (existingCard)   {
-            if (existingCard.quantity <4 || existingCard.supertypes.match(/Basic/g)) {
-                existingCard.quantity=+1;
-                return this.props.dispatch({type: 'UP_CARD_QUANTITY', payload: existingCard})
-            }
-        } else {
-            return this.props.dispatch({type: 'ADD_CARD', payload: newCard})
-        }
-    }
-
-// dispatch fn to decrease quantity of a card in store{currentDeck}
-    decreaseCard= (targetCard)=>{
-        let existingCard= this.scanCurrentDeck(targetCard);
-        if (existingCard && existingCard.quantity>0) {
-            return this.props.dispatch({type: 'DOWN_CARD_QUANTITY', payload: targetCard});
-        };
-    };
-
 // POST to backend which auths/validates,
 // backend removes cards with 0 quantity and
 // saves cards without primary key before updating
@@ -68,7 +42,7 @@ class EditDeckCards extends React.Component {
                     </div>
                 </span>
                 <Divider/>
-                <CardContainer parentPage='edit'/>
+                <CardContainer parentPage='edit' deckID={this.props.deckID}/>
             </div>
         )
     }
