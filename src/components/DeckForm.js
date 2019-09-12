@@ -107,9 +107,9 @@ class DeckForm extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        searchOptions:state.searchOptions,
-        userDecks:state.userDecks
-    };
+        searchOptions: state.searchOptions.searchOptions,
+        userDecks: state.userDecks.userDecks
+    }
 };
 
 export default connect(mapStateToProps)(DeckForm);
