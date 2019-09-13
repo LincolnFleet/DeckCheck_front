@@ -9,22 +9,20 @@ class EditDeckCards extends React.Component {
 // POST to backend which auths/validates,
 // backend removes cards with 0 quantity and
 // saves cards without primary key before updating
-    saveCards= ()=>{
+    saveCards= (deckID)=>{
         fetch(`${DOMAIN}submitDeck`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'AuthToken': `${localStorage.AuthToken}`
+                'AuthToken': `${localStorage.AuthToken}`,
+                'Deck-ID': `${deckID}`
             },
             body: JSON.stringify({cards: this.props.currentDeck})
         })
         .then(resp => resp.json())
         .then(data => {
-            if (data.errors.length > 0) {
-                alert(data.errors);
-            } else {
-                this.props.dispatch({type: 'FETCH_CARDS', payload: data.cards});
-            };
+            console.log('EditDeckCards saveCards() response errors:', data['errors']);
+            this.props.dispatch({type: 'FETCH_CARDS', payload: data.cards});
         });
     };
 
@@ -40,6 +38,7 @@ class EditDeckCards extends React.Component {
                     <div className='cards-count'>
                         Total Cards: {this.countCards(this.props.currentDeck)}
                     </div>
+                    <Button onClick={()=>this.saveCards(this.props.deckID)} content={'Save Deck'}/>
                 </span>
                 <Divider/>
                 <CardContainer parentPage='edit' deckID={this.props.deckID}/>
@@ -49,11 +48,9 @@ class EditDeckCards extends React.Component {
 }
 
 function mapStoreToProps(store) {
-    return (
-        {
+    return ({
             currentDeck: store.currentDeck.currentDeck,
-        }
-    )
+        })
 }
 
 export default connect(mapStoreToProps)(EditDeckCards)
