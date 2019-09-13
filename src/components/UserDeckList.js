@@ -22,9 +22,12 @@ class  UserDeckList extends React.Component {
         };
     };
 
+    componentDidMount() {
+        this.fetchDecks();
+    };
+
 // helper fn, triggers state change that controls semantic-ui accordion
     triggerAccordion = (titleProps)=> {
-        console.log('accordion titleProps', titleProps)
         const {index} = titleProps;
         const {id} = titleProps
         const {activeIndex} = this.state;
@@ -32,10 +35,9 @@ class  UserDeckList extends React.Component {
         if (activeIndex === index) {
             this.setState({activeIndex: -1});
         } else {
-            this.setState({activeIndex: index})
+            this.setState({activeIndex: index});
             this.fetchCards(id);
-        }
-        console.log(this.state)
+        };
     };
 
     fetchDecks= ()=> {
@@ -60,7 +62,7 @@ class  UserDeckList extends React.Component {
                 }
             })
         .then(resp => resp.json())
-        .then(data => this.props.dispatch({type:'FETCH_CARDS', payload:data.currentDeck}))
+        .then(data => this.props.dispatch({type:'FETCH_CARDS', payload: data.cards}))
         // .then(() => this.props.dispatch({type:'OPEN_DECK', payload:deck})); **I don't know why this is here
     };
 
@@ -72,13 +74,15 @@ class  UserDeckList extends React.Component {
                 'Content-Type': 'application/json',
                 'AuthToken': `${localStorage.AuthToken}`
             },
-            body: JSON.stringify(deckID)
+            body: JSON.stringify({deck_id:deckID})
         })
+        .then(resp => resp.json())
         .then(data => {
-            if (data.errors.length > 0) {
-                alert(data.errors);
+            if (data.errors) {
+                console.log('Delete Deck Request Errors:', data.errors)
             };
-        });
+        })
+        .then(this.fetchDecks());
     };
 
     renderDeckList= ()=> {
@@ -88,7 +92,6 @@ class  UserDeckList extends React.Component {
 
             this.props.userDecks.deckList.map((deck)=> {
                 let activeIndex=this.state.activeIndex;
-                console.log('userdecklist.js 74 renderDeckList deck obj', deck)
 
                 deckElements.push(
                     <React.Fragment>
@@ -117,15 +120,10 @@ class  UserDeckList extends React.Component {
                                     trigger={<Button color='red' content='Delete' id={deck.id}/>}
                                     on='click'
                                 >
-                                    <Popup
-                                        trigger={<Button
+                                    <Button
                                             color='red'
                                             content='Confirm Delete'
                                             onClick={()=>this.deleteDeck(deck.id)}
-                                        />}
-                                        content={'This button will probably do something... later'}
-                                        on='click'
-                                        position='top right'
                                     />
                                 </Popup>
                             </div>
