@@ -23,7 +23,7 @@ class SearchResults extends React.Component{
             };
         } else {
             newCard.quantity=1;
-            newCard.deck_id=this.props.deckID;
+            newCard.deck_id=this.props.deck.id;
             return this.props.dispatch({type: 'ADD_CARD', payload: newCard});
         };
     };

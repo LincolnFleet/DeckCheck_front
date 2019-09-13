@@ -9,13 +9,13 @@ class EditDeckCards extends React.Component {
 // POST to backend which auths/validates,
 // backend removes cards with 0 quantity and
 // saves cards without primary key before updating
-    saveCards= (deckID)=>{
+    saveCards= (deck)=>{
         fetch(`${DOMAIN}submitDeck`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'AuthToken': `${localStorage.AuthToken}`,
-                'Deck-ID': `${deckID}`
+                'Deck-ID': `${deck.id}`
             },
             body: JSON.stringify({cards: this.props.currentDeck})
         })
@@ -38,10 +38,10 @@ class EditDeckCards extends React.Component {
                     <div className='cards-count'>
                         Total Cards: {this.countCards(this.props.currentDeck)}
                     </div>
-                    <Button onClick={()=>this.saveCards(this.props.deckID)} content={'Save Deck'}/>
+                    <Button onClick={()=>this.saveCards(this.props.deck)} content={'Save Deck'}/>
                 </span>
                 <Divider/>
-                <CardContainer parentPage='edit' deckID={this.props.deckID}/>
+                <CardContainer parentPage='edit' deck={this.props.deck}/>
             </div>
         )
     }
