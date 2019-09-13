@@ -28,7 +28,6 @@ class  UserDeckList extends React.Component {
 
 // helper fn, triggers state change that controls semantic-ui accordion
     triggerAccordion = (titleProps)=> {
-        console.log('accordion titleProps', titleProps)
         const {index} = titleProps;
         const {id} = titleProps
         const {activeIndex} = this.state;
@@ -39,7 +38,6 @@ class  UserDeckList extends React.Component {
             this.setState({activeIndex: index});
             this.fetchCards(id);
         };
-        console.log(this.state);
     };
 
     fetchDecks= ()=> {
@@ -64,7 +62,7 @@ class  UserDeckList extends React.Component {
                 }
             })
         .then(resp => resp.json())
-        .then(data => this.props.dispatch({type:'FETCH_CARDS', payload:data.currentDeck}))
+        .then(data => this.props.dispatch({type:'FETCH_CARDS', payload: data.cards}))
         // .then(() => this.props.dispatch({type:'OPEN_DECK', payload:deck})); **I don't know why this is here
     };
 
