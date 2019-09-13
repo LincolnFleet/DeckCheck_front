@@ -12,11 +12,11 @@ function reducerCardSearch(state={searchResults:[]}, action){
                     full_type:      card.type,
                     name:           card.name,
                     quantity:       card.quantity,
-                    colors:         card.colors,
-                    colorIdentity:  card.colorIdentity,
-                    supertypes:     card.supertypes,
-                    types:          card.types,
-                    subtypes:       card.subtypes,
+                    colors:         '',
+                    colorIdentity:  '',
+                    supertypes:     '',
+                    types:          '',
+                    subtypes:       '',
                     manaCost:       card.manaCost,
                     cmc:            card.cmc,
                     rarity:         card.rarity,
@@ -27,7 +27,7 @@ function reducerCardSearch(state={searchResults:[]}, action){
                     text:           card.text,
                     imageUrl:       card.imageUrl,
                     flavor:         card.flavor,
-                    gameFormat:     card.legalities,
+                    gameFormat:     '',
                 }
             })
             return {...state, searchResults: cleanCards}
