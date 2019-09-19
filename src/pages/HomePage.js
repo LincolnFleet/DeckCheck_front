@@ -16,17 +16,25 @@ import { connect } from 'react-redux';
 function Home() {
     return(
         <div id='Home'>
-            <div className='announce'>
-                Announcement: THIS IS THE HOME PAGE
+            <div className='welcome'>
+                <div className='title'>
+                    DeckCheck
+                </div>
+                <div className='subtitle'>
+                    Deck planning, building and testing for <br/> Magic: The Gathering
+                </div>
             </div>
-            <div className='daily'>
-                Daily updated content
+            <div className='rss-1'>
+                RSS Feed
+                (Not Yet Implemented)
             </div>
             <div className='new-decks'>
-                New Decks
+                Assorted Newly Created Decks
+                (Not Yet Implemented)
             </div>
             <div className='top-decks'>
-                Top Decks of Standard
+                Top Decks of --Select Format--
+                (Not Yet Implemented)
             </div>
         </div>
     )

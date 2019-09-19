@@ -3,27 +3,73 @@
     width: 100%;
     margin: 1%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-areas:
-        "announce top"
-        "daily top"
-        "new new"
-    ;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    gap: 2%;
 }
 
-#Home .announce {
-    grid-area: announce;
-}
+    #Home .welcome {
+        grid-row: 1/3;
+        grid-column: 3/7;
+        height: 100%;
+        width: 100%;
 
-#Home .daily    {
-    grid-area: daily;
-}
+        display: grid;
+        grid-template-rows: 2fr 1fr;
+        grid-template-columns: 1fr;
 
-#Home .new-decks    {
-    grid-area: new;
-}
+        background-color: rgba(20,20,36,0.7);
+        font-family: Georgia, 'Times New Roman', Times, serif; 
+        color: rgb(42, 127, 184);
+    }
 
-#Home .top-decks    {
-    grid-area: top;
-}
+        #Home .welcome .title {
+            grid-row: 1/2;
+
+            display: inline-flex;
+            place-self: center;
+
+            font-size: 5vw;
+        }
+
+        #Home .welcome .subtitle {
+            grid-row: 2/3;
+
+            place-self: center;
+            font-size: 2vw;
+            text-align: center;
+        }
+
+    #Home .rss-1    {
+        grid-row: 2/9;
+        grid-column: 1/3;
+        height: 100%;
+        width: 100%;
+
+        background-color: rgba(20,20,36,0.7);
+        color: rgb(42, 127, 184);
+    }
+
+    #Home .top-decks    {
+        grid-row: 2/9;
+        grid-column: 7/9;
+        height: 100%;
+        width: 100%;
+
+        justify-self: center;
+
+        background-color: rgba(20,20,36,0.7);
+        color: rgb(42, 127, 184);
+    }
+
+    #Home .new-decks    {
+        grid-row: 3/9;
+        grid-column: 3/7;
+        height: 100%;
+        width: 100%;
+
+        justify-self: right;
+
+        background-color: rgba(20,20,36,0.7);
+        color: rgb(42, 127, 184);
+    }
