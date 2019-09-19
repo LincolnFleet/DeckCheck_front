@@ -29,6 +29,9 @@ function reducerCurrentDeck(state={currentDeck: []}, action) {
                 })
             });
 
+        case 'CLEAR_CURRENT' :
+            return {currentDeck: []}
+
         default:
             return state
     }
