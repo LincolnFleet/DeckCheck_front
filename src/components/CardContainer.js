@@ -7,10 +7,14 @@ import { CardModal } from '../Components.js';
 // Renders card list for a particular deck;
 // Render is currently triggered by population of redux store{currentDeck};
 // Initial concept of store was rushed and not as streamlined
-    // as it should be, needs to be reorganized after which
+    // as it should be, all decks of user should be prefetched and
     // this component's render should be controlled by a deck :id;
 
 class CardContainer extends React.Component {
+
+    componentWillUnmount() {
+        this.props.dispatch({type: 'CLEAR_CURRENT'})
+    }
 
 // categorizes cards by full_type, returns [{ category:'', cards:[{cards}] }]
     groupCards(list)    {
